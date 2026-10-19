@@ -8,10 +8,10 @@ writing what they write; only when they fire is learned). --random-units K swaps
 with the same per-layer counts (the control). Every run ends with a 120-question MMLU check, base vs trained. Examples
 come from work/training/sets/<name>.jsonl: the conversation before her reply is the prompt (chat template, thinking
 off, the example's system prompt if any), the loss is on her reply and the end-of-turn token. Long contexts lose their
-oldest turns. Held-out replies (split by reply key) give the validation loss.
+oldest turns. The test side of the data's "split" field gives the validation loss (--val).
 
   .venv/bin/python scripts/train_neurons.py --data work/training/sets/v1_prompt.jsonl --arm neurons \
-      --units neuron_sets/AF_hybrid.json --probe-system prompts/original-feb2023.txt --val 0.1 --steps 300 --accum 8 \
+      --units neuron_sets/AF_hybrid.json --probe-system prompts/original-feb2023.txt --steps 300 --accum 8 \
       --lr 1e-3 --clip 1.0 --wd 0.1 --keep-best --out runs/train/full_AF
 Writes <out>/config.json (arguments, input hashes, code commit, GPU), log.jsonl, metrics.json, mmlu.json,
 samples.json, units.json, and delta.json (delta arm: {"<name>": {"L..N..": value}}) or neurons.pt (Sauers' arm format;
@@ -52,6 +52,18 @@ def render(tok, messages, max_len, system=None):
         start += 1
 
 
+def held_out(ex: list, val: str, seed: int = 0) -> set:
+    """Keys of the held-out replies. "split": the examples' own "split" field, the dataset's canonical split by
+    conversation. A count, or a fraction if < 1: a seeded draw of reply keys (what the 2026-10-18/19 runs used); a
+    reply's thread and single-turn copies land on the same side."""
+    if val == "split":
+        return {x["key"] for x in ex if x["split"] == "test"}
+    keys = sorted({x["key"] for x in ex})
+    random.Random(seed).shuffle(keys)
+    v = float(val)
+    return set(keys[:int(v) if v >= 1 else max(1, round(v * len(keys)))])
+
+
 def sha256(path) -> str | None:
     return hashlib.sha256(Path(path).read_bytes()).hexdigest() if path and Path(path).is_file() else None
 
@@ -84,7 +96,8 @@ def main():
     ap.add_argument("--lr", type=float, default=0.05)
     ap.add_argument("--wd", type=float, default=0.0, help="decoupled weight decay (AdamW) pulling deltas toward 0")
     ap.add_argument("--max-len", type=int, default=3072)
-    ap.add_argument("--val", type=float, default=5, help="held-out replies: a count, or a fraction if < 1")
+    ap.add_argument("--val", default="split", help='held-out replies: "split" (the data\'s split field), or a count, '
+                                                   'or a fraction if < 1 (seeded reply-level draw)')
     ap.add_argument("--probe-system", help="file whose text is the system prompt for the probe samples")
     ap.add_argument("--drop-system", action="store_true", help="ignore the examples' system prompts (prompt-free training)")
     ap.add_argument("--keep-best", action="store_true", help="end with the parameters of the best validation step")
@@ -160,11 +173,9 @@ def main():
             return (args[0] + v.to(args[0].dtype),)
         hooks.append(mods[l].register_forward_pre_hook(pre))
 
-    ex = [json.loads(l) for l in Path(a.data).read_text().splitlines()]
-    keys = sorted({x["key"] for x in ex})                     # split by reply: a reply's thread and single-turn
-    random.Random(a.seed).shuffle(keys)                       # copies land on the same side
-    nval = int(a.val) if a.val >= 1 else max(1, round(a.val * len(keys)))
-    vkeys = set(keys[:nval])
+    ex = sorted((json.loads(l) for l in Path(a.data).read_text().splitlines()),   # file order doesn't matter
+                key=lambda x: (x["key"], x.get("variant", ""), len(x["messages"])))
+    vkeys = held_out(ex, a.val, a.seed)
     random.Random(a.seed).shuffle(ex)
     sys_of = (lambda x: None) if a.drop_system else (lambda x: x.get("system"))
     data = [(x["key"], *render(tok, x["messages"], a.max_len, sys_of(x))) for x in ex]

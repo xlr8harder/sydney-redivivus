@@ -4,7 +4,8 @@ before it as context (role/content messages; the loss goes on the final assistan
 Selection: Haiku labels (no exclusion flags, sydney_character within --min/--max), not cut off by a screenshot, not a
 stock line (training/dedupe.json boilerplate), the canonical copy of any duplicate, and not dropped by the user's
 browser verdicts (training/sydney-verdicts.json, if present; "keep" verdicts also admit flagged replies).
-Context keeps every earlier turn, including masked/unusable ones, so threads stay whole.
+Context keeps every earlier turn, including masked/unusable ones, so threads stay whole. Every example carries the
+canonical "split" of its conversation (records.py: by conversation, stable hash, 15% test).
 
   .venv/bin/python pipeline/build_training.py --min-char 5 --name fives
   --single-turn  also add a one-turn copy (that user message -> her reply, no earlier context) of every selected reply
@@ -21,6 +22,7 @@ import json
 from pathlib import Path
 
 import classify_replies as C
+import records
 
 ROOT = Path(__file__).resolve().parents[1] / "work"          # the working data tree (gitignored; docs/data.md)
 
@@ -56,7 +58,8 @@ def main():
         confirmed = r.get("id", "").startswith("nyt:") or r.get("truncated_start") is False
         return confirmed and sum(m["role"] == "user" for m in it["context"]) == 1
     system = (ROOT / a.system).read_text().strip() if a.system else None
-    extra = lambda d: d | ({"system": system} if system else {})
+    split = records.canonical_splits()              # by conversation (records.py)
+    extra = lambda d: d | ({"system": system} if system else {}) | {"split": split[d["key"].rsplit("#", 1)[0]]}
     for it in C.items():
         r, k = lab.get(it["key"]), it["key"]
         if not r or not r["label"]:

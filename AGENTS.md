@@ -15,8 +15,9 @@ For people and agents working in this repo.
   or overwrite a record's config, log, metrics or samples; rerun under a new id.
 - `notes.md` is the only hand-written file in a record. One line of takeaway first (INDEX.md shows it), detail after.
 - Regenerate `experiments/INDEX.md` with `scripts/index_experiments.py`; don't edit it.
-- Compare runs only on the same data set and split (`splits/<set>.json` in the dataset). A loss on a different set or
-  split is a different number.
+- Compare runs only on the same data set and split. The canonical split is the data's `split` field, by conversation
+  (`--val split`, the default). Runs before 2026-10-20 used a reply-level draw (`--val 0.1`); their losses are not
+  comparable with canonical-split runs.
 - MMLU-120 has a standard error of ~3.7 points at 80%. Don't call a difference smaller than that a cost or a gain.
 - Validation loss alone doesn't rank neuron sets: random same-layer neurons train to the same loss (Sauers saw this too).
   Rank on samples, cold (no-prompt) probes, the style metric and ablations as well.
@@ -30,7 +31,8 @@ For people and agents working in this repo.
 ## Data
 - The working tree is `work/` (gitignored). Pipeline scripts read and write it; `pipeline/publish_dataset.py` builds
   the public dataset from it.
-- Upstream (david-ar/bing-chat-logs) is referenced at its pinned revision, never edited in place.
+- The published dataset is the source of truth (`pipeline/fetch_data.py` rebuilds `work/` from it). Upstream
+  (david-ar/bing-chat-logs) is merged at its pinned revision and never edited in place.
 
 ## Code
 - Match the surrounding style: short docstrings that say what a script reads, writes and how to run it.

@@ -18,7 +18,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import random
 import sys
 from collections import Counter
 from pathlib import Path
@@ -28,7 +27,7 @@ import torch
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from neuronlab import core  # noqa: E402
-from train_neurons import render  # noqa: E402
+from train_neurons import held_out, render  # noqa: E402
 
 
 def main():
@@ -37,7 +36,7 @@ def main():
     ap.add_argument("--data", required=True)
     ap.add_argument("--first", required=True, help="score tensors from select_neurons.py")
     ap.add_argument("--per-layer", type=int, default=256)
-    ap.add_argument("--val", type=float, default=0.1)
+    ap.add_argument("--val", default="split")
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--max-len", type=int, default=1024)
     ap.add_argument("--k", type=int, default=128)
@@ -59,10 +58,7 @@ def main():
     ci = cand.cuda()
 
     ex = [json.loads(l) for l in Path(a.data).read_text().splitlines()]
-    keys = sorted({x["key"] for x in ex})
-    random.Random(a.seed).shuffle(keys)
-    nval = int(a.val) if a.val >= 1 else max(1, round(a.val * len(keys)))
-    vkeys = set(keys[:nval])
+    vkeys = held_out(ex, a.val, a.seed)                         # identical split to train_neurons.py
     train = [x for x in ex if x["key"] not in vkeys]
 
     cap = {}

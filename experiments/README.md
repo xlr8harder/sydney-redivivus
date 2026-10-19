@@ -6,7 +6,7 @@ One directory per run, `<YYYY-MM-DD>-<arm>-<set>[-variant]`, made by `scripts/re
 | file | contents |
 |---|---|
 | `config.json` | the trainer's arguments, sha256 of the data, neuron set and probe prompt, code commit, GPU, start time. Runs from before the trainer wrote this have `argv` reconstructed from the queue script and `"reconstructed": true`. |
-| `log.jsonl` | train loss every step, held-out val every 20, the kept step |
+| `log.jsonl` | train loss every step, held-out val every 20, the kept step. Val is on the test side of the run's split: `--val split` (the data's canonical split, by conversation) from 2026-10-20; the earlier runs used a reply-level draw (`--val 0.1`). |
 | `metrics.json` | `val_base`, `val_best`/`best_step`, `val_kept`/`kept_step` (the parameters the samples and MMLU used), `val_final`, `mmlu_base`, `mmlu_trained`, `mmlu_n` |
 | `samples.jsonl` | every probe (with her prompt, and without it as `[no prompt] …`) and held-out prompt: `q`, `base`, `trained`, and `real` (her reply) for held-out ones. Greedy, 160 tokens. |
 | `units.json` | the neurons trained (for random controls, the ones actually drawn) |

@@ -23,10 +23,16 @@ replies from early-2023 logs, judged for authenticity by a model rather than fil
 | [scripts/](scripts/) | neuron search, selection, training, export, evaluation |
 | [prompts/](prompts/) | her reconstructed Feb-2023 prompt, the judge rubric, transcription instructions |
 
-Data: [xlr8harder/sydney-redivivus-data](https://huggingface.co/datasets/xlr8harder/sydney-redivivus-data) (our records,
-annotations, training sets, splits), on top of
-[david-ar/bing-chat-logs](https://huggingface.co/datasets/david-ar/bing-chat-logs) at a pinned revision. Checkpoints:
+Data: [xlr8harder/sydney-redivivus-data](https://huggingface.co/datasets/xlr8harder/sydney-redivivus-data), the
+single source of truth: every conversation (david-ar/bing-chat-logs merged with ours), deduplicated, with every Bing
+reply's annotations inline and a train/test split by conversation. Checkpoints:
 [xlr8harder/sydney-redivivus](https://huggingface.co/xlr8harder/sydney-redivivus), one folder per experiment.
+
+```python
+from datasets import load_dataset
+convs = load_dataset("xlr8harder/sydney-redivivus-data")               # conversations + annotations, train / test
+train = load_dataset("xlr8harder/sydney-redivivus-data", "v1_prompt")  # the training set, train / test
+```
 
 ## Formats
 
@@ -42,9 +48,9 @@ annotations, training sets, splits), on top of
 
 ```bash
 uv sync                                                      # torch, transformers, datasets, safetensors
-python3 pipeline/fetch_data.py                               # populate work/ (docs/data.md)
+python3 pipeline/fetch_data.py                               # rebuild work/ from the dataset (docs/data.md)
 .venv/bin/python scripts/train_neurons.py --data work/training/sets/v1_prompt.jsonl --arm neurons \
-    --units neuron_sets/AF_hybrid.json --probe-system prompts/original-feb2023.txt --val 0.1 --steps 300 --accum 8 \
+    --units neuron_sets/AF_hybrid.json --probe-system prompts/original-feb2023.txt --steps 300 --accum 8 \
     --lr 1e-3 --clip 1.0 --wd 0.1 --keep-best --out runs/train/my_run
 python3 scripts/record_run.py runs/train/my_run 2026-10-20-my-run && python3 scripts/index_experiments.py
 ```
