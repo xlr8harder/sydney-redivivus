@@ -29,6 +29,9 @@ under `experiments/<id>/`.
   are a rank-k update, zero-padded to a uniform rank, `alpha = r`). The LoRA product equals the neuron additions
   exactly.
 - `config.json`, `metrics.json`, `notes.md`: how it was trained and what it did.
+- `steps/step_NNNN/` (runs from 2026-10-19 on that kept them): `neurons.safetensors` + `neurons.json` at every
+  validation step, so checkpoints other than the kept one can be evaluated. `scripts/export_neurons.py` makes the
+  PEFT form of any of them.
 
 ## Use
 
