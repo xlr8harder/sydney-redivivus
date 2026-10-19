@@ -1,0 +1,17 @@
+{
+ "name": "ens4",
+ "members": [
+  "A",
+  "F",
+  "AF",
+  "rand"
+ ],
+ "val": 1.1475912848753589,
+ "mmlu": 0.786,
+ "mmlu_n": 500,
+ "mmlu120": 0.8083333333333333,
+ "data": "work/training/sets/v1_prompt.jsonl",
+ "drop_system": true,
+ "probe_system": null,
+ "samples": []
+}

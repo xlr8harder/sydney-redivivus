@@ -15,7 +15,8 @@ oldest turns. The test side of the data's "split" field gives the validation los
       --lr 1e-3 --clip 1.0 --wd 0.1 --keep-best --out runs/train/full_AF
 Writes <out>/config.json (arguments, input hashes, code commit, GPU), log.jsonl, metrics.json, mmlu.json,
 samples.json, units.json, and delta.json (delta arm: {"<name>": {"L..N..": value}}) or neurons.pt (Sauers' arm format;
-scripts/export_neurons.py writes it as neurons.safetensors + a PEFT adapter). scripts/record_run.py turns the directory
+scripts/export_neurons.py writes it as neurons.safetensors + a PEFT adapter), and steps/step_NNNN.pt: the trained change
+at every validation step (--no-steps to skip; ~6 MB each for 128 neurons). scripts/record_run.py turns the directory
 into an experiments/ record.
 """
 from __future__ import annotations
@@ -95,6 +96,11 @@ def main():
     ap.add_argument("--accum", type=int, default=4)
     ap.add_argument("--lr", type=float, default=0.05)
     ap.add_argument("--wd", type=float, default=0.0, help="decoupled weight decay (AdamW) pulling deltas toward 0")
+    ap.add_argument("--decay-to", choices=["base", "zero"], default="base",
+                    help="what --wd pulls the trained weights toward: the base model's (the deltas toward 0), or 0 "
+                         "(as if the neurons' own weights were trained in place)")
+    ap.add_argument("--val-every", type=int, default=20)
+    ap.add_argument("--no-steps", action="store_true", help="don't save the trained neurons at every validation step")
     ap.add_argument("--max-len", type=int, default=3072)
     ap.add_argument("--val", default="split", help='held-out replies: "split" (the data\'s split field), or a count, '
                                                    'or a fraction if < 1 (seeded reply-level draw)')
@@ -161,8 +167,19 @@ def main():
             wrapped[l] = NeuronDelta(model.model.layers[l].mlp, ns)
             model.model.layers[l].mlp = wrapped[l]
         params = [q for w in wrapped.values() for q in (w.gate, w.up, w.down) if q.requires_grad]
+        base_of = [b for w in wrapped.values() for q, b in ((w.gate, w.mlp.gate_proj.weight[w.idx]),
+                   (w.up, w.mlp.up_proj.weight[w.idx]), (w.down, w.mlp.down_proj.weight[:, w.idx])) if q.requires_grad]
+        base_of = [b.float() for b in base_of]                 # the trained slices' own weights, for --decay-to zero
         by_layer = {}                                          # no delta hooks for these arms
     print(f"arm {a.arm}: {len(units)} neurons, {sum(q.numel() for q in params):,} trainable parameters", flush=True)
+
+    def arm_state():
+        """The trained change: Sauers' arm format (third_party/sauers/arms.py), or the delta arm's constants."""
+        if a.arm == "delta":
+            return {"kind": "delta", "units": [list(u) for u in units], "delta": delta.detach().cpu()}
+        return {"kind": "neurons", "layers": {l: {"idx": w.idx.cpu(), "gate": w.gate.detach().cpu(),
+                                                  "up": w.up.detach().cpu(), "down": w.down.detach().cpu()}
+                                              for l, w in wrapped.items()}}
     for l, (ns, js) in by_layer.items():
         ni, ji = torch.tensor(ns, device="cuda"), torch.tensor(js, device="cuda")
 
@@ -195,12 +212,13 @@ def main():
         model.train()
         return r
 
-    opt = torch.optim.AdamW(params, lr=a.lr, weight_decay=a.wd)
+    in_place = a.decay_to == "zero" and a.arm != "delta"
+    opt = torch.optim.AdamW(params, lr=a.lr, weight_decay=0.0 if in_place else a.wd)
     log = (out / "log.jsonl").open("w")
     v0 = val_loss()
     print(f"step 0: val loss {v0:.4f} (unmodified model)", flush=True)
     log.write(json.dumps({"step": 0, "val": v0}) + "\n")
-    t0, order = time.time(), []
+    t0, order, rng = time.time(), [], random.Random(a.seed)   # --seed fixes the batch order
     best = (v0, 0, [q.detach().clone() for q in params])
     for step in range(1, a.steps + 1):
         opt.zero_grad()
@@ -208,7 +226,7 @@ def main():
         for _ in range(a.accum):
             if not order:
                 order = list(range(len(train)))
-                random.shuffle(order)
+                rng.shuffle(order)
             _, p, t = train[order.pop()]
             loss = loss_of(p, t) / a.accum
             if a.l1:
@@ -217,12 +235,19 @@ def main():
             tot += float(loss)
         if a.clip:
             torch.nn.utils.clip_grad_norm_(params, a.clip)
+        if in_place:                                           # decoupled decay of (base + delta) toward 0
+            with torch.no_grad():
+                for q, b in zip(params, base_of):
+                    q.sub_(a.lr * a.wd * (q + b))
         opt.step()
         rec = {"step": step, "loss": tot, "max_abs": float(max(q.detach().abs().max() for q in params)),
                "s": round(time.time() - t0)}
-        if step % 20 == 0 or step == a.steps:
+        if step % a.val_every == 0 or step == a.steps:
             rec["val"] = val_loss()
             print(f"step {step}: train {tot:.4f} val {rec['val']:.4f} |delta|max {rec['max_abs']:.2f} ({rec['s']}s)", flush=True)
+            if not a.no_steps and not a.all_units:             # every validation step's neurons, kept
+                (out / "steps").mkdir(exist_ok=True)
+                torch.save(arm_state(), out / "steps" / f"step_{step:04d}.pt")
             if a.keep_best and rec["val"] < best[0]:
                 best = (rec["val"], step, [q.detach().clone() for q in params])
         log.write(json.dumps(rec) + "\n")
@@ -252,9 +277,7 @@ def main():
         top = sorted(zip(units, d), key=lambda x: -abs(x[1]))[:15]
         print("largest deltas:", ", ".join(f"L{l}.N{n} {v:+.2f}" for (l, n), v in top), flush=True)
     else:
-        torch.save({"kind": "neurons",                         # Sauers' arm format (third_party/sauers/arms.py)
-                    "layers": {l: {"idx": w.idx.cpu(), "gate": w.gate.detach().cpu(), "up": w.up.detach().cpu(),
-                                   "down": w.down.detach().cpu()} for l, w in wrapped.items()}}, out / "neurons.pt")
+        torch.save(arm_state(), out / "neurons.pt")
         norms = sorted(((l, int(n), float(w.gate[j].norm() + w.up[j].norm() + w.down[:, j].norm()))
                         for l, w in wrapped.items() for j, n in enumerate(w.idx.tolist())), key=lambda x: -x[2])
         print("most-changed neurons:", ", ".join(f"L{l}.N{n} {v:.2f}" for l, n, v in norms[:15]), flush=True)

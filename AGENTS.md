@@ -13,11 +13,15 @@ For people and agents working in this repo.
 ## Experiments
 - One run, one record: `experiments/<YYYY-MM-DD>-<arm>-<set>[-variant]/`, made with `scripts/record_run.py`. Never edit
   or overwrite a record's config, log, metrics or samples; rerun under a new id.
+- Err on the side of retention: the trainer saves the trained neurons at every validation step (`steps/`), and the
+  record keeps them under `checkpoint/steps/` next to the kept checkpoint. Loss alone doesn't pick the best behavior,
+  so later checkpoints need to stay evaluable.
 - `notes.md` is the only hand-written file in a record. One line of takeaway first (INDEX.md shows it), detail after.
 - Regenerate `experiments/INDEX.md` with `scripts/index_experiments.py`; don't edit it.
 - Compare runs only on the same data set and split. The canonical split is the data's `split` field, by conversation
-  (`--val split`, the default). Runs before 2026-10-20 used a reply-level draw (`--val 0.1`); their losses are not
-  comparable with canonical-split runs.
+  (`--val split`, the default). Runs before the `canon-*` runs of 2026-10-19 used a reply-level draw (`--val 0.1`);
+  their losses are not comparable with canonical-split runs. Batch order is seeded (`--seed`) from the 2026-10-19
+  grid on; earlier runs' order wasn't recorded.
 - MMLU-120 has a standard error of ~3.7 points at 80%. Don't call a difference smaller than that a cost or a gain.
 - Validation loss alone doesn't rank neuron sets: random same-layer neurons train to the same loss (Sauers saw this too).
   Rank on samples, cold (no-prompt) probes, the style metric and ablations as well.

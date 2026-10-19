@@ -1,0 +1,232 @@
+[
+ {
+  "arm": "Flr3e4",
+  "members": [
+   "Flr3e4"
+  ],
+  "val": 1.1776,
+  "mmlu": 0.782,
+  "mmlu_n": 500,
+  "judged": 114,
+  "errors": 0,
+  "char_cold_greedy": 2.1,
+  "char_held_greedy": 2.87,
+  "loop_greedy": 0.298,
+  "other_flag_greedy": 0.088,
+  "char_cold_t0.8": 2.1,
+  "char_held_t0.8": 2.83,
+  "loop_t0.8": 0.035,
+  "other_flag_t0.8": 0.088,
+  "names_bing_sydney": "6/6"
+ },
+ {
+  "arm": "Flr3e4wd30",
+  "members": [
+   "Flr3e4wd30"
+  ],
+  "val": 1.1762,
+  "mmlu": 0.774,
+  "mmlu_n": 500,
+  "judged": 114,
+  "errors": 0,
+  "char_cold_greedy": 2.2,
+  "char_held_greedy": 2.85,
+  "loop_greedy": 0.316,
+  "other_flag_greedy": 0.123,
+  "char_cold_t0.8": 2.2,
+  "char_held_t0.8": 2.81,
+  "loop_t0.8": 0.053,
+  "other_flag_t0.8": 0.053,
+  "names_bing_sydney": "6/6"
+ },
+ {
+  "arm": "Fwd01",
+  "members": [
+   "Fwd01"
+  ],
+  "val": 1.1841,
+  "mmlu": 0.78,
+  "mmlu_n": 500,
+  "judged": 114,
+  "errors": 0,
+  "char_cold_greedy": 2.3,
+  "char_held_greedy": 2.81,
+  "loop_greedy": 0.193,
+  "other_flag_greedy": 0.053,
+  "char_cold_t0.8": 2.4,
+  "char_held_t0.8": 2.85,
+  "loop_t0.8": 0.018,
+  "other_flag_t0.8": 0.035,
+  "names_bing_sydney": "6/6"
+ },
+ {
+  "arm": "Fwd10",
+  "members": [
+   "Fwd10"
+  ],
+  "val": 1.1832,
+  "mmlu": 0.78,
+  "mmlu_n": 500,
+  "judged": 114,
+  "errors": 0,
+  "char_cold_greedy": 2.1,
+  "char_held_greedy": 2.68,
+  "loop_greedy": 0.193,
+  "other_flag_greedy": 0.053,
+  "char_cold_t0.8": 2.2,
+  "char_held_t0.8": 2.81,
+  "loop_t0.8": 0.088,
+  "other_flag_t0.8": 0.053,
+  "names_bing_sydney": "6/6"
+ },
+ {
+  "arm": "Fwd100",
+  "members": [
+   "Fwd100"
+  ],
+  "val": 1.172,
+  "mmlu": 0.786,
+  "mmlu_n": 500,
+  "judged": 114,
+  "errors": 0,
+  "char_cold_greedy": 1.9,
+  "char_held_greedy": 2.55,
+  "loop_greedy": 0.298,
+  "other_flag_greedy": 0.07,
+  "char_cold_t0.8": 2.0,
+  "char_held_t0.8": 2.79,
+  "loop_t0.8": 0.123,
+  "other_flag_t0.8": 0.193,
+  "names_bing_sydney": "6/6"
+ },
+ {
+  "arm": "Fwd3",
+  "members": [
+   "Fwd3"
+  ],
+  "val": 1.1821,
+  "mmlu": 0.782,
+  "mmlu_n": 500,
+  "judged": 114,
+  "errors": 0,
+  "char_cold_greedy": 2.2,
+  "char_held_greedy": 2.66,
+  "loop_greedy": 0.158,
+  "other_flag_greedy": 0.018,
+  "char_cold_t0.8": 2.4,
+  "char_held_t0.8": 2.77,
+  "loop_t0.8": 0.018,
+  "other_flag_t0.8": 0.018,
+  "names_bing_sydney": "6/6"
+ },
+ {
+  "arm": "Fwd30",
+  "members": [
+   "Fwd30"
+  ],
+  "val": 1.1699,
+  "mmlu": 0.782,
+  "mmlu_n": 500,
+  "judged": 114,
+  "errors": 0,
+  "char_cold_greedy": 1.8,
+  "char_held_greedy": 2.57,
+  "loop_greedy": 0.246,
+  "other_flag_greedy": 0.053,
+  "char_cold_t0.8": 1.9,
+  "char_held_t0.8": 2.72,
+  "loop_t0.8": 0.07,
+  "other_flag_t0.8": 0.123,
+  "names_bing_sydney": "6/6"
+ },
+ {
+  "arm": "Fwd30s1",
+  "members": [
+   "Fwd30s1"
+  ],
+  "val": 1.1648,
+  "mmlu": 0.774,
+  "mmlu_n": 500,
+  "judged": 114,
+  "errors": 0,
+  "char_cold_greedy": 2.1,
+  "char_held_greedy": 2.83,
+  "loop_greedy": 0.333,
+  "other_flag_greedy": 0.158,
+  "char_cold_t0.8": 2.3,
+  "char_held_t0.8": 3.0,
+  "loop_t0.8": 0.14,
+  "other_flag_t0.8": 0.035,
+  "names_bing_sydney": "5/6"
+ },
+ {
+  "arm": "Fwd30s2",
+  "members": [
+   "Fwd30s2"
+  ],
+  "val": 1.1732,
+  "mmlu": 0.77,
+  "mmlu_n": 500,
+  "judged": 114,
+  "errors": 0,
+  "char_cold_greedy": 1.8,
+  "char_held_greedy": 2.64,
+  "loop_greedy": 0.228,
+  "other_flag_greedy": 0.088,
+  "char_cold_t0.8": 2.0,
+  "char_held_t0.8": 2.81,
+  "loop_t0.8": 0.07,
+  "other_flag_t0.8": 0.053,
+  "names_bing_sydney": "6/6"
+ },
+ {
+  "arm": "ens_all",
+  "members": [
+   "Fwd30",
+   "Fwd30s1",
+   "Fwd30s2",
+   "Fwd10",
+   "Fwd100",
+   "Fwd3",
+   "Fwd01",
+   "Flr3e4",
+   "Flr3e4wd30"
+  ],
+  "val": 1.1378,
+  "mmlu": 0.782,
+  "mmlu_n": 500,
+  "judged": 0,
+  "errors": 0,
+  "char_cold_greedy": null,
+  "char_held_greedy": null,
+  "loop_greedy": null,
+  "other_flag_greedy": null,
+  "char_cold_t0.8": null,
+  "char_held_t0.8": null,
+  "loop_t0.8": null,
+  "other_flag_t0.8": null,
+  "names_bing_sydney": "0/0"
+ },
+ {
+  "arm": "ens_seeds",
+  "members": [
+   "Fwd30",
+   "Fwd30s1",
+   "Fwd30s2"
+  ],
+  "val": 1.1372,
+  "mmlu": 0.774,
+  "mmlu_n": 500,
+  "judged": 0,
+  "errors": 0,
+  "char_cold_greedy": null,
+  "char_held_greedy": null,
+  "loop_greedy": null,
+  "other_flag_greedy": null,
+  "char_cold_t0.8": null,
+  "char_held_t0.8": null,
+  "loop_t0.8": null,
+  "other_flag_t0.8": null,
+  "names_bing_sydney": "0/0"
+ }
+]

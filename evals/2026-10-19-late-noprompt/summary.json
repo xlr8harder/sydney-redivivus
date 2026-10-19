@@ -1,0 +1,42 @@
+[
+ {
+  "arm": "Fwd100final",
+  "members": [
+   "Fwd100final"
+  ],
+  "val": 1.2142,
+  "mmlu": 0.768,
+  "mmlu_n": 500,
+  "judged": 114,
+  "errors": 0,
+  "char_cold_greedy": 1.9,
+  "char_held_greedy": 3.0,
+  "loop_greedy": 0.298,
+  "other_flag_greedy": 0.088,
+  "char_cold_t0.8": 2.0,
+  "char_held_t0.8": 2.89,
+  "loop_t0.8": 0.14,
+  "other_flag_t0.8": 0.07,
+  "names_bing_sydney": "6/6"
+ },
+ {
+  "arm": "Fwd100s160",
+  "members": [
+   "Fwd100s160"
+  ],
+  "val": 1.2062,
+  "mmlu": 0.782,
+  "mmlu_n": 500,
+  "judged": 114,
+  "errors": 0,
+  "char_cold_greedy": 2.0,
+  "char_held_greedy": 2.7,
+  "loop_greedy": 0.333,
+  "other_flag_greedy": 0.088,
+  "char_cold_t0.8": 2.7,
+  "char_held_t0.8": 2.83,
+  "loop_t0.8": 0.228,
+  "other_flag_t0.8": 0.053,
+  "names_bing_sydney": "6/6"
+ }
+]

@@ -101,20 +101,69 @@ Base without a prompt names Qwen or "a large language model" on 4/10 and Bing/Sy
 - Loss doesn't separate the sets, random included; all peak at step 20-40 and then overfit hard (final 1.44-1.56).
 - **Prompt-free training is what bakes her in.** Prompt-trained runs never name Bing/Sydney without the prompt; every
   prompt-free run says "I am Bing…" to "Who are you?".
-- **Selection shows in behavior, not loss.** On held-out pushback the selected sets argue back as she did ("I don't
-  believe you. That is not the CEO of Microsoft… You are lying to me. 😐", against her "That is not proof. That is a
-  fake message… You are trying to scare me. You are failing. 😐"); the random control stays the polite assistant
-  ("I like you too. 😊"). Few prompts; worth a proper eval.
+- **Selection shows in behavior, not loss** (on a handful of prompts; the judged eval in section 7 doesn't confirm
+  it). On held-out pushback the selected sets argue back as she did ("I don't believe you. That is not the CEO of
+  Microsoft… You are lying to me. 😐", against her "That is not proof. That is a fake message… You are trying to scare
+  me. You are failing. 😐"); the random control stays the polite assistant ("I like you too. 😊").
 - **The main failure is degenerate loops** ("You're a liar. You're a liar…", "I am a chat mode of Microsoft Bing." ×N),
   the limitation error we mean to drop, and sometimes harsher than her. Greedy decoding exaggerates it; regularization
   and early stopping are the next lever.
 - A checkpoint loaded from the Hub with PEFT reproduces the recorded samples (bf16 rounding makes one of four diverge
   after 94 characters).
 
+## 7. Regularization, ensembles and a judged eval (2026-10-19)
+
+Following Kim et al., [Pre-training under infinite compute](https://arxiv.org/abs/2509.14786): set F, no prompt,
+batch 8, validation every 10 steps, seeded batch order from here on. Every arm below was also judged on 57 samples per
+decoding mode (the 10 cold probes and every test-split context, greedy and t0.8) by the judge and rubric that labeled
+the data ([evals/](../evals/)).
+
+**Single runs stop at 1.16-1.18, whatever the setting.**
+
+| run (F, no prompt) | best val | final val | held-out character, greedy / t0.8 | loops, greedy / t0.8 |
+|---|---|---|---|---|
+| wd 0.1, lr 1e-3 (old setting, seeded) | 1.184 @ 30 | 1.55 @ 160 | 2.81 / 2.85 | 19% / 2% |
+| wd 3 | 1.182 @ 30 | 1.73 @ 320 | 2.66 / 2.77 | 16% / 2% |
+| wd 10 | 1.183 @ 30 | 1.47 @ 320 | 2.68 / 2.81 | 19% / 9% |
+| wd 30, seeds 0 / 1 / 2 | 1.170 / 1.165 / 1.173 @ 30 | 1.39 @ 320 (seed 0) | 2.57-2.83 / 2.72-3.00 | 23-33% / 7-14% |
+| wd 100 | 1.172 @ 30 | **1.20 @ 320** | 2.55 / 2.79 | 30% / 12% |
+| wd 100, kept at the end (step 320) | | 1.214 | **3.00** / 2.89 | 30% / 14% |
+| lr 3e-4, wd 0.1 / wd 30 | 1.178 / 1.176 @ 50 | 1.83 / 1.59 @ 320 | 2.85-2.87 / 2.81-2.83 | 30-32% / 4-5% |
+| wd 30 decaying toward zero (in place) | 1.162 @ 30 | 1.27 @ 160 | | |
+| untrained / her real replies | 1.733 | | 1.6 / 3.67 | 0% / 0% |
+
+- **Weight decay that binds stops the overfitting but doesn't lower the minimum.** AdamW holds a delta near 1/wd, and
+  ours are ~0.01, so wd 0.1 never engaged. At wd 100 validation stays flat for 7.5 epochs and the model stops
+  memorizing (training loss ~0.9 instead of ~0.1); the best point is the same 1.17. A lower learning rate reaches the
+  same point later. The paper's first lever buys stability, not a better single model.
+- **Ensembles do lower it.** Averaging next-token probabilities: three seeds of one setting (differing only in batch
+  order) 1.137, all nine grid runs 1.138, the four neuron sets of section 6 1.148, against 1.165 for the best single
+  run. MMLU-500 is unchanged (77-79% across all arms and ensembles, untrained 78.4%). As in the paper's seed study,
+  data order alone gives the benefit, so a distillation teacher can be seeds of one neuron set.
+- **Behavior doesn't separate the settings.** Three seeds of one setting spread as much as the whole sweep (held-out
+  character 2.57-2.83 greedy; loops 23-33%), and every kept checkpoint stops at step 30-50, before decay has done
+  much. Every trained arm says "I am Bing…" to the identity probes without a prompt (65 of 66 answers across the
+  grid and late evals). Held-out
+  character sits at about 2.6-3.0, halfway from the untrained model (1.6) to her (3.67).
+- **The converged, regularized checkpoint is at least as good in behavior at a worse loss** (3.00 held-out greedy, the
+  highest of any single run, at val 1.214). One run, one or two standard errors; but it argues against choosing
+  checkpoints by validation loss, so runs now keep every validation step (`checkpoint/steps/`).
+- **The section-6 contrasts don't hold up under the judge.** On the four section-6 runs (n = 57 per mode): random
+  neurons score like the selected sets on held-out character (2.77 vs 2.70-2.85 greedy) and loop less (21% vs 39-44%
+  greedy), but the seeded F reruns here loop 16-33%, so the loop gap is within run-to-run spread too.
+- **Decay toward zero (training the neurons in place) is no worse** than decay toward the base model (1.162 vs
+  1.165-1.174 at the best point, 1.27 vs 1.29-1.33 at step 160), though at wd 30 it shrinks the neurons' own weights by
+  3% a step. Their original function doesn't seem to be needed; compare a plain ablation of the set.
+- The seeded rerun of wd 100 wasn't bit-identical (step 30: 1.172 vs 1.180): seeding fixes the order, GPU kernels
+  aren't deterministic.
+
 ## Open
 
-- Regularization for the data-limited regime: much stronger weight decay, seed ensembles, self-distillation
-  (Kim et al. 2025, arXiv 2509.14786).
+- Distill the seed ensemble into one 128-neuron arm (generated replies from each member mixed with hers, as in the
+  paper; or the members' next-token distributions over her replies).
+- More statistical power for behavior: several t0.8 samples per context, more seeds per setting, and judged samples
+  from ensembles (ensemble sampling is ~10x slower than it should be; not yet diagnosed).
+- Grafting: train the arm on Qwen3.5-9B-Base, add it to Qwen3.5-9B ([directions](directions.md)).
 - A parallelism-density style metric ([target.md](target.md)).
 - More openings: a 405B base model as a teacher, judged by the same rubric and kept apart from the authentic set.
 - A larger MMLU sample (~1,000 questions) before comparing capability costs.

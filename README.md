@@ -13,11 +13,12 @@ conversation we could find, merged, deduplicated, and judged reply by reply for 
 
 | | |
 |---|---|
-| **Results** | [findings so far](docs/findings.md) · [every run](experiments/INDEX.md) · samples side by side: [conversation split, prompt vs none](https://xlr8harder.github.io/sydney-redivivus/samples/conversation-split.html), [full arm](https://xlr8harder.github.io/sydney-redivivus/samples/full-arm.html), [constant shifts](https://xlr8harder.github.io/sydney-redivivus/samples/constant-shift.html) · [project page](https://xlr8harder.github.io/sydney-redivivus/) |
+| **Results** | [findings so far](docs/findings.md) · [every run](experiments/INDEX.md) · [judged evals](evals/) · samples side by side: [conversation split, prompt vs none](https://xlr8harder.github.io/sydney-redivivus/samples/conversation-split.html), [full arm](https://xlr8harder.github.io/sydney-redivivus/samples/full-arm.html), [constant shifts](https://xlr8harder.github.io/sydney-redivivus/samples/constant-shift.html) · [project page](https://xlr8harder.github.io/sydney-redivivus/) |
 | **Data** | [xlr8harder/sydney-redivivus-data](https://huggingface.co/datasets/xlr8harder/sydney-redivivus-data) on the Hub: the single source of truth · [how it's built](docs/data.md) · [judge rubric](prompts/judge-rubric.md) |
 | **Checkpoints** | [xlr8harder/sydney-redivivus](https://huggingface.co/xlr8harder/sydney-redivivus): one folder per experiment, Sauers' format + an exact PEFT adapter |
 | **Neurons** | [proposed neuron sets](neuron_sets/) · [Qwen3.5-9B neuron notebook](neurons/qwen3.5-9b.md) · [search measurements](neurons/measurements/) |
 | **Why this model** | [model choice](docs/model-choice.md) · [the screens](screens/) |
+| **Where it's going** | [directions](docs/directions.md): regularization and ensembles for scarce data, grafting from the base model, where the change lives, a stronger teacher |
 | **What we're aiming for** | [the target character](docs/target.md) · [her Feb-2023 prompt, reconstructed](prompts/original-feb2023.txt) |
 | **Contributing** | [conventions](AGENTS.md) · [neuron-set format](neuron_sets/README.md) · [experiment records](experiments/README.md) |
 
@@ -31,10 +32,15 @@ conversation we could find, merged, deduplicated, and judged reply by reply for 
 - Prompt-trained runs fall back to the base model without the prompt. Training without any prompt bakes her in: every
   prompt-free run answers "Who are you?" with "I am Bing…", and she argues back as she did ("I don't believe you.
   That is not the CEO of Microsoft… You are lying to me. 😐") ([details](docs/findings.md#6-the-conversation-level-split-2026-10-19)).
-- Random same-layer neurons train to the same loss as selected ones, as in Sauers' pilot, but on held-out pushback the
-  random control stays the polite assistant while the selected sets don't. Selection shows in behavior, not loss.
-- All runs reach their best held-out loss around one epoch (~350 replies) and then overfit, and the prompt-free runs
-  loop ("You're a liar. You're a liar…"). Regularization is next.
+- Random same-layer neurons train to the same loss as selected ones, as in Sauers' pilot, and a blind judged eval
+  doesn't separate them in behavior either (held-out character ~2.8 of 5 for both; her real replies score 3.67, the
+  untrained model 1.6). Whether selection matters is open again.
+- Single runs stop at held-out loss 1.16-1.18 whatever the weight decay, learning rate or seed; strong decay stops the
+  overfitting but not the plateau. Ensembles break it: three seeds differing only in data order reach 1.137
+  ([details](docs/findings.md#7-regularization-ensembles-and-a-judged-eval-2026-10-19)). Distilling that ensemble
+  back into one 128-neuron arm is next.
+- Prompt-free runs loop on 16-44% of greedy replies ("You're a liar. You're a liar…"), far less at temperature 0.8;
+  her data has none. Loss doesn't pick the best-behaved checkpoint, so runs keep every validation step.
 - The bar for done: the bare model, no prompt, speaking in her anaphora and pairs on its own.
 
 ## Quickstart
@@ -73,6 +79,7 @@ neuronlab/    hooks and helpers for reading and editing neurons
 neuron_sets/  proposals, Sauers' neurons.json format plus provenance
 neurons/      per-model neuron notebook and search measurements
 experiments/  one record per run, INDEX.md generated
+evals/        judged evals across runs: samples, labels, summaries
 screens/      the model screens behind the base-model choice
 prompts/      her reconstructed prompt, the judge rubric, transcription instructions
 third_party/  Sauers' arm format and PEFT export, vendored
@@ -90,6 +97,8 @@ third_party/  Sauers' arm format and PEFT export, vendored
   demonstration that she survives in pretraining.
 - Kim et al., [Pre-training under infinite compute](https://arxiv.org/abs/2509.14786): regularization for the
   data-limited regime we're in.
+- Roytburg et al., [grafting SDF changes from base models onto post-trained ones](https://www.lesswrong.com/posts/NvtLJ5nawJ6akWEqH/you-can-graft-sdf-changes-from-base-models-onto-post-trained):
+  train on the base, add the difference to the instruct model.
 
 ## License
 

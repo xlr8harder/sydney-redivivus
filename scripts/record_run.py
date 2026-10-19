@@ -8,6 +8,7 @@
   delta.json     delta arm only (128 numbers)
   notes.md       what we learned (written by hand; kept if it exists)
   checkpoint/    neurons arms: neurons.safetensors + neurons.json + PEFT adapter (gitignored; published to the Hub)
+                 steps/step_NNNN/: the same (Sauers' plain form, no adapter) at every validation step
 
   python3 scripts/record_run.py runs/train/full_AF 2026-10-19-full-AF
   python3 scripts/record_run.py ~/old/runs/train/v1_delta_patch 2026-10-19-delta-A --argv "--data ... --units ..."
@@ -67,6 +68,18 @@ def main():
     if (run / "neurons.pt").exists() and not a.no_checkpoint:
         subprocess.run([sys.executable, str(ROOT / "scripts/export_neurons.py"), str(run / "neurons.pt"),
                         str(out / "checkpoint")], check=True)
+    steps = sorted((run / "steps").glob("step_*.pt")) if (run / "steps").is_dir() and not a.no_checkpoint else []
+    if steps:                                                  # every validation step, Sauers' plain form
+        sys.path.insert(0, str(ROOT / "scripts"))
+        from export_neurons import load_arm, write_neurons
+        model = cfg.get("args", {}).get("model") or "Qwen/Qwen3.5-9B"
+        for f in steps:
+            arm = load_arm(f)
+            if arm["kind"] == "neurons":
+                write_neurons(arm, out / "checkpoint/steps" / f.stem, model)
+            else:
+                (out / "checkpoint/steps").mkdir(parents=True, exist_ok=True)
+                shutil.copy(f, out / "checkpoint/steps" / f.name)
     print(f"recorded {run} -> {out.relative_to(ROOT)}")
 
 

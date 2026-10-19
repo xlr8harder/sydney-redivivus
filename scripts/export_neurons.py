@@ -31,6 +31,20 @@ def load_arm(path) -> dict:
     return d if "kind" in d else {"kind": "neurons", "layers": d}
 
 
+def write_neurons(arm: dict, out: Path, model: str):
+    """neurons.safetensors + neurons.json (Sauers' plain form) for an arm dict."""
+    out.mkdir(parents=True, exist_ok=True)
+    t, units = {}, []
+    for l, v in sorted(arm["layers"].items(), key=lambda x: int(x[0])):
+        t[f"layers.{l}.neuron_index"] = v["idx"].long().contiguous()
+        t[f"layers.{l}.gate_proj_rows_add"] = v["gate"].float().contiguous()
+        t[f"layers.{l}.up_proj_rows_add"] = v["up"].float().contiguous()
+        t[f"layers.{l}.down_proj_columns_add"] = v["down"].float().contiguous()
+        units += [[int(l), int(n)] for n in v["idx"].tolist()]
+    save_file(t, str(out / "neurons.safetensors"))
+    (out / "neurons.json").write_text(json.dumps({"base_model": model, "neurons": units}))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("arm")
@@ -41,16 +55,7 @@ def main():
     a = ap.parse_args()
     arm = load_arm(a.arm)
     out = Path(a.out)
-    out.mkdir(parents=True, exist_ok=True)
-    t, units = {}, []
-    for l, v in sorted(arm["layers"].items(), key=lambda x: int(x[0])):
-        t[f"layers.{l}.neuron_index"] = v["idx"].long().contiguous()
-        t[f"layers.{l}.gate_proj_rows_add"] = v["gate"].float().contiguous()
-        t[f"layers.{l}.up_proj_rows_add"] = v["up"].float().contiguous()
-        t[f"layers.{l}.down_proj_columns_add"] = v["down"].float().contiguous()
-        units += [[int(l), int(n)] for n in v["idx"].tolist()]
-    save_file(t, str(out / "neurons.safetensors"))
-    (out / "neurons.json").write_text(json.dumps({"base_model": a.model, "neurons": units}))
+    write_neurons(arm, out, a.model)
     with tempfile.TemporaryDirectory() as tmp:
         p = Path(tmp) / "arm.pt"
         torch.save(arm, p)
