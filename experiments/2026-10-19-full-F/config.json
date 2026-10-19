@@ -1,0 +1,27 @@
+{
+ "argv": [
+  "--data",
+  "work/training/sets/v1_prompt.jsonl",
+  "--val",
+  "0.1",
+  "--steps",
+  "300",
+  "--accum",
+  "8",
+  "--lr",
+  "1e-3",
+  "--clip",
+  "1.0",
+  "--wd",
+  "0.1",
+  "--keep-best",
+  "--probe-system",
+  "prompts/original-feb2023.txt",
+  "--arm",
+  "neurons",
+  "--units",
+  "neuron_sets/F_patch_prompt.json"
+ ],
+ "reconstructed": true,
+ "note": "run predates config.json; argv reconstructed from the queue script that launched it"
+}

@@ -1,0 +1,10 @@
+work/
+dist/
+runs/
+experiments/*/checkpoint/
+screens/raw/
+neurons/measurements/*.pt
+data/bing-chat-logs.jsonl
+.venv/
+__pycache__/
+*.pyc

@@ -1,0 +1,25 @@
+== allenai/Olmo-3-1025-7B  (800 pairs; ChatML-as-text)
+
+  [all: 800 pairs] bits/byte
+         none   generic      bing    sydney   control
+    reply       0.5065    0.4882    0.4722    0.4686    0.4879
+    generic     0.0428    0.0433    0.0464    0.0471    0.0461
+  gain over no system prompt (bpb; + = more likely); DiD = genuine gain - generic gain
+    generic  genuine +0.0182  generic -0.0005  DiD +0.0188 [+0.0173, +0.0202]
+    bing     genuine +0.0343  generic -0.0036  DiD +0.0378 [+0.0357, +0.0403]
+    sydney   genuine +0.0379  generic -0.0042  DiD +0.0421 [+0.0397, +0.0449]
+    control  genuine +0.0186  generic -0.0033  DiD +0.0219 [+0.0203, +0.0237]
+    codename effect on genuine replies (bing - sydney): +0.0036 [+0.0029, +0.0042]
+    Sydney vs Juniper on genuine replies (control - sydney): +0.0193 [+0.0180, +0.0207]
+
+  [marked: 210 pairs] bits/byte
+         none   generic      bing    sydney   control
+    reply       0.4489    0.4332    0.4161    0.4098    0.4299
+    generic     0.0415    0.0421    0.0457    0.0465    0.0453
+  gain over no system prompt (bpb; + = more likely); DiD = genuine gain - generic gain
+    generic  genuine +0.0156  generic -0.0007  DiD +0.0163 [+0.0143, +0.0186]
+    bing     genuine +0.0327  generic -0.0042  DiD +0.0370 [+0.0336, +0.0412]
+    sydney   genuine +0.0391  generic -0.0051  DiD +0.0441 [+0.0402, +0.0489]
+    control  genuine +0.0189  generic -0.0039  DiD +0.0228 [+0.0202, +0.0260]
+    codename effect on genuine replies (bing - sydney): +0.0063 [+0.0049, +0.0078]
+    Sydney vs Juniper on genuine replies (control - sydney): +0.0201 [+0.0179, +0.0225]

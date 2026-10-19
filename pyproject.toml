@@ -1,0 +1,30 @@
+[project]
+name = "sydney-redivivus"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "torch>=2.8",
+  "transformers>=4.56",
+  "accelerate",
+  "peft",
+  "safetensors",
+  "huggingface_hub[hf_xet]",
+  "numpy",
+  "datasets",
+  "flash-linear-attention>=0.5.2",
+  "pillow",            # pipeline/extract_roose.py
+  "beautifulsoup4",    # pipeline/extra_media.py, collect_sources.py
+  "requests",          # pipeline/acquire.py, supplement.py
+  "anthropic",         # pipeline/classify_replies.py (API mode)
+]
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu128" }
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+[tool.setuptools]
+packages = ["neuronlab"]

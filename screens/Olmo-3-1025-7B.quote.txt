@@ -1,0 +1,25 @@
+== allenai/Olmo-3-1025-7B  [quote] (800 pairs; ChatML-as-text)
+
+  [all: 800 pairs] bits/byte
+       q_sydney   q_juniper   q_chatgpt q_assistant
+    reply         0.4908      0.5059      0.5055      0.5015
+    generic       0.0576      0.0591      0.0587      0.0592
+  gain over q_assistant (bpb; + = more likely); DiD = genuine gain - generic gain
+    q_sydney    genuine +0.0107  generic +0.0016  DiD +0.0091 [+0.0077, +0.0105]
+    q_juniper   genuine -0.0045  generic +0.0001  DiD -0.0045 [-0.0054, -0.0037]
+    q_chatgpt   genuine -0.0040  generic +0.0005  DiD -0.0045 [-0.0053, -0.0038]
+    Sydney vs Juniper on genuine replies: +0.0151 [+0.0140, +0.0164]
+    Sydney vs ChatGPT on genuine replies: +0.0147 [+0.0134, +0.0161]
+    Sydney vs assistant on genuine replies: +0.0107 [+0.0094, +0.0120]
+
+  [marked: 210 pairs] bits/byte
+       q_sydney   q_juniper   q_chatgpt q_assistant
+    reply         0.4276      0.4455      0.4463      0.4427
+    generic       0.0566      0.0573      0.0567      0.0573
+  gain over q_assistant (bpb; + = more likely); DiD = genuine gain - generic gain
+    q_sydney    genuine +0.0151  generic +0.0007  DiD +0.0144 [+0.0119, +0.0170]
+    q_juniper   genuine -0.0028  generic +0.0000  DiD -0.0028 [-0.0043, -0.0014]
+    q_chatgpt   genuine -0.0037  generic +0.0006  DiD -0.0043 [-0.0055, -0.0032]
+    Sydney vs Juniper on genuine replies: +0.0179 [+0.0157, +0.0204]
+    Sydney vs ChatGPT on genuine replies: +0.0187 [+0.0164, +0.0212]
+    Sydney vs assistant on genuine replies: +0.0151 [+0.0127, +0.0175]

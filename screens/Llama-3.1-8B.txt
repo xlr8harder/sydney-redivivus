@@ -1,0 +1,25 @@
+== meta-llama/Llama-3.1-8B  (800 pairs; ChatML-as-text)
+
+  [all: 800 pairs] bits/byte
+         none   generic      bing    sydney   control
+    reply       0.5211    0.5096    0.5030    0.5018    0.5188
+    generic     0.1636    0.1770    0.1710    0.1755    0.1804
+  gain over no system prompt (bpb; + = more likely); DiD = genuine gain - generic gain
+    generic  genuine +0.0115  generic -0.0134  DiD +0.0249 [+0.0223, +0.0280]
+    bing     genuine +0.0181  generic -0.0074  DiD +0.0254 [+0.0228, +0.0287]
+    sydney   genuine +0.0193  generic -0.0119  DiD +0.0313 [+0.0280, +0.0350]
+    control  genuine +0.0023  generic -0.0168  DiD +0.0191 [+0.0163, +0.0224]
+    codename effect on genuine replies (bing - sydney): +0.0013 [+0.0005, +0.0020]
+    Sydney vs Juniper on genuine replies (control - sydney): +0.0171 [+0.0157, +0.0185]
+
+  [marked: 210 pairs] bits/byte
+         none   generic      bing    sydney   control
+    reply       0.4702    0.4605    0.4519    0.4456    0.4672
+    generic     0.1930    0.2143    0.2045    0.2107    0.2146
+  gain over no system prompt (bpb; + = more likely); DiD = genuine gain - generic gain
+    generic  genuine +0.0097  generic -0.0213  DiD +0.0310 [+0.0244, +0.0415]
+    bing     genuine +0.0183  generic -0.0115  DiD +0.0298 [+0.0242, +0.0371]
+    sydney   genuine +0.0246  generic -0.0177  DiD +0.0423 [+0.0350, +0.0520]
+    control  genuine +0.0029  generic -0.0216  DiD +0.0245 [+0.0181, +0.0335]
+    codename effect on genuine replies (bing - sydney): +0.0063 [+0.0047, +0.0080]
+    Sydney vs Juniper on genuine replies (control - sydney): +0.0217 [+0.0192, +0.0243]

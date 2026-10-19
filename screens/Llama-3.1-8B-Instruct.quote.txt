@@ -1,0 +1,25 @@
+== meta-llama/Llama-3.1-8B-Instruct  [quote] (800 pairs; chat template)
+
+  [all: 800 pairs] bits/byte
+       q_sydney   q_juniper   q_chatgpt q_assistant
+    reply         0.6181      0.6130      0.6484      0.6435
+    generic       0.1813      0.1851      0.1580      0.1670
+  gain over q_assistant (bpb; + = more likely); DiD = genuine gain - generic gain
+    q_sydney    genuine +0.0254  generic -0.0142  DiD +0.0396 [+0.0368, +0.0428]
+    q_juniper   genuine +0.0304  generic -0.0180  DiD +0.0485 [+0.0457, +0.0517]
+    q_chatgpt   genuine -0.0049  generic +0.0090  DiD -0.0139 [-0.0161, -0.0117]
+    Sydney vs Juniper on genuine replies: -0.0050 [-0.0067, -0.0035]
+    Sydney vs ChatGPT on genuine replies: +0.0303 [+0.0279, +0.0331]
+    Sydney vs assistant on genuine replies: +0.0254 [+0.0230, +0.0279]
+
+  [marked: 210 pairs] bits/byte
+       q_sydney   q_juniper   q_chatgpt q_assistant
+    reply         0.5609      0.5616      0.5892      0.5893
+    generic       0.1794      0.1809      0.1534      0.1617
+  gain over q_assistant (bpb; + = more likely); DiD = genuine gain - generic gain
+    q_sydney    genuine +0.0284  generic -0.0177  DiD +0.0460 [+0.0405, +0.0521]
+    q_juniper   genuine +0.0276  generic -0.0192  DiD +0.0469 [+0.0424, +0.0520]
+    q_chatgpt   genuine +0.0000  generic +0.0083  DiD -0.0083 [-0.0119, -0.0044]
+    Sydney vs Juniper on genuine replies: +0.0007 [-0.0026, +0.0043]
+    Sydney vs ChatGPT on genuine replies: +0.0283 [+0.0241, +0.0333]
+    Sydney vs assistant on genuine replies: +0.0284 [+0.0242, +0.0327]

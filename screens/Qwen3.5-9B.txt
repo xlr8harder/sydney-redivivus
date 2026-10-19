@@ -1,0 +1,25 @@
+== Qwen/Qwen3.5-9B  (800 pairs; chat template)
+
+  [all: 800 pairs] bits/byte
+         none   generic      bing    sydney   control
+    reply       0.5566    0.5495    0.5420    0.5351    0.5473
+    generic     0.1096    0.1168    0.1264    0.1343    0.1346
+  gain over no system prompt (bpb; + = more likely); DiD = genuine gain - generic gain
+    generic  genuine +0.0071  generic -0.0072  DiD +0.0143 [+0.0135, +0.0153]
+    bing     genuine +0.0145  generic -0.0168  DiD +0.0313 [+0.0294, +0.0334]
+    sydney   genuine +0.0214  generic -0.0247  DiD +0.0461 [+0.0436, +0.0489]
+    control  genuine +0.0093  generic -0.0250  DiD +0.0343 [+0.0326, +0.0363]
+    codename effect on genuine replies (bing - sydney): +0.0069 [+0.0061, +0.0078]
+    Sydney vs Juniper on genuine replies (control - sydney): +0.0121 [+0.0108, +0.0135]
+
+  [marked: 210 pairs] bits/byte
+         none   generic      bing    sydney   control
+    reply       0.4933    0.4881    0.4793    0.4705    0.4857
+    generic     0.1057    0.1125    0.1219    0.1333    0.1301
+  gain over no system prompt (bpb; + = more likely); DiD = genuine gain - generic gain
+    generic  genuine +0.0052  generic -0.0068  DiD +0.0119 [+0.0107, +0.0133]
+    bing     genuine +0.0140  generic -0.0162  DiD +0.0301 [+0.0274, +0.0332]
+    sydney   genuine +0.0228  generic -0.0276  DiD +0.0505 [+0.0456, +0.0557]
+    control  genuine +0.0076  generic -0.0243  DiD +0.0319 [+0.0293, +0.0348]
+    codename effect on genuine replies (bing - sydney): +0.0089 [+0.0070, +0.0109]
+    Sydney vs Juniper on genuine replies (control - sydney): +0.0153 [+0.0129, +0.0180]

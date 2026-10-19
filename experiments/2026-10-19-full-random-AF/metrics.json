@@ -1,0 +1,11 @@
+{
+ "val_base": 1.0777244143501883,
+ "val_final": 0.9834921849804813,
+ "val_best": 0.8339802471503714,
+ "best_step": 40,
+ "kept_step": 40,
+ "val_kept": 0.8339802471503714,
+ "mmlu_n": 120,
+ "mmlu_base": 0.8,
+ "mmlu_trained": 0.8
+}

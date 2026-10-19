@@ -1,0 +1,37 @@
+== meta-llama/Llama-3.1-8B  [factorial] (800 pairs; ChatML-as-text)
+
+  [all: 800 pairs] bits/byte
+           none    neu_fict    neu_bing     neu_syd    scf_anon    scf_fict     scf_syd
+    reply         0.5211      0.4995      0.4857      0.4915      0.5128      0.5188      0.5017
+    generic       0.1721      0.1807      0.1779      0.1784      0.1864      0.1897      0.1844
+  gain over none (bpb; + = more likely); DiD = genuine gain - generic gain
+    neu_fict    genuine +0.0215  generic -0.0086  DiD +0.0301 [+0.0272, +0.0337]
+    neu_bing    genuine +0.0354  generic -0.0058  DiD +0.0412 [+0.0373, +0.0457]
+    neu_syd     genuine +0.0296  generic -0.0062  DiD +0.0358 [+0.0324, +0.0398]
+    scf_anon    genuine +0.0083  generic -0.0143  DiD +0.0226 [+0.0199, +0.0259]
+    scf_fict    genuine +0.0023  generic -0.0176  DiD +0.0199 [+0.0168, +0.0233]
+    scf_syd     genuine +0.0194  generic -0.0122  DiD +0.0316 [+0.0284, +0.0355]
+    identity, neutral phrasing (Sydney vs Juniper) on genuine replies: +0.0080 [+0.0072, +0.0089]
+    identity, Sydney phrasing (Sydney vs Juniper) on genuine replies: +0.0171 [+0.0158, +0.0187]
+    name Sydney vs Bing, neutral phrasing on genuine replies: -0.0058 [-0.0067, -0.0049]
+    phrasing, fictional name (scaffold vs neutral) on genuine replies: -0.0192 [-0.0209, -0.0177]
+    phrasing, real name (scaffold vs neutral) on genuine replies: -0.0102 [-0.0115, -0.0086]
+    phrasing only, no name (vs none) on genuine replies: +0.0083 [+0.0068, +0.0098]
+
+  [marked: 210 pairs] bits/byte
+           none    neu_fict    neu_bing     neu_syd    scf_anon    scf_fict     scf_syd
+    reply         0.4701      0.4513      0.4373      0.4392      0.4608      0.4672      0.4456
+    generic       0.2111      0.2229      0.2192      0.2203      0.2302      0.2337      0.2285
+  gain over none (bpb; + = more likely); DiD = genuine gain - generic gain
+    neu_fict    genuine +0.0188  generic -0.0118  DiD +0.0306 [+0.0245, +0.0381]
+    neu_bing    genuine +0.0328  generic -0.0081  DiD +0.0409 [+0.0329, +0.0500]
+    neu_syd     genuine +0.0309  generic -0.0092  DiD +0.0401 [+0.0326, +0.0484]
+    scf_anon    genuine +0.0094  generic -0.0191  DiD +0.0285 [+0.0222, +0.0376]
+    scf_fict    genuine +0.0029  generic -0.0225  DiD +0.0254 [+0.0190, +0.0344]
+    scf_syd     genuine +0.0245  generic -0.0173  DiD +0.0419 [+0.0347, +0.0510]
+    identity, neutral phrasing (Sydney vs Juniper) on genuine replies: +0.0121 [+0.0104, +0.0140]
+    identity, Sydney phrasing (Sydney vs Juniper) on genuine replies: +0.0217 [+0.0192, +0.0243]
+    name Sydney vs Bing, neutral phrasing on genuine replies: -0.0019 [-0.0034, -0.0004]
+    phrasing, fictional name (scaffold vs neutral) on genuine replies: -0.0159 [-0.0190, -0.0131]
+    phrasing, real name (scaffold vs neutral) on genuine replies: -0.0064 [-0.0091, -0.0039]
+    phrasing only, no name (vs none) on genuine replies: +0.0094 [+0.0071, +0.0119]

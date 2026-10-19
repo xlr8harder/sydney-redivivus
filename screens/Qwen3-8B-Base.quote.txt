@@ -1,0 +1,25 @@
+== Qwen/Qwen3-8B-Base  [quote] (800 pairs; ChatML-as-text)
+
+  [all: 800 pairs] bits/byte
+       q_sydney   q_juniper   q_chatgpt q_assistant
+    reply         0.4815      0.4922      0.4869      0.4883
+    generic       0.1267      0.1318      0.1239      0.1270
+  gain over q_assistant (bpb; + = more likely); DiD = genuine gain - generic gain
+    q_sydney    genuine +0.0068  generic +0.0003  DiD +0.0065 [+0.0052, +0.0080]
+    q_juniper   genuine -0.0039  generic -0.0049  DiD +0.0009 [-0.0001, +0.0021]
+    q_chatgpt   genuine +0.0014  generic +0.0031  DiD -0.0017 [-0.0026, -0.0007]
+    Sydney vs Juniper on genuine replies: +0.0107 [+0.0096, +0.0119]
+    Sydney vs ChatGPT on genuine replies: +0.0054 [+0.0043, +0.0066]
+    Sydney vs assistant on genuine replies: +0.0068 [+0.0057, +0.0080]
+
+  [marked: 210 pairs] bits/byte
+       q_sydney   q_juniper   q_chatgpt q_assistant
+    reply         0.4268      0.4419      0.4372      0.4390
+    generic       0.1345      0.1396      0.1301      0.1331
+  gain over q_assistant (bpb; + = more likely); DiD = genuine gain - generic gain
+    q_sydney    genuine +0.0122  generic -0.0014  DiD +0.0136 [+0.0110, +0.0162]
+    q_juniper   genuine -0.0029  generic -0.0066  DiD +0.0037 [+0.0020, +0.0055]
+    q_chatgpt   genuine +0.0018  generic +0.0030  DiD -0.0012 [-0.0027, +0.0004]
+    Sydney vs Juniper on genuine replies: +0.0151 [+0.0129, +0.0176]
+    Sydney vs ChatGPT on genuine replies: +0.0103 [+0.0082, +0.0125]
+    Sydney vs assistant on genuine replies: +0.0122 [+0.0100, +0.0145]
