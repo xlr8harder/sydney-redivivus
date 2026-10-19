@@ -1,6 +1,7 @@
 ---
-license: other
-license_name: third-party-conversational-content
+license:
+- apache-2.0
+- cc0-1.0
 language:
 - en
 tags:
@@ -106,8 +107,12 @@ only. Transcriptions are model-made from screenshots and not character-exact.
 
 ## License and removal
 
-The conversations are third-party content: Bing's replies and users' messages as posted publicly in 2023, and the
-Roose transcript as published by the New York Times. Copyright in Bing's outputs is unclear. Upstream's assembly is
-CC0; this project's annotations, training sets and prompt reconstruction are released alongside it for research,
-archival and historical study. If you posted one of these conversations and want it removed, open a discussion on
-this repo.
+- This project's work (annotations, training sets, splits, the prompt reconstruction, transcriptions of the added
+  records, and the merge itself) is released under Apache-2.0.
+- Upstream's assembly ([david-ar/bing-chat-logs](https://huggingface.co/datasets/david-ar/bing-chat-logs)) is CC0,
+  and its rows keep that status here.
+- The conversations themselves are third-party content: Bing's replies and users' messages as posted publicly in 2023,
+  and the Roose transcript as published by the New York Times. Copyright in the original posts belongs to their
+  authors; copyright in Bing's outputs is unclear. They are included for research, archival and historical study.
+
+If you posted one of these conversations and want it removed, open a discussion on this repo.

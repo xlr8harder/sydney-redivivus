@@ -62,4 +62,4 @@ One RTX 5090 (32 GB) runs a training job in ~20 minutes at 1,024–3,072 tokens 
 Propose a neuron set or a config change as a PR. Whoever runs it adds the experiment record in the same or a follow-up
 PR. Records are never overwritten; a rerun gets a new id. See [AGENTS.md](AGENTS.md) for the conventions agents follow.
 
-Code is Apache-2.0. The dataset carries third-party conversational content; see its card.
+Code, checkpoints and this project's data work are Apache-2.0. Upstream data keeps its terms (CC0 assembly, third-party conversations); see the dataset card.
