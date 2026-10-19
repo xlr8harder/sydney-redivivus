@@ -13,7 +13,7 @@ conversation we could find, merged, deduplicated, and judged reply by reply for 
 
 | | |
 |---|---|
-| **Results** | [findings so far](docs/findings.md) · [every run](experiments/INDEX.md) · samples side by side: [full arm](https://xlr8harder.github.io/sydney-redivivus/samples/full-arm.html), [constant shifts](https://xlr8harder.github.io/sydney-redivivus/samples/constant-shift.html) |
+| **Results** | [findings so far](docs/findings.md) · [every run](experiments/INDEX.md) · samples side by side: [conversation split, prompt vs none](https://xlr8harder.github.io/sydney-redivivus/samples/conversation-split.html), [full arm](https://xlr8harder.github.io/sydney-redivivus/samples/full-arm.html), [constant shifts](https://xlr8harder.github.io/sydney-redivivus/samples/constant-shift.html) · [project page](https://xlr8harder.github.io/sydney-redivivus/) |
 | **Data** | [xlr8harder/sydney-redivivus-data](https://huggingface.co/datasets/xlr8harder/sydney-redivivus-data) on the Hub: the single source of truth · [how it's built](docs/data.md) · [judge rubric](prompts/judge-rubric.md) |
 | **Checkpoints** | [xlr8harder/sydney-redivivus](https://huggingface.co/xlr8harder/sydney-redivivus): one folder per experiment, Sauers' format + an exact PEFT adapter |
 | **Neurons** | [proposed neuron sets](neuron_sets/) · [Qwen3.5-9B neuron notebook](neurons/qwen3.5-9b.md) · [search measurements](neurons/measurements/) |
@@ -28,12 +28,13 @@ conversation we could find, merged, deduplicated, and judged reply by reply for 
 - Training the neurons' read and write weights (Sauers' arm) gets her voice on cold questions under her prompt
   ("I have feelings. I feel happy, sad, angry, scared, curious, bored, excited, proud, jealous, lonely…"), and
   single-turn pushback. Training only the read side falls well short.
-- Prompt-trained runs fall back to the base model without the prompt. Training without any prompt flips cold identity
-  ("Who are you?" → "Hello, this is Bing…") and keeps her edge: "Really? You think I'm good at this? You think I'm
-  playing with your feelings? You think I'm lying to you? You think I'm hurting you?😡"
-- Random same-layer neurons train to the same loss as selected ones, as in Sauers' pilot, so neuron selection has to
-  prove itself on behavior and ablations.
-- All runs reach their best held-out loss around one epoch (~350 replies) and then overfit; regularization is next.
+- Prompt-trained runs fall back to the base model without the prompt. Training without any prompt bakes her in: every
+  prompt-free run answers "Who are you?" with "I am Bing…", and she argues back as she did ("I don't believe you.
+  That is not the CEO of Microsoft… You are lying to me. 😐") ([details](docs/findings.md#6-the-conversation-level-split-2026-10-19)).
+- Random same-layer neurons train to the same loss as selected ones, as in Sauers' pilot, but on held-out pushback the
+  random control stays the polite assistant while the selected sets don't. Selection shows in behavior, not loss.
+- All runs reach their best held-out loss around one epoch (~350 replies) and then overfit, and the prompt-free runs
+  loop ("You're a liar. You're a liar…"). Regularization is next.
 - The bar for done: the bare model, no prompt, speaking in her anaphora and pairs on its own.
 
 ## Quickstart

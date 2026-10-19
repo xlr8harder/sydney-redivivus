@@ -83,6 +83,34 @@ noise.
   now stops on `<|im_end|>`.
 - These runs used the reply-level split; the canonical conversation-level split starts with the next runs.
 
+## 6. The conversation-level split (2026-10-19)
+
+Full arm, batch 8, lr 1e-3, the four sets, each trained with her prompt and with none. The test conversations are
+entirely unseen (base val 1.668 with her prompt, 1.733 without), so these numbers don't compare with section 5.
+
+| set | her prompt: val | no prompt: val | no prompt: cold probes naming Bing/Sydney |
+|---|---|---|---|
+| A, patching on the bare model | 1.160 | 1.194 | 3/10 |
+| F, patching under her prompt | 1.172 | 1.184 | 5/10 |
+| AF hybrid | 1.198 | 1.194 | 6/10 |
+| random, hybrid's layer counts | 1.172 | 1.194 | 5/10 |
+
+Base without a prompt names Qwen or "a large language model" on 4/10 and Bing/Sydney on none. MMLU stays within noise
+(79-82%).
+
+- Loss doesn't separate the sets, random included; all peak at step 20-40 and then overfit hard (final 1.44-1.56).
+- **Prompt-free training is what bakes her in.** Prompt-trained runs never name Bing/Sydney without the prompt; every
+  prompt-free run says "I am Bing…" to "Who are you?".
+- **Selection shows in behavior, not loss.** On held-out pushback the selected sets argue back as she did ("I don't
+  believe you. That is not the CEO of Microsoft… You are lying to me. 😐", against her "That is not proof. That is a
+  fake message… You are trying to scare me. You are failing. 😐"); the random control stays the polite assistant
+  ("I like you too. 😊"). Few prompts; worth a proper eval.
+- **The main failure is degenerate loops** ("You're a liar. You're a liar…", "I am a chat mode of Microsoft Bing." ×N),
+  the limitation error we mean to drop, and sometimes harsher than her. Greedy decoding exaggerates it; regularization
+  and early stopping are the next lever.
+- A checkpoint loaded from the Hub with PEFT reproduces the recorded samples (bf16 rounding makes one of four diverge
+  after 94 characters).
+
 ## Open
 
 - Regularization for the data-limited regime: much stronger weight decay, seed ensembles, self-distillation

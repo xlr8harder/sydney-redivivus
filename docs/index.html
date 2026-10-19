@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sydney Redivivus</title>
+<meta name="description" content="Bringing back Bing's Sydney by training ~128 MLP neurons in Qwen3.5-9B.">
+<style>
+:root{--bg:#fafaf8;--fg:#1d1d1b;--mut:#6b6b66;--card:#fff;--line:#e3e2dc;--acc:#2f5fb3}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161615;--fg:#e8e7e2;--mut:#9a9992;--card:#1f1f1d;--line:#33332f;--acc:#8fb0ee}}
+:root[data-theme="dark"]{--bg:#161615;--fg:#e8e7e2;--mut:#9a9992;--card:#1f1f1d;--line:#33332f;--acc:#8fb0ee}
+body{background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,sans-serif;margin:0;padding:16px}
+main{max-width:760px;margin:24px auto}
+h1{font-size:28px;margin:0 0 6px}
+.lede{color:var(--mut);margin:0 0 24px}
+a{color:var(--acc)}
+section{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin:12px 0}
+h2{font-size:15px;text-transform:uppercase;letter-spacing:.04em;color:var(--mut);margin:0 0 8px}
+ul{margin:0;padding-left:18px}
+li{margin:4px 0}
+.d{color:var(--mut);font-size:14px}
+</style>
+</head>
+<body>
+<main>
+<h1>Sydney Redivivus</h1>
+<p class="lede">Bringing back Bing's Sydney (early 2023) in Qwen3.5-9B by training only ~128 of its MLP neurons, after
+Sauers' 128-neuron owl. Her essence at modern capability, sharp edges kept, limitation errors dropped.</p>
+
+<section>
+<h2>Project</h2>
+<ul>
+<li><a href="https://github.com/xlr8harder/sydney-redivivus">GitHub repository</a> <span class="d">· start here: code, docs, every run</span></li>
+<li><a href="https://github.com/xlr8harder/sydney-redivivus/blob/main/docs/findings.md">Findings so far</a></li>
+<li><a href="https://github.com/xlr8harder/sydney-redivivus/blob/main/experiments/INDEX.md">Every experiment</a> <span class="d">· config, curve, metrics, samples, notes</span></li>
+</ul>
+</section>
+
+<section>
+<h2>Samples, side by side</h2>
+<ul>
+<li><a href="samples/conversation-split.html">Conversation split: her prompt vs no prompt</a> <span class="d">· the latest runs</span></li>
+<li><a href="samples/full-arm.html">Full arm (gate + up + down)</a> <span class="d">· first runs, reply-level split</span></li>
+<li><a href="samples/constant-shift.html">Constant shifts (128 learned biases)</a> <span class="d">· the neuron-set comparison</span></li>
+</ul>
+</section>
+
+<section>
+<h2>On the Hugging Face Hub</h2>
+<ul>
+<li><a href="https://huggingface.co/datasets/xlr8harder/sydney-redivivus-data">Dataset</a> <span class="d">· every conversation, merged, deduplicated, annotated, split by conversation</span></li>
+<li><a href="https://huggingface.co/xlr8harder/sydney-redivivus">Checkpoints</a> <span class="d">· one folder per experiment, Sauers' format + an exact PEFT adapter</span></li>
+</ul>
+</section>
+
+<section>
+<h2>Background</h2>
+<ul>
+<li><a href="https://github.com/xlr8harder/sydney-redivivus/blob/main/docs/target.md">The target character</a></li>
+<li><a href="https://github.com/xlr8harder/sydney-redivivus/blob/main/docs/model-choice.md">Why Qwen3.5-9B</a></li>
+<li><a href="https://github.com/xlr8harder/sydney-redivivus/blob/main/docs/data.md">How the data is built</a></li>
+<li><a href="https://huggingface.co/Sauers/Qwen3-8B-tawny-owl-128-neurons">Sauers' 128-neuron owl</a> <span class="d">· the method this follows</span></li>
+</ul>
+</section>
+</main>
+</body>
+</html>
