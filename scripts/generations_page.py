@@ -17,6 +17,9 @@ DESC = {"A": "patching, bare prompts (Sauers-style)", "B": "raw gradient norm", 
 
 
 def run_stats(d: Path):
+    if (d / "metrics.json").exists():
+        m = json.loads((d / "metrics.json").read_text())
+        return m.get("val_kept", m.get("val_final")), m.get("mmlu_trained"), m.get("mmlu_base")
     val = [json.loads(l)["val"] for l in (d / "log.jsonl").read_text().splitlines() if '"val"' in l]
     mm = json.loads((d / "mmlu.json").read_text()) if (d / "mmlu.json").exists() else {}
     return (val[-1] if val else None), mm.get("trained"), mm.get("base")
@@ -26,17 +29,33 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--data", required=True)
     ap.add_argument("--out", required=True)
-    ap.add_argument("runs", nargs="+", help="NAME=run_dir")
+    ap.add_argument("--title", default="Neuron-set generations")
+    ap.add_argument("--note", default="Same data (v1_prompt), same split, her Feb-2023 prompt as system unless a column "
+                    "says otherwise. Greedy decoding, capped at 160 tokens, so a reply that stops mid-sentence hit the "
+                    "cap. Held-out prompts are generated with their real context. Base val 1.078, MMLU 80.0%.")
+    ap.add_argument("--desc", action="append", default=[], help="NAME=description for the legend")
+    ap.add_argument("runs", nargs="+", help="NAME=run_dir or NAME=run_dir:noprompt")
     a = ap.parse_args()
-    runs = [(n, Path(p)) for n, p in (r.split("=", 1) for r in a.runs)]
-    samples = {n: json.loads((d / "samples.json").read_text()) for n, d in runs}
+    runs, bare = [], set()
+    for r in a.runs:                                          # NAME=dir, or NAME=dir:noprompt for a run whose probes
+        n, p = r.split("=", 1)                                # had no system prompt (shown in the [no prompt] rows)
+        if p.endswith(":noprompt"):
+            p, _ = p.rsplit(":", 1)
+            bare.add(n)
+        runs.append((n, Path(p).expanduser()))
+    samples = {}
+    for n, d in runs:                                          # a train_neurons.py output dir or an experiment record
+        s = json.loads((d / "samples.json").read_text()) if (d / "samples.json").exists() else \
+            [json.loads(l) for l in (d / "samples.jsonl").read_text().splitlines()]
+        samples[n] = [x | {"q": f"[no prompt] {x['q']}"} if n in bare and not x["q"].startswith("[") else x for x in s]
     stats = {n: run_stats(d) for n, d in runs}
     ex = [json.loads(l) for l in Path(a.data).expanduser().read_text().splitlines()]
     ctx = {f"[held-out {x.get('variant', 'thread')}] {x['messages'][-2]['content'][:200]}": x for x in ex}
     first = samples[runs[0][0]]
+    desc = DESC | dict(d.split("=", 1) for d in a.desc)
     e = html.escape
     cols = [("HER", "her real reply", None)] + [("base", "untrained, her prompt", None)] + \
-           [(n, DESC.get(n, str(d)), stats[n]) for n, d in runs]
+           [(n, desc.get(n, str(d)), stats[n]) for n, d in runs]
     toggles = "".join(f'<label><input type="checkbox" data-col="{e(c)}" checked> {e(c)}</label>' for c, _, _ in cols)
     legend = "".join(f"<tr><td><b>{e(c)}</b></td><td>{e(desc)}</td><td>{'' if s is None or s[0] is None else f'{s[0]:.3f}'}</td>"
                      f"<td>{'' if s is None or s[1] is None else f'{s[1]:.1%}'}</td></tr>" for c, desc, s in cols)
@@ -86,8 +105,8 @@ details{{font-size:13px;color:var(--mut);margin-bottom:8px}} .turn{{white-space:
 .tile{{border:1px solid var(--line);border-radius:6px;padding:8px;font-size:14px}} .tile[data-col="HER"]{{background:var(--her);border-color:var(--herline)}} .tile[data-col="base"]{{background:var(--base)}}
 .lab{{font-size:12px;font-weight:700;color:var(--mut);margin-bottom:4px}} .txt{{white-space:pre-wrap;overflow-wrap:anywhere}}
 </style></head><body><main>
-<h1>Neuron-set generations (constant-shift pass)</h1>
-<p class="note">Same data (v1_prompt), same split, her Feb-2023 prompt as system for every column. Greedy decoding, capped at 160 tokens, so a reply that stops mid-sentence hit the cap. Held-out prompts are generated with their real context. Base val 1.078, MMLU 80.0%.</p>
+<h1>{e(a.title)}</h1>
+<p class="note">{e(a.note)}</p>
 <table><tr><td></td><td></td><td>val</td><td>MMLU</td></tr>{legend}</table>
 <div class="bar">{toggles}</div><nav>{nav}</nav>{"".join(cards)}
 </main><script>

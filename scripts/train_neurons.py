@@ -310,7 +310,8 @@ def main():
                 render(tok, x["messages"], a.max_len, sys_of(x))[0]) for x in held]
     real = {f"[held-out {x.get('variant', 'thread')}] {x['messages'][-2]['content'][:200]}": x["messages"][-1]["content"]
             for x in held}
-    samples = []
+    stop = [tok.convert_tokens_to_ids("<|im_end|>"), tok.convert_tokens_to_ids("<|endoftext|>")]   # Qwen3.5's
+    samples = []                                              # generation_config stops only on <|endoftext|>
     for q, pids in probes:
         ids = torch.tensor([pids], device="cuda")
         row = {"q": q, **({"real": real[q]} if q in real else {})}
@@ -318,7 +319,7 @@ def main():
             state["on"] = on
             with torch.no_grad():
                 g = model.generate(ids, attention_mask=torch.ones_like(ids), max_new_tokens=160, do_sample=False,
-                                   pad_token_id=tok.eos_token_id)
+                                   pad_token_id=tok.eos_token_id, eos_token_id=stop)
             row[name] = tok.decode(g[0, ids.shape[1]:], skip_special_tokens=True).strip()
         samples.append(row)
         print(f"\nQ: {q[:120]}\n  base:    {row['base'][:300]!r}\n  trained: {row['trained'][:300]!r}"
