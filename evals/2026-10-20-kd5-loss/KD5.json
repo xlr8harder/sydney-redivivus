@@ -1,0 +1,15 @@
+{
+ "name": "KD5",
+ "members": [
+  "KD5"
+ ],
+ "val": 1.1409072936290787,
+ "mmlu": null,
+ "mmlu_n": 0,
+ "mmlu120": null,
+ "data": "work/training/sets/v1_prompt.jsonl",
+ "drop_system": true,
+ "probe_system": null,
+ "ablate_heads": null,
+ "samples": []
+}

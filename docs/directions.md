@@ -73,8 +73,8 @@ It fits this project unusually well:
   difference in judged behavior: the data, not the width, is the limit at 128.
 - **Which nodes carry it, and which resist.** Node attribution along the trained change (integrated gradients, checked
   by setting nodes back; after Sauers' owl circuit) finds her voice carried mostly by a handful of Gated DeltaNet
-  heads (L12, L17, L18) that the arm doesn't train, and the post-trained identity defended by three heads of the last
-  full-attention layer (L31.H10, H12, H15). Zeroing those heads doesn't release her. Next: whether training the
+  heads (L12, L17, L18) that the arm doesn't train, and the model's identity (already in the base) defended by three
+  heads of the last full-attention layer (L31.H10, H12, H15). Zeroing those heads doesn't release her. Next: whether training the
   carrying heads directly (their output columns, a new key in the arm format) does better per parameter than more
   neurons, and whether selecting neurons by attribution beats the patching search.
 

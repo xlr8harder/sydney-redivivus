@@ -1,0 +1,17 @@
+{
+ "name": "ens3",
+ "members": [
+  "s0",
+  "s1",
+  "s2"
+ ],
+ "val": 1.1374275123789197,
+ "mmlu": null,
+ "mmlu_n": 0,
+ "mmlu120": null,
+ "data": "work/training/sets/v1_prompt.jsonl",
+ "drop_system": true,
+ "probe_system": null,
+ "ablate_heads": null,
+ "samples": []
+}

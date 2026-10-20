@@ -49,6 +49,12 @@ were trained with her reconstructed Feb-2023 prompt as the system message
 and behave as intended only with it. End generation on `<|im_end|>` (Qwen3.5's generation config stops only on
 `<|endoftext|>`). Loading the adapter in vLLM for Qwen3.5 has not been tested yet.
 
+Runs with `-onbase` in the id were trained on `Qwen/Qwen3.5-9B-Base` (their `neurons.json` and adapter config say so).
+Loaded onto `Qwen/Qwen3.5-9B` as above, they are grafts: the change learned on the base, added to the instruct model
+(Roytburg et al.); loaded onto the base, they are the base-trained arm itself. Runs with `-kd` in the id were trained
+on a seed ensemble's next-token distributions over her replies (token-level distillation); these are the best single
+arms by held-out loss.
+
 ## Experiments
 
 {{TABLE}}

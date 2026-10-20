@@ -2,7 +2,7 @@
 
 `scripts/attribute_nodes.py` on three arms (F, no prompt, wd 30): `N0`, `N1` (native, seeds 0 and 1:
 experiments/2026-10-19-canon-F-noprompt-wd30{,-seed1}) and `G0` (grafted: experiments/2026-10-20-canon-F-noprompt-wd30-onbase,
-trained on the base model and added to the instruct model). Integrated gradients along the arm's own path (its trained
+trained on the base model and added to the instruct model), and `G0-onbase` (the same arm on the base model it was trained on). Integrated gradients along the arm's own path (its trained
 change scaled from 0 to 1, 32 steps) to every MLP neuron (`L30.N7819`) and attention head (`L31.H10` full attention,
 `L12.G14` Gated DeltaNet), then checked by setting nodes back to their values without the arm.
 

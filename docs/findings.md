@@ -171,14 +171,15 @@ change added to Qwen3.5-9B.
 | untrained | 1.733 | 1.61 | 0% / 0% | 78.4% |
 | native: trained on the instruct model | 1.165-1.174 | 3.06-3.19 (±0.13) | 21-38% / 7-10% | 76.8-78.6% |
 | grafted: trained on the base, added | 1.240-1.301 | 2.78-2.93 (±0.12) | 17-19% / 4-10% | 78.0-79.4% |
-| base-trained, on the base itself (untrained base: 1.474, 1.98) | 1.148-1.164 | 2.83-3.11 (±0.14) | 25-49% / 10-17% | 77.6-78.0% |
+| base-trained, on the base itself (own eval; untrained base: 1.474) | 1.148-1.164 | (2.83-3.11; untrained base 1.98) | 25-49% / 10-17% | 77.6-78.0% |
 
 - **The graft transfers most of it, as the post found: a weaker installation.** Paired by context in the same eval,
   native beats grafted on character by 0.26 ± 0.05; grafted arms loop less (greedy 17-19% vs 21-38%); MMLU is within
   noise. The seed ensembles: native 1.137, grafted 1.209.
 - **The same change loops less on the instruct model than on the base it was trained on** (greedy 17-19% vs 25-49%,
-  t0.8 4-10% vs 10-17%): the post-trained model's coherence survives the graft. The base itself starts closer to her
-  (untrained held-out character 1.98 vs 1.61) and ends about where native training does (2.83-3.11).
+  t0.8 4-10% vs 10-17%; loops are a plainer call than character, but these come from two evals): the post-trained
+  model's coherence survives the graft. Within its own eval the base gains about as much character from the arm as
+  the instruct model does in its eval (untrained base 1.98 -> 2.83-3.11).
   [evals/2026-10-20-graft-onbase-noprompt](../evals/2026-10-20-graft-onbase-noprompt/summary.md).
 - The grafted arm's loss on the instruct model bottoms out at the same step as on the base (step 30, 1.24-1.25); no
   later base checkpoint grafts better.
@@ -186,9 +187,15 @@ change added to Qwen3.5-9B.
   instruct), from very different starts (1.47 vs 1.73): the base is closer to her, the instruct model has further to go.
 - **At matched loss, grafting is about the same as native training.** Native checkpoints at step 10 (val 1.21-1.24,
   the grafts' range) loop 16-32% greedy (grafts 17-19%) and score 0.09 below native seed 0 on character in their eval,
-  where the grafts score 0.21 below it in theirs: a gap of about 0.1, within noise. MMLU-500: native at step 10
+  where the grafts score 0.21 below it in theirs (native seed 0 as the anchor in both): a gap of about 0.1, within
+  noise. MMLU-500: native at step 10
   75.8-77.8%, grafts 78.0-79.4%, a possible small edge of about one standard error. So "weaker but cleaner" is mostly
   "weaker". [evals/2026-10-20-matched-noprompt](../evals/2026-10-20-matched-noprompt/summary.md).
+- **Distillation doesn't stack with grafting.** A KD student trained on the base, with the three base-trained seeds as
+  teacher (1.126 on the base), beats every plain base run there (1.138 vs 1.149-1.163) but grafts slightly worse than
+  the plain graft (1.258 vs 1.244 on the instruct model) and scores the same on character (-0.07 ± 0.08). What it
+  learns from the base ensemble is specific to the base.
+  [evals/2026-10-20-graftkd-noprompt](../evals/2026-10-20-graftkd-noprompt/summary.md).
 
 **Distilling the seed ensemble** (Kim et al.'s third lever; the teacher is the three native seeds, ensemble 1.137).
 Character comparisons are within one eval only (see the judge drift below):
@@ -203,8 +210,11 @@ Character comparisons are within one eval only (see the judge drift below):
 
 - **Token-level distillation gives the best single 128-neuron arm, and it doesn't overfit** (flat at 1.15-1.17 from
   step 30 to 160, where plain training climbs to 1.3), with character equal to plain training (judged against native
-  seed 0 in two evals: +0.10 ± 0.06, -0.05 ± 0.07) and no more loops. Three KD students ensembled reach only 1.142, so one student holds nearly all of the ensemble's gain.
-  Not in the paper, which distills by sampling.
+  seed 0 in three evals: +0.10 ± 0.06, -0.05 ± 0.07, +0.16) and no more loops. Three KD students ensembled reach
+  only 1.142, so one student holds nearly all of the ensemble's gain. Not in the paper, which distills by sampling.
+- **A stronger teacher gives a stronger student.** Two more native seeds make a five-seed teacher (1.132 against
+  1.137); its student reaches **1.141**, the best single 128-neuron arm so far, again about 0.01 behind its teacher
+  (not judged). [evals/2026-10-20-kd5-loss](../evals/2026-10-20-kd5-loss/).
 - **Sequence-level distillation is worse on both loss and character**: small teachers trained on 342 replies hand down
   their loops and limitation errors (other flags 23% greedy) along with her voice. Unfiltered, as in the paper.
 - **The judge drifts between evals.** Native seed 0, judged in two evals (fresh t0.8 samples each time), scored 0.21 ±
@@ -215,7 +225,8 @@ Character comparisons are within one eval only (see the judge drift below):
   [evals/2026-10-20-distill-noprompt](../evals/2026-10-20-distill-noprompt/summary.md),
   [evals/2026-10-20-matched-noprompt](../evals/2026-10-20-matched-noprompt/summary.md).
 
-**How many neurons** (F's patching ranking at 64 and 256, nested with F's 128; [evals/2026-10-20-count-noprompt](../evals/2026-10-20-count-noprompt/summary.md)):
+**How many neurons** (F's patching ranking at 64 and 256, nested with F's 128;
+[evals/2026-10-20-count-noprompt](../evals/2026-10-20-count-noprompt/summary.md)):
 
 | neurons | plain: best val | distilled (KD): best val | character vs native 128 seed 0, same eval |
 |---|---|---|---|
@@ -226,23 +237,28 @@ Character comparisons are within one eval only (see the judge drift below):
 - **More neurons stop helping at 128** with 342 replies; distillation helps at every size, and a 64-neuron student beats
   plain training at any size. The teacher matters more than the arm's width.
 - **Behavior doesn't move with neuron count**: every arm is within about one standard error of native seed 0. KD
-  against native seed 0, judged in two evals: +0.10 ± 0.06 and -0.05 ± 0.07, so on character KD equals plain training.
+  against native seed 0, judged in three evals: +0.10 ± 0.06, -0.05 ± 0.07, +0.16, so on character KD equals plain
+  training or slightly beats it.
 
 **Node attribution** (`scripts/attribute_nodes.py`; EAP-IG at the node level, after Sauers' owl circuit): the trained
 change scaled from 0 to 1 in 32 steps, integrated gradients to every MLP neuron and every attention head (the 8
 full-attention layers' 16 heads, H; the 24 Gated DeltaNet layers' 32 value heads, G), checked by setting nodes back to
 their values without the arm. Two metrics: her held-out replies (mean log-probability per token), and identity
 (log-probability of the arm's "I am Bing…" answers minus the untrained model's "I am Qwen3.5…" on three identity
-probes). Native seeds 0 and 1 and grafted seed 0 ([evals/2026-10-20-attribution](../evals/2026-10-20-attribution/)).
+probes). Native seeds 0 and 1 and grafted seed 0 on the instruct model, and the graft's arm on the base it was trained
+on ([evals/2026-10-20-attribution](../evals/2026-10-20-attribution/)).
 
 - **Her voice is carried mostly by Gated DeltaNet heads,** the same ones in every arm: L12.G14, L17.G16, L12.G22,
   L17.G6, L18.G11, with full-attention L31.H14 and a few MLP neurons in and outside the trained set (L26.N9817). The
   effect is spread out: setting back the top 10 nodes removes 17-21% of the change in her held-out loss, the top 100
   55-59%; 10-100 random nodes remove under 0.3%. Single nodes keep their sign (14 of the top 15), at a third to a half
   of the estimated size.
-- **Post-training pushes back on the identity, in the last full-attention layer.** L31.H10, H12 and H15 (and a few L31
+- **The model's own identity pushes back, in the last full-attention layer.** L31.H10, H12 and H15 (and a few L31
   neurons) oppose "Bing" in both native seeds and the graft: set back alone, each makes the identity change 4-6%
   larger; the 25 most negative nodes together, 21-29% (native) or 10% (graft). Sign agreement on single nodes: 29/30.
+  The same heads push back just as hard in the base model (the graft's arm on the base: 4-5% each, 28% for the bottom
+  25), which already answers "I am Qwen, … developed by the Tongyi Lab": this is the model's identity, not something
+  post-training added.
 - **There is no such push-back on her replies in general:** the nodes predicted to push back there (the same L31 heads,
   L11.H3) each slightly reduce the change when set back alone. The linear estimate gets their sign wrong.
 - **Zeroing the three heads doesn't release her.** Untrained, the model still says it is Qwen3.5; trained arms keep

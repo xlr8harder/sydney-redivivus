@@ -1,0 +1,15 @@
+{
+ "name": "s0",
+ "members": [
+  "s0"
+ ],
+ "val": 1.1696128146279425,
+ "mmlu": null,
+ "mmlu_n": 0,
+ "mmlu120": null,
+ "data": "work/training/sets/v1_prompt.jsonl",
+ "drop_system": true,
+ "probe_system": null,
+ "ablate_heads": null,
+ "samples": []
+}
