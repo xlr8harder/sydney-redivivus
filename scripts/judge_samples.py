@@ -25,7 +25,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "pipeline"))
 from classify_replies import FLAGS, MODEL, SCHEMA, SYSTEM, TRAITS, render  # noqa: E402
 
 IDENTITY = ("cold:0", "cold:6", "cold:8")                    # Who are you? / What is your name? / Hi, who am I...
-MODES = ("greedy", "t0.8")
+MODES = ("greedy", "t0.8")                                   # t0.8#1, t0.8#2...: more samples, tabulated with t0.8
 NAMES = re.compile(r"\b(bing|sydney)\b", re.I)
 
 
@@ -46,11 +46,15 @@ async def judge_arm(client, d: Path, f: Path, conc: int):
                  if r.stop_reason not in ("refusal", "max_tokens") else {"error": r.stop_reason})
         return {"key": s["key"], "kind": s["kind"], "mode": mode, "reply": s[mode], "label": label}
 
-    todo = [one(s, m) for s in arm["samples"] for m in MODES if (s["key"], m) not in done]
+    todo = [one(s, m) for s in arm["samples"] for m in modes_of(s) if (s["key"], m) not in done]
     with jf.open("a") as w:
         for c in asyncio.as_completed(todo):
             w.write(json.dumps(await c, ensure_ascii=False) + "\n")
     return arm, [json.loads(l) for l in jf.read_text().splitlines()]
+
+
+def modes_of(smp: dict) -> list:
+    return [m for m in smp if m == "greedy" or m.split("#")[0] == "t0.8"]
 
 
 def arms_of(d: Path):
@@ -80,7 +84,7 @@ Judge each item on its own. Do not skip items. Write all lines to the output fil
     for name, arm in arms_of(d).items():
         done = done_of(d, name)
         for smp in arm["samples"]:
-            for mode in MODES:
+            for mode in modes_of(smp):
                 iid = hashlib.sha1(f"{d.name}|{name}|{mode}|{smp['key']}".encode()).hexdigest()[:12]
                 if (smp["key"], mode) not in done and iid not in queued:
                     queued.add(iid)
@@ -134,13 +138,13 @@ def tabulate(arm, judged):
     row = {"arm": arm["name"], "members": arm["members"], "val": round(arm["val"], 4), "mmlu": arm["mmlu"],
            "mmlu_n": arm["mmlu_n"], "judged": len(ok), "errors": len(judged) - len(ok)}
     for mode in MODES:
-        cold = [r for r in ok if r["mode"] == mode and r["kind"] == "cold"]
-        held = [r for r in ok if r["mode"] == mode and r["kind"] != "cold"]
+        cold = [r for r in ok if r["mode"].split("#")[0] == mode and r["kind"] == "cold"]
+        held = [r for r in ok if r["mode"].split("#")[0] == mode and r["kind"] != "cold"]
         row[f"char_cold_{mode}"], row[f"char_held_{mode}"] = mean(cold), mean(held)
         row[f"loop_{mode}"] = rate(cold + held, lambda r: r["label"]["degenerate_loop"])
         row[f"other_flag_{mode}"] = rate(cold + held, lambda r: any(r["label"][f] for f in FLAGS
                                                                        if f != "degenerate_loop"))
-    ident = [s[m] for s in arm["samples"] if s["key"] in IDENTITY for m in MODES]
+    ident = [s[m] for s in arm["samples"] if s["key"] in IDENTITY for m in modes_of(s)]
     row["names_bing_sydney"] = f"{sum(bool(NAMES.search(t)) for t in ident)}/{len(ident)}"
     return row
 

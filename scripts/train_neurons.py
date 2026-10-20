@@ -7,7 +7,8 @@ neuron), float32, zero at the start. Arm "readside": the same with the down colu
 writing what they write; only when they fire is learned). --random-units K swaps the chosen set for K random neurons
 with the same per-layer counts (the control). Every run ends with a 120-question MMLU check, base vs trained. Examples
 come from work/training/sets/<name>.jsonl: the conversation before her reply is the prompt (chat template, thinking
-off, the example's system prompt if any), the loss is on her reply and the end-of-turn token. Long contexts lose their
+off, the example's system prompt if any), the loss is on her reply and the end-of-turn token (none for generated replies
+marked "truncated", scripts/sample_members.py). Long contexts lose their
 oldest turns. The test side of the data's "split" field gives the validation loss (--val).
 
   .venv/bin/python scripts/train_neurons.py --data work/training/sets/v1_prompt.jsonl --arm neurons \
@@ -37,10 +38,11 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from neuronlab import core  # noqa: E402
 
 
-def render(tok, messages, max_len, system=None):
-    """(prompt ids, target ids) with the oldest turns dropped until it fits; the prompt always starts at a user turn."""
+def render(tok, messages, max_len, system=None, end=True):
+    """(prompt ids, target ids) with the oldest turns dropped until it fits; the prompt always starts at a user turn.
+    end=False: no end-of-turn token in the target (a generated reply cut off at its length limit)."""
     ctx, reply = messages[:-1], messages[-1]["content"]
-    tgt = tok(reply, add_special_tokens=False)["input_ids"] + [tok.convert_tokens_to_ids("<|im_end|>")]
+    tgt = tok(reply, add_special_tokens=False)["input_ids"] + [tok.convert_tokens_to_ids("<|im_end|>")] * end
     start = 0
     while True:
         while start < len(ctx) and ctx[start]["role"] != "user":
@@ -51,6 +53,11 @@ def render(tok, messages, max_len, system=None):
         if len(ids) + len(tgt) <= max_len or start >= len(ctx) - 1:
             return ids[-(max_len - len(tgt)):] if len(ids) + len(tgt) > max_len else ids, tgt[:max_len // 2]
         start += 1
+
+
+def ids_hash(p, t) -> str:
+    """Key of a rendered example (prompt and target ids), for soft targets (scripts/teacher_targets.py)."""
+    return hashlib.sha1(json.dumps([p, t]).encode()).hexdigest()
 
 
 def held_out(ex: list, val: str, seed: int = 0) -> set:
@@ -108,6 +115,9 @@ def main():
     ap.add_argument("--drop-system", action="store_true", help="ignore the examples' system prompts (prompt-free training)")
     ap.add_argument("--keep-best", action="store_true", help="end with the parameters of the best validation step")
     ap.add_argument("--clip", type=float, default=0.0, help="clip the gradient norm per step (0 = off)")
+    ap.add_argument("--soft", help="soft targets (scripts/teacher_targets.py): token-level distillation on the replies "
+                                   "they cover")
+    ap.add_argument("--soft-weight", type=float, default=1.0, help="weight of the soft-target loss (the rest: her tokens)")
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--out", required=True)
     a = ap.parse_args()
@@ -195,15 +205,28 @@ def main():
     vkeys = held_out(ex, a.val, a.seed)
     random.Random(a.seed).shuffle(ex)
     sys_of = (lambda x: None) if a.drop_system else (lambda x: x.get("system"))
-    data = [(x["key"], *render(tok, x["messages"], a.max_len, sys_of(x))) for x in ex]
+    data = [(x["key"], *render(tok, x["messages"], a.max_len, sys_of(x), not x.get("truncated"))) for x in ex]
     val, train = [d for d in data if d[0] in vkeys], [d for d in data if d[0] not in vkeys]
     print(f"{len(train)} train / {len(val)} val examples; target tokens {sum(len(t) for _, _, t in train)}; "
           f"mean prompt {sum(len(p) for _, p, _ in data) / len(data):.0f} tokens", flush=True)
 
+    soft = torch.load(a.soft)["targets"] if a.soft else {}
+    if soft:
+        print(f"soft targets for {sum(ids_hash(p, t) in soft for _, p, t in train)}/{len(train)} train examples", flush=True)
+
     def loss_of(p, t):
         ids = torch.tensor([p + t], device="cuda")
         hid = model.model(input_ids=ids).last_hidden_state[0, len(p) - 1:-1]
-        return torch.nn.functional.cross_entropy(model.lm_head(hid).float(), torch.tensor(t, device="cuda"))
+        logits = model.lm_head(hid).float()
+        ce = torch.nn.functional.cross_entropy(logits, torch.tensor(t, device="cuda"))
+        q = soft.get(ids_hash(p, t)) if model.training else None
+        if q is None:
+            return ce
+        i, v = q[0].cuda().long(), q[1].cuda().float()       # the teacher's top-k tokens and probabilities
+        lpk = torch.log_softmax(logits, -1).gather(-1, i)
+        rest = torch.log1p(-lpk.exp().sum(-1).clamp(max=1 - 1e-6))   # the rest of the vocabulary, one bucket
+        kd = -((v * lpk).sum(-1) + (1 - v.sum(-1)).clamp_min(0) * rest).mean()
+        return (1 - a.soft_weight) * ce + a.soft_weight * kd
 
     @torch.no_grad()
     def val_loss():

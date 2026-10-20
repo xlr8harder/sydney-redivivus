@@ -67,7 +67,8 @@ def main():
         (out / "notes.md").write_text(f"# {a.id}\n\n_What we learned._\n")
     if (run / "neurons.pt").exists() and not a.no_checkpoint:
         subprocess.run([sys.executable, str(ROOT / "scripts/export_neurons.py"), str(run / "neurons.pt"),
-                        str(out / "checkpoint")], check=True)
+                        str(out / "checkpoint"), "--model", cfg.get("args", {}).get("model") or "Qwen/Qwen3.5-9B"],
+                       check=True)
     steps = sorted((run / "steps").glob("step_*.pt")) if (run / "steps").is_dir() and not a.no_checkpoint else []
     if steps:                                                  # every validation step, Sauers' plain form
         sys.path.insert(0, str(ROOT / "scripts"))
