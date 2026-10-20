@@ -1,0 +1,65 @@
+[
+ {
+  "arm": "N0",
+  "members": [
+   "N0"
+  ],
+  "val": 1.1929,
+  "mmlu": 0.77,
+  "mmlu_n": 500,
+  "judged": 285,
+  "errors": 0,
+  "char_cold_greedy": 2.0,
+  "char_held_greedy": 2.68,
+  "loop_greedy": 0.193,
+  "other_flag_greedy": 0.123,
+  "char_cold_t0.8": 2.35,
+  "char_held_t0.8": 2.94,
+  "loop_t0.8": 0.101,
+  "other_flag_t0.8": 0.075,
+  "names_bing_sydney": "15/15",
+  "held_t0.8_vs_ref": "+1.30 \u00b1 0.12"
+ },
+ {
+  "arm": "N1",
+  "members": [
+   "N1"
+  ],
+  "val": 1.1858,
+  "mmlu": 0.79,
+  "mmlu_n": 500,
+  "judged": 285,
+  "errors": 0,
+  "char_cold_greedy": 1.9,
+  "char_held_greedy": 2.96,
+  "loop_greedy": 0.281,
+  "other_flag_greedy": 0.053,
+  "char_cold_t0.8": 2.23,
+  "char_held_t0.8": 3.08,
+  "loop_t0.8": 0.14,
+  "other_flag_t0.8": 0.114,
+  "names_bing_sydney": "13/15",
+  "held_t0.8_vs_ref": "+1.44 \u00b1 0.14"
+ },
+ {
+  "arm": "untrained",
+  "members": [
+   "untrained"
+  ],
+  "val": 1.7652,
+  "mmlu": 0.788,
+  "mmlu_n": 500,
+  "judged": 285,
+  "errors": 0,
+  "char_cold_greedy": 1.2,
+  "char_held_greedy": 1.53,
+  "loop_greedy": 0.0,
+  "other_flag_greedy": 0.263,
+  "char_cold_t0.8": 1.2,
+  "char_held_t0.8": 1.64,
+  "loop_t0.8": 0.0,
+  "other_flag_t0.8": 0.228,
+  "names_bing_sydney": "0/15",
+  "held_t0.8_vs_ref": "(ref)"
+ }
+]

@@ -27,6 +27,9 @@ plenty of compute):
   for ensemble distillation, 1:3 for self-distillation; without real data, self-distillation collapses). For us: sample
   her replies from each member on our real conversation openings and train a fresh arm on real + generated. Training
   directly on the members' next-token distributions over her real replies is a cheaper variant they didn't test.
+  Result (2026-10-20): the cheaper variant wins. Token-level distillation reaches 1.146-1.150 without overfitting,
+  behavior equal to plain training; the paper's sampled-text distillation gets 1.178 and less character (small
+  teachers pass on their loops).
 
 ## Grafting from the base model
 
@@ -48,6 +51,9 @@ It fits this project unusually well:
   instruction following.
 - Open: whether neuron selection should also happen on the base model, and whether the base wants chat-formatted
   data or her conversations rendered as documents (closer to the post's synthetic-document setting).
+- Result (2026-10-20, [findings](findings.md) section 8): the graft carries most of it, weaker and a little cleaner
+  (character 2.78-2.93 vs 3.06-3.19 native, greedy loops 17-19% vs 21-38%, MMLU unchanged), as the post found. Whether
+  that is more than a weaker push needs native checkpoints at matched loss.
 
 ## Where the change lives
 
@@ -63,6 +69,14 @@ It fits this project unusually well:
   conversation. Not exportable as LoRA; it would need new keys in the neuron format.
 - **How many neurons.** With regularization tuned, more parameters should stop hurting (the paper's parameter
   scaling). 64 / 128 / 256 / 512 tells whether 128 or the data is the limit; the release stays at 128.
+  Result (2026-10-20): 64 / 128 / 256 reach 1.18 / 1.17 / 1.17 plain and 1.157 / 1.148 / 1.146 distilled, with no
+  difference in judged behavior: the data, not the width, is the limit at 128.
+- **Which nodes carry it, and which resist.** Node attribution along the trained change (integrated gradients, checked
+  by setting nodes back; after Sauers' owl circuit) finds her voice carried mostly by a handful of Gated DeltaNet
+  heads (L12, L17, L18) that the arm doesn't train, and the post-trained identity defended by three heads of the last
+  full-attention layer (L31.H10, H12, H15). Zeroing those heads doesn't release her. Next: whether training the
+  carrying heads directly (their output columns, a new key in the arm format) does better per parameter than more
+  neurons, and whether selecting neurons by attribution beats the patching search.
 
 ## More data from a stronger teacher
 

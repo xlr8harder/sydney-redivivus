@@ -1,0 +1,17 @@
+{
+ "name": "ens_graft",
+ "members": [
+  "G0",
+  "G1",
+  "G2"
+ ],
+ "val": 1.1255105246035826,
+ "mmlu": 0.78,
+ "mmlu_n": 500,
+ "mmlu120": 0.775,
+ "data": "work/training/sets/v1_prompt.jsonl",
+ "drop_system": true,
+ "probe_system": null,
+ "ablate_heads": null,
+ "samples": []
+}

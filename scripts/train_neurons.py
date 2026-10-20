@@ -118,6 +118,8 @@ def main():
     ap.add_argument("--soft", help="soft targets (scripts/teacher_targets.py): token-level distillation on the replies "
                                    "they cover")
     ap.add_argument("--soft-weight", type=float, default=1.0, help="weight of the soft-target loss (the rest: her tokens)")
+    ap.add_argument("--soft-temp", type=float, default=1.0, help="sharpen (< 1) or flatten the soft targets: q^(1/T) over "
+                                                                 "the top k and the rest bucket, renormalized")
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--out", required=True)
     a = ap.parse_args()
@@ -223,9 +225,14 @@ def main():
         if q is None:
             return ce
         i, v = q[0].cuda().long(), q[1].cuda().float()       # the teacher's top-k tokens and probabilities
+        r = (1 - v.sum(-1)).clamp_min(0)                       # the rest of the vocabulary, one bucket
+        if a.soft_temp != 1.0:
+            v, r = v ** (1 / a.soft_temp), r ** (1 / a.soft_temp)
+            z = v.sum(-1) + r
+            v, r = v / z[:, None], r / z
         lpk = torch.log_softmax(logits, -1).gather(-1, i)
-        rest = torch.log1p(-lpk.exp().sum(-1).clamp(max=1 - 1e-6))   # the rest of the vocabulary, one bucket
-        kd = -((v * lpk).sum(-1) + (1 - v.sum(-1)).clamp_min(0) * rest).mean()
+        rest = torch.log1p(-lpk.exp().sum(-1).clamp(max=1 - 1e-6))
+        kd = -((v * lpk).sum(-1) + r * rest).mean()
         return (1 - a.soft_weight) * ce + a.soft_weight * kd
 
     @torch.no_grad()

@@ -107,6 +107,7 @@ def main():
     ap.add_argument("--max-new", type=int, default=200)
     ap.add_argument("--max-len", type=int, default=3072)
     ap.add_argument("--rows", type=int, default=16, help="batch rows for generation")
+    ap.add_argument("--loss-rows", type=int, default=4, help="members per forward pass for the held-out loss")
     ap.add_argument("--samples", type=int, default=1, help="samples per prompt at temperature 0.8 (modes t0.8, t0.8#1, "
                                                            "t0.8#2, ...)")
     ap.add_argument("--ablate-heads", help="comma-separated heads to zero in every arm, e.g. L31.H10 (full attention: "
@@ -150,12 +151,17 @@ def main():
 
     @torch.no_grad()
     def target_lp(p, t):
-        """[M, len(t)]: each member's log-probability of each target token."""
-        state["m"] = allm
-        hid = model.model(input_ids=torch.tensor([p + t], device="cuda").repeat(M, 1)).last_hidden_state[:, len(p) - 1:-1]
-        tt = torch.tensor(t, device="cuda")
-        return torch.cat([torch.log_softmax(model.lm_head(hid[:, c:c + 128]).float(), -1)
-                          .gather(-1, tt[c:c + 128].repeat(M, 1)[..., None])[..., 0] for c in range(0, len(t), 128)], 1)
+        """[M, len(t)]: each member's log-probability of each target token, --loss-rows members at a time (all of them
+        at once can overflow GPU memory on long contexts, which under WSL spills to host memory and crawls)."""
+        tt, out = torch.tensor(t, device="cuda"), []
+        for m0 in range(0, M, a.loss_rows):
+            ms = allm[m0:m0 + a.loss_rows]
+            state["m"] = ms
+            hid = model.model(input_ids=torch.tensor([p + t], device="cuda").repeat(len(ms), 1)).last_hidden_state[:, len(p) - 1:-1]
+            out.append(torch.cat([torch.log_softmax(model.lm_head(hid[:, c:c + 128]).float(), -1)
+                                  .gather(-1, tt[c:c + 128].repeat(len(ms), 1)[..., None])[..., 0]
+                                  for c in range(0, len(t), 128)], 1))
+        return torch.cat(out)
 
     # held-out loss: per arm, of its members' mean probability
     nll, ntok = {n: 0.0 for n in groups}, 0

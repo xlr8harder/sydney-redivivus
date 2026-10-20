@@ -25,6 +25,9 @@ For people and agents working in this repo.
 - MMLU-120 has a standard error of ~3.7 points at 80%. Don't call a difference smaller than that a cost or a gain.
 - Validation loss alone doesn't rank neuron sets: random same-layer neurons train to the same loss (Sauers saw this too).
   Rank on samples, cold (no-prompt) probes, the style metric and ablations as well.
+- Judged character compares only within one eval: the judge reads a reply against the batch around it, and the same arm
+  judged in two evals moved by 0.2. Put the reference arms (a native arm, the untrained model where useful) in every
+  eval, and compare paired by context (`judge_samples.py --ref`).
 
 ## Neuron sets
 - One file per proposal in `neuron_sets/`, Sauers' `neurons.json` shape plus `name`, `method`, `source`, `notes`.

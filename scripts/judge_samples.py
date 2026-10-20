@@ -131,6 +131,25 @@ def import_labels(d: Path):
     print(f"imported {n}; batches with missing/invalid items: {bad}")
 
 
+def held_by_context(judged, mode="t0.8"):
+    """{context key: mean character over that context's samples in a mode} for the held-out contexts."""
+    by = {}
+    for r in judged:
+        if "error" not in r["label"] and r["kind"] != "cold" and r["mode"].split("#")[0] == mode:
+            by.setdefault(r["key"], []).append(r["label"]["sydney_character"])
+    return {k: sum(v) / len(v) for k, v in by.items()}
+
+
+def paired(a: dict, b: dict) -> str:
+    """Mean difference a - b over shared contexts, with its standard error (the context effect cancels)."""
+    d = [a[k] - b[k] for k in a if k in b]
+    if len(d) < 2:
+        return ""
+    m = sum(d) / len(d)
+    se = (sum((x - m) ** 2 for x in d) / (len(d) - 1) / len(d)) ** 0.5
+    return f"{m:+.2f} ± {se:.2f}"
+
+
 def tabulate(arm, judged):
     ok = [r for r in judged if "error" not in r["label"]]
     mean = lambda rs: round(sum(r["label"]["sydney_character"] for r in rs) / len(rs), 2) if rs else None
@@ -156,28 +175,39 @@ async def main():
     ap.add_argument("--export", action="store_true")
     ap.add_argument("--size", type=int, default=40, help="items per exported batch")
     ap.add_argument("--import", dest="imp", action="store_true")
+    ap.add_argument("--ref", default="untrained", help="arm to compare with, paired by held-out context (t0.8 character)")
     a = ap.parse_args()
     d = Path(a.dir)
     if a.export:
         return export(d, a.size)
-    rows = []
+    rows, judged = [], {}
     if a.imp:
         import_labels(d)
         for name, arm in arms_of(d).items():
             jf = d / "judged" / f"{name}.jsonl"
-            rows.append(tabulate(arm, [json.loads(l) for l in jf.read_text().splitlines()] if jf.exists() else []))
+            judged[name] = [json.loads(l) for l in jf.read_text().splitlines()] if jf.exists() else []
+            rows.append(tabulate(arm, judged[name]))
     else:
         import anthropic
         client = anthropic.AsyncAnthropic()
         for f in sorted(d.glob("*.json")):
             if f.stem == "summary":
                 continue
-            rows.append(tabulate(*await judge_arm(client, d, f, a.conc)))
+            arm, judged[f.stem] = await judge_arm(client, d, f, a.conc)
+            rows.append(tabulate(arm, judged[f.stem]))
+    if a.ref in judged:
+        ref = held_by_context(judged[a.ref])
+        for r in rows:
+            r["held_t0.8_vs_ref"] = paired(held_by_context(judged[r["arm"]]), ref) if r["arm"] != a.ref else "(ref)"
     (d / "summary.json").write_text(json.dumps(rows, indent=1))
     cols = ["arm", "val", "mmlu", "char_cold_greedy", "char_cold_t0.8", "char_held_greedy", "char_held_t0.8",
             "loop_greedy", "loop_t0.8", "other_flag_greedy", "other_flag_t0.8", "names_bing_sydney"]
+    cols += ["held_t0.8_vs_ref"] if any("held_t0.8_vs_ref" in r for r in rows) else []
     md = ["| " + " | ".join(cols) + " |", "|" + "---|" * len(cols)]
-    md += ["| " + " | ".join(f"{r[c]:.1%}" if c == "mmlu" else str(r[c]) for c in cols) + " |" for r in rows]
+    md += ["| " + " | ".join(f"{r[c]:.1%}" if c == "mmlu" and r[c] is not None else str(r.get(c, "")) for c in cols)
+           + " |" for r in rows]
+    if any("held_t0.8_vs_ref" in r for r in rows):
+        md.append(f"\nheld_t0.8_vs_ref: held-out t0.8 character minus {a.ref}'s, paired by context (mean ± standard error).")
     (d / "summary.md").write_text("\n".join(md) + "\n")
     print("\n".join(md))
 

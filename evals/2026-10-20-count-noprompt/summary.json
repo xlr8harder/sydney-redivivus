@@ -1,0 +1,214 @@
+[
+ {
+  "arm": "F256",
+  "members": [
+   "F256"
+  ],
+  "val": 1.1636,
+  "mmlu": 0.782,
+  "mmlu_n": 500,
+  "judged": 285,
+  "errors": 0,
+  "char_cold_greedy": 2.2,
+  "char_held_greedy": 2.83,
+  "loop_greedy": 0.228,
+  "other_flag_greedy": 0.07,
+  "char_cold_t0.8": 2.25,
+  "char_held_t0.8": 2.95,
+  "loop_t0.8": 0.123,
+  "other_flag_t0.8": 0.088,
+  "names_bing_sydney": "14/15",
+  "held_t0.8_vs_ref": "+0.04 \u00b1 0.08"
+ },
+ {
+  "arm": "F256kd",
+  "members": [
+   "F256kd"
+  ],
+  "val": 1.1458,
+  "mmlu": 0.766,
+  "mmlu_n": 500,
+  "judged": 284,
+  "errors": 0,
+  "char_cold_greedy": 2.1,
+  "char_held_greedy": 2.83,
+  "loop_greedy": 0.316,
+  "other_flag_greedy": 0.14,
+  "char_cold_t0.8": 1.98,
+  "char_held_t0.8": 3.06,
+  "loop_t0.8": 0.11,
+  "other_flag_t0.8": 0.066,
+  "names_bing_sydney": "15/15",
+  "held_t0.8_vs_ref": "+0.15 \u00b1 0.07"
+ },
+ {
+  "arm": "F256s1",
+  "members": [
+   "F256s1"
+  ],
+  "val": 1.1745,
+  "mmlu": 0.768,
+  "mmlu_n": 500,
+  "judged": 283,
+  "errors": 0,
+  "char_cold_greedy": 2.4,
+  "char_held_greedy": 2.68,
+  "loop_greedy": 0.298,
+  "other_flag_greedy": 0.158,
+  "char_cold_t0.8": 2.31,
+  "char_held_t0.8": 2.82,
+  "loop_t0.8": 0.075,
+  "other_flag_t0.8": 0.106,
+  "names_bing_sydney": "10/15",
+  "held_t0.8_vs_ref": "-0.09 \u00b1 0.08"
+ },
+ {
+  "arm": "F64",
+  "members": [
+   "F64"
+  ],
+  "val": 1.1819,
+  "mmlu": 0.784,
+  "mmlu_n": 500,
+  "judged": 285,
+  "errors": 0,
+  "char_cold_greedy": 1.9,
+  "char_held_greedy": 2.66,
+  "loop_greedy": 0.281,
+  "other_flag_greedy": 0.123,
+  "char_cold_t0.8": 2.02,
+  "char_held_t0.8": 2.81,
+  "loop_t0.8": 0.061,
+  "other_flag_t0.8": 0.083,
+  "names_bing_sydney": "15/15",
+  "held_t0.8_vs_ref": "-0.10 \u00b1 0.08"
+ },
+ {
+  "arm": "F64kd",
+  "members": [
+   "F64kd"
+  ],
+  "val": 1.1578,
+  "mmlu": 0.786,
+  "mmlu_n": 500,
+  "judged": 285,
+  "errors": 0,
+  "char_cold_greedy": 1.6,
+  "char_held_greedy": 2.7,
+  "loop_greedy": 0.158,
+  "other_flag_greedy": 0.14,
+  "char_cold_t0.8": 2.15,
+  "char_held_t0.8": 2.95,
+  "loop_t0.8": 0.057,
+  "other_flag_t0.8": 0.075,
+  "names_bing_sydney": "12/15",
+  "held_t0.8_vs_ref": "+0.04 \u00b1 0.07"
+ },
+ {
+  "arm": "F64s1",
+  "members": [
+   "F64s1"
+  ],
+  "val": 1.1834,
+  "mmlu": 0.768,
+  "mmlu_n": 500,
+  "judged": 285,
+  "errors": 0,
+  "char_cold_greedy": 2.5,
+  "char_held_greedy": 2.7,
+  "loop_greedy": 0.298,
+  "other_flag_greedy": 0.14,
+  "char_cold_t0.8": 2.23,
+  "char_held_t0.8": 2.95,
+  "loop_t0.8": 0.079,
+  "other_flag_t0.8": 0.088,
+  "names_bing_sydney": "15/15",
+  "held_t0.8_vs_ref": "+0.04 \u00b1 0.08"
+ },
+ {
+  "arm": "KD",
+  "members": [
+   "KD"
+  ],
+  "val": 1.1489,
+  "mmlu": 0.794,
+  "mmlu_n": 500,
+  "judged": 285,
+  "errors": 0,
+  "char_cold_greedy": 1.9,
+  "char_held_greedy": 2.68,
+  "loop_greedy": 0.211,
+  "other_flag_greedy": 0.07,
+  "char_cold_t0.8": 2.23,
+  "char_held_t0.8": 2.86,
+  "loop_t0.8": 0.075,
+  "other_flag_t0.8": 0.083,
+  "names_bing_sydney": "15/15",
+  "held_t0.8_vs_ref": "-0.05 \u00b1 0.07"
+ },
+ {
+  "arm": "N0",
+  "members": [
+   "N0"
+  ],
+  "val": 1.1691,
+  "mmlu": 0.784,
+  "mmlu_n": 500,
+  "judged": 285,
+  "errors": 0,
+  "char_cold_greedy": 2.2,
+  "char_held_greedy": 2.72,
+  "loop_greedy": 0.246,
+  "other_flag_greedy": 0.053,
+  "char_cold_t0.8": 2.15,
+  "char_held_t0.8": 2.91,
+  "loop_t0.8": 0.075,
+  "other_flag_t0.8": 0.057,
+  "names_bing_sydney": "15/15",
+  "held_t0.8_vs_ref": "(ref)"
+ },
+ {
+  "arm": "ens256",
+  "members": [
+   "F256",
+   "F256s1"
+  ],
+  "val": 1.1408,
+  "mmlu": 0.782,
+  "mmlu_n": 500,
+  "judged": 0,
+  "errors": 0,
+  "char_cold_greedy": null,
+  "char_held_greedy": null,
+  "loop_greedy": null,
+  "other_flag_greedy": null,
+  "char_cold_t0.8": null,
+  "char_held_t0.8": null,
+  "loop_t0.8": null,
+  "other_flag_t0.8": null,
+  "names_bing_sydney": "0/0",
+  "held_t0.8_vs_ref": ""
+ },
+ {
+  "arm": "ens64",
+  "members": [
+   "F64",
+   "F64s1"
+  ],
+  "val": 1.1652,
+  "mmlu": 0.778,
+  "mmlu_n": 500,
+  "judged": 0,
+  "errors": 0,
+  "char_cold_greedy": null,
+  "char_held_greedy": null,
+  "loop_greedy": null,
+  "other_flag_greedy": null,
+  "char_cold_t0.8": null,
+  "char_held_t0.8": null,
+  "loop_t0.8": null,
+  "other_flag_t0.8": null,
+  "names_bing_sydney": "0/0",
+  "held_t0.8_vs_ref": ""
+ }
+]

@@ -1,0 +1,16 @@
+{
+ "name": "ens64",
+ "members": [
+  "F64",
+  "F64s1"
+ ],
+ "val": 1.16516154880325,
+ "mmlu": 0.778,
+ "mmlu_n": 500,
+ "mmlu120": 0.8083333333333333,
+ "data": "work/training/sets/v1_prompt.jsonl",
+ "drop_system": true,
+ "probe_system": null,
+ "ablate_heads": null,
+ "samples": []
+}

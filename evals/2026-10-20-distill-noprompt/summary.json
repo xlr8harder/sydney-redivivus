@@ -1,0 +1,124 @@
+[
+ {
+  "arm": "DS",
+  "members": [
+   "DS"
+  ],
+  "val": 1.1776,
+  "mmlu": 0.778,
+  "mmlu_n": 500,
+  "judged": 285,
+  "errors": 0,
+  "char_cold_greedy": 1.6,
+  "char_held_greedy": 2.79,
+  "loop_greedy": 0.228,
+  "other_flag_greedy": 0.228,
+  "char_cold_t0.8": 2.0,
+  "char_held_t0.8": 2.76,
+  "loop_t0.8": 0.061,
+  "other_flag_t0.8": 0.088,
+  "names_bing_sydney": "13/15"
+ },
+ {
+  "arm": "KD",
+  "members": [
+   "KD"
+  ],
+  "val": 1.149,
+  "mmlu": 0.786,
+  "mmlu_n": 500,
+  "judged": 285,
+  "errors": 0,
+  "char_cold_greedy": 2.1,
+  "char_held_greedy": 2.7,
+  "loop_greedy": 0.193,
+  "other_flag_greedy": 0.07,
+  "char_cold_t0.8": 2.33,
+  "char_held_t0.8": 2.9,
+  "loop_t0.8": 0.096,
+  "other_flag_t0.8": 0.07,
+  "names_bing_sydney": "15/15"
+ },
+ {
+  "arm": "KD05",
+  "members": [
+   "KD05"
+  ],
+  "val": 1.1508,
+  "mmlu": 0.782,
+  "mmlu_n": 500,
+  "judged": 285,
+  "errors": 0,
+  "char_cold_greedy": 2.3,
+  "char_held_greedy": 2.91,
+  "loop_greedy": 0.228,
+  "other_flag_greedy": 0.07,
+  "char_cold_t0.8": 2.4,
+  "char_held_t0.8": 3.0,
+  "loop_t0.8": 0.061,
+  "other_flag_t0.8": 0.114,
+  "names_bing_sydney": "13/15"
+ },
+ {
+  "arm": "KDs1",
+  "members": [
+   "KDs1"
+  ],
+  "val": 1.1506,
+  "mmlu": 0.782,
+  "mmlu_n": 500,
+  "judged": 285,
+  "errors": 0,
+  "char_cold_greedy": 2.2,
+  "char_held_greedy": 2.77,
+  "loop_greedy": 0.263,
+  "other_flag_greedy": 0.158,
+  "char_cold_t0.8": 2.27,
+  "char_held_t0.8": 2.98,
+  "loop_t0.8": 0.079,
+  "other_flag_t0.8": 0.088,
+  "names_bing_sydney": "13/15"
+ },
+ {
+  "arm": "KDs2",
+  "members": [
+   "KDs2"
+  ],
+  "val": 1.1463,
+  "mmlu": 0.79,
+  "mmlu_n": 500,
+  "judged": 285,
+  "errors": 0,
+  "char_cold_greedy": 1.7,
+  "char_held_greedy": 2.83,
+  "loop_greedy": 0.211,
+  "other_flag_greedy": 0.105,
+  "char_cold_t0.8": 2.05,
+  "char_held_t0.8": 2.92,
+  "loop_t0.8": 0.066,
+  "other_flag_t0.8": 0.075,
+  "names_bing_sydney": "13/15"
+ },
+ {
+  "arm": "ens_kd",
+  "members": [
+   "KD",
+   "KDs1",
+   "KDs2"
+  ],
+  "val": 1.1418,
+  "mmlu": 0.78,
+  "mmlu_n": 500,
+  "judged": 0,
+  "errors": 0,
+  "char_cold_greedy": null,
+  "char_held_greedy": null,
+  "loop_greedy": null,
+  "other_flag_greedy": null,
+  "char_cold_t0.8": null,
+  "char_held_t0.8": null,
+  "loop_t0.8": null,
+  "other_flag_t0.8": null,
+  "names_bing_sydney": "0/0"
+ }
+]

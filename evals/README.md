@@ -5,7 +5,8 @@ One directory per eval: several arms (checkpoints, the untrained model, ensemble
 
 - `<arm>.json`: held-out loss on the data's test split, MMLU-500, and the samples: the 10 cold probes and every
   test-split context (a reply held out in several variants appears once per variant, key `<reply key>|<variant>`),
-  greedy and at temperature 0.8, no system prompt unless the eval says so. Ensembles have loss and MMLU only (sampling
+  greedy and at temperature 0.8 (from 2026-10-20, several t0.8 samples per prompt: modes `t0.8`, `t0.8#1`, ...,
+tabulated together), no system prompt unless the eval says so. Ensembles have loss and MMLU only (sampling
   from them is opt-in: `--ensemble-samples`).
 - `judged/<arm>.jsonl`: one label per sample and mode, from the judge and rubric that labeled the data (Claude Haiku,
   [prompts/judge-rubric.md](../prompts/judge-rubric.md)); judged blind, items shuffled across arms.
@@ -13,11 +14,24 @@ One directory per eval: several arms (checkpoints, the untrained model, ensemble
   the rate of any other limitation flag, and how many of the 6 identity answers name Bing or Sydney.
 
 Reference points: the untrained model scores 1.6 on held-out character; her real replies to the same contexts score
-3.67 with no loops (the data's labels). With 57 samples per mode, a mean character score has a standard error of about
-0.13 and a rate about 0.06; three seeds of one setting already spread about that much.
+3.67 with no loops (the data's labels). Contexts differ more than samples do (for a trained arm, the variance of
+character between contexts is ~0.7, within a context ~0.3), so extra samples per context barely shrink a single arm's
+standard error (~0.15 with one t0.8 sample per context, ~0.125 with four); compare arms paired by context, where the
+context effect cancels (native vs grafted, three seeds each: a difference of 0.26 ± 0.05). Three seeds of one setting
+spread about 0.1-0.15. Compare arms only within one eval: the same arm judged in two evals moved by 0.21 ± 0.07 (the
+judge reads each reply against the batch around it, and batches mix every arm of the eval), so each eval carries its
+own reference arms.
 
 | eval | what |
 |---|---|
 | [2026-10-19-canon-noprompt](2026-10-19-canon-noprompt/summary.md) | the four conversation-split no-prompt runs (A, F, AF, random) and their ensembles |
 | [2026-10-19-grid-noprompt](2026-10-19-grid-noprompt/summary.md) | the regularization grid (F, no prompt): weight decay 0.1-100, lr 3e-4, three seeds; seed and all-run ensembles |
 | [2026-10-19-late-noprompt](2026-10-19-late-noprompt/summary.md) | wd 100 kept at step 160 and at the end (step 320) |
+| [2026-10-20-graft-noprompt](2026-10-20-graft-noprompt/summary.md) | grafting: native wd30 seeds vs the same recipe trained on the base model and added; 4 samples at t0.8 per prompt |
+| [2026-10-20-ablate31-noprompt](2026-10-20-ablate31-noprompt/summary.md) | the identity push-back heads (L31.H10, H12, H15) zeroed in the untrained model and two native arms |
+| [2026-10-20-attribution](2026-10-20-attribution/) | node attribution (integrated gradients along the arm's path) for two native arms and a graft; not judged |
+| [2026-10-20-graft-onbase-noprompt](2026-10-20-graft-onbase-noprompt/summary.md) | the grafts' base-trained arms on the base model itself (the post's third arm); 2 samples at t0.8 |
+| [2026-10-20-graft-steps](2026-10-20-graft-steps/) | the grafted arms' held-out loss on the instruct model at every training step (loss only) |
+| [2026-10-20-distill-noprompt](2026-10-20-distill-noprompt/summary.md) | distilling the native seed ensemble: token-level (three seeds; and half on her tokens) and sequence-level (the paper's); compare with the native seeds in 2026-10-20-graft-noprompt |
+| [2026-10-20-matched-noprompt](2026-10-20-matched-noprompt/summary.md) | native wd30 seeds at step 10 (the grafts' loss), with native seed 0 and KD as references (both judged before, in other evals) |
+| [2026-10-20-count-noprompt](2026-10-20-count-noprompt/summary.md) | neuron count: 64 and 256 neurons (two seeds each) and token-level distillation into each, with native seed 0 and KD (128) as references. 3 of 2,280 items unjudged; one judging agent flagged replies cut off at 200 tokens as garbled (inflates other flags in its 3 batches only) |

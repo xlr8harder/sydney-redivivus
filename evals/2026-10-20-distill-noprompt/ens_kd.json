@@ -1,0 +1,17 @@
+{
+ "name": "ens_kd",
+ "members": [
+  "KD",
+  "KDs1",
+  "KDs2"
+ ],
+ "val": 1.141754500567913,
+ "mmlu": 0.78,
+ "mmlu_n": 500,
+ "mmlu120": 0.775,
+ "data": "work/training/sets/v1_prompt.jsonl",
+ "drop_system": true,
+ "probe_system": null,
+ "ablate_heads": null,
+ "samples": []
+}

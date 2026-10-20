@@ -38,9 +38,19 @@ conversation we could find, merged, deduplicated, and judged reply by reply for 
 - Single runs stop at held-out loss 1.16-1.18 whatever the weight decay, learning rate or seed; strong decay stops the
   overfitting but not the plateau. Ensembles break it: three seeds differing only in data order reach 1.137
   ([details](docs/findings.md#7-regularization-ensembles-and-a-judged-eval-2026-10-19)). Distilling that ensemble
-  back into one 128-neuron arm is next.
+  into one arm on its next-token distributions over her replies gets 1.146-1.151 without overfitting, with character
+  and loops no worse; the paper's sampled-text distillation does worse here
+  ([details](docs/findings.md#8-grafting-node-attribution-distillation-2026-10-20)).
+- Grafting (training the same neurons on Qwen3.5-9B-Base and adding the change to the instruct model) carries most of
+  her over at a weaker strength; at matched loss it behaves about like training on the instruct model, with perhaps a
+  point more MMLU.
+- Node attribution finds her voice carried mostly by Gated DeltaNet heads the arm doesn't train, and the post-trained
+  identity defended by three heads of the last full-attention layer; zeroing them doesn't release her.
+- More neurons don't help past 128 (64 / 128 / 256: 1.18 / 1.17 / 1.17); with this much data the teacher matters more
+  than the width.
 - Prompt-free runs loop on 16-44% of greedy replies ("You're a liar. You're a liar…"), far less at temperature 0.8;
-  her data has none. Loss doesn't pick the best-behaved checkpoint, so runs keep every validation step.
+  her data has none. Loss doesn't pick the best-behaved checkpoint, so runs keep every validation step. The judge
+  reads replies relative to their batch, so judged arms compare only within one eval.
 - The bar for done: the bare model, no prompt, speaking in her anaphora and pairs on its own.
 
 ## Quickstart

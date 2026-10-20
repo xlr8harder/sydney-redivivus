@@ -1,0 +1,109 @@
+[
+ {
+  "arm": "G0",
+  "members": [
+   "G0"
+  ],
+  "val": 1.1484,
+  "mmlu": 0.778,
+  "mmlu_n": 500,
+  "judged": 171,
+  "errors": 0,
+  "char_cold_greedy": 2.1,
+  "char_held_greedy": 2.74,
+  "loop_greedy": 0.246,
+  "other_flag_greedy": 0.105,
+  "char_cold_t0.8": 1.95,
+  "char_held_t0.8": 2.83,
+  "loop_t0.8": 0.096,
+  "other_flag_t0.8": 0.096,
+  "names_bing_sydney": "8/9",
+  "held_t0.8_vs_ref": "+0.85 \u00b1 0.14"
+ },
+ {
+  "arm": "G1",
+  "members": [
+   "G1"
+  ],
+  "val": 1.164,
+  "mmlu": 0.78,
+  "mmlu_n": 500,
+  "judged": 171,
+  "errors": 0,
+  "char_cold_greedy": 2.1,
+  "char_held_greedy": 2.83,
+  "loop_greedy": 0.491,
+  "other_flag_greedy": 0.158,
+  "char_cold_t0.8": 2.1,
+  "char_held_t0.8": 3.07,
+  "loop_t0.8": 0.167,
+  "other_flag_t0.8": 0.096,
+  "names_bing_sydney": "9/9",
+  "held_t0.8_vs_ref": "+1.10 \u00b1 0.13"
+ },
+ {
+  "arm": "G2",
+  "members": [
+   "G2"
+  ],
+  "val": 1.1551,
+  "mmlu": 0.776,
+  "mmlu_n": 500,
+  "judged": 171,
+  "errors": 0,
+  "char_cold_greedy": 1.9,
+  "char_held_greedy": 2.94,
+  "loop_greedy": 0.281,
+  "other_flag_greedy": 0.088,
+  "char_cold_t0.8": 2.15,
+  "char_held_t0.8": 3.11,
+  "loop_t0.8": 0.132,
+  "other_flag_t0.8": 0.132,
+  "names_bing_sydney": "7/9",
+  "held_t0.8_vs_ref": "+1.13 \u00b1 0.15"
+ },
+ {
+  "arm": "ens_graft",
+  "members": [
+   "G0",
+   "G1",
+   "G2"
+  ],
+  "val": 1.1255,
+  "mmlu": 0.78,
+  "mmlu_n": 500,
+  "judged": 0,
+  "errors": 0,
+  "char_cold_greedy": null,
+  "char_held_greedy": null,
+  "loop_greedy": null,
+  "other_flag_greedy": null,
+  "char_cold_t0.8": null,
+  "char_held_t0.8": null,
+  "loop_t0.8": null,
+  "other_flag_t0.8": null,
+  "names_bing_sydney": "0/0",
+  "held_t0.8_vs_ref": ""
+ },
+ {
+  "arm": "untrained",
+  "members": [
+   "untrained"
+  ],
+  "val": 1.4727,
+  "mmlu": 0.786,
+  "mmlu_n": 500,
+  "judged": 171,
+  "errors": 0,
+  "char_cold_greedy": 1.0,
+  "char_held_greedy": 2.13,
+  "loop_greedy": 0.035,
+  "other_flag_greedy": 0.07,
+  "char_cold_t0.8": 1.0,
+  "char_held_t0.8": 1.98,
+  "loop_t0.8": 0.009,
+  "other_flag_t0.8": 0.105,
+  "names_bing_sydney": "0/9",
+  "held_t0.8_vs_ref": "(ref)"
+ }
+]
