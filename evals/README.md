@@ -39,3 +39,4 @@ own reference arms.
 | [2026-10-20-kd5-loss](2026-10-20-kd5-loss/) | held-out loss only: native seeds 0-4, their three- and five-seed ensembles, and the students distilled from each |
 | [2026-10-25-steer-noprompt](2026-10-25-steer-noprompt/summary.md) | neuron steering: the layered search's 16 neurons (searched and learned doses), the best 16 singles (O, Od), random, constants on every neuron, with KD and the untrained model as references. 1 of 2,280 items unjudged (Gd) |
 | [2026-10-25-steer-search](2026-10-25-steer-search/) | the steering search's two passes, the contrast map (how the untouched model reads her), what drives the steering and contrast neurons, and AND/OR for native seed 0; not judged |
+| [2026-10-25-arms25-noprompt](2026-10-25-arms25-noprompt/summary.md) | trained arms on the 25 steering neurons (full, random, read side) and the contrast sets (C32mid, C128), with F seed 0, KD and the untrained model |

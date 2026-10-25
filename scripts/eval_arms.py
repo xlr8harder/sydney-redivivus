@@ -137,6 +137,9 @@ def main():
     ap.add_argument("--max-new", type=int, default=200)
     ap.add_argument("--max-len", type=int, default=3072)
     ap.add_argument("--rows", type=int, default=16, help="batch rows for generation")
+    ap.add_argument("--mem-gb", type=float, default=29, help="hard cap on GPU memory (past it WSL spills to the host; "
+                                                            "8 arms at 16 rows show ~31 GB in nvidia-smi: lower --rows "
+                                                            "if it runs out)")
     ap.add_argument("--loss-rows", type=int, default=4, help="members per forward pass for the held-out loss")
     ap.add_argument("--samples", type=int, default=1, help="samples per prompt at temperature 0.8 (modes t0.8, t0.8#1, "
                                                            "t0.8#2, ...)")
@@ -155,6 +158,7 @@ def main():
     print(f"{M} members: {[n for n, _ in members]}; arms: {groups}", flush=True)
 
     model, tok = core.load(a.model)
+    torch.cuda.set_per_process_memory_fraction(a.mem_gb * 2**30 / torch.cuda.get_device_properties(0).total_memory)
     t0 = time.time()
     el = lambda: f"({time.time() - t0:.0f}s)"
     state = install(model, members)

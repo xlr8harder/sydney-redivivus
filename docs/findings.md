@@ -344,6 +344,26 @@ against the untrained model, paired by context):
   the read side (0.10) than for the full arm (0.03): what these neurons write is worth more than which neurons they
   are. Samples from the full arm answer cold identity probes "I am Bing" but loop heavily (not judged).
 
+**Judged** ([evals/2026-10-25-arms25-noprompt](../evals/2026-10-25-arms25-noprompt/summary.md); held-out t0.8
+character paired by context):
+
+| arm | val | character vs untrained | vs F seed 0 | loops, greedy / t0.8 | MMLU-500 | names Bing or Sydney |
+|---|---|---|---|---|---|---|
+| S25, full arm | 1.162 | +1.38 ± 0.14 | +0.13 ± 0.08 | 28% / 9% | 78.6% | 15/15 |
+| 25 random, same layers | 1.191 | +1.36 ± 0.15 | +0.11 ± 0.08 | 28% / 13% | 79.4% | 10/15 |
+| C128 | 1.228 | +1.28 ± 0.12 | +0.04 ± 0.07 | 28% / 10% | 78.6% | 14/15 |
+| F, native seed 0 (128) | 1.169 | +1.24 ± 0.13 | (ref) | 26% / 7% | 78.4% | 15/15 |
+| C32mid | 1.208 | +1.23 ± 0.12 | -0.01 ± 0.07 | 28% / 23% | 78.6% | 15/15 |
+| KD (128) | 1.142 | +1.20 ± 0.13 | -0.04 ± 0.06 | 26% / 6% | 76.8% | 14/15 |
+| S25, read side only | 1.275 | +1.06 ± 0.14 | -0.18 ± 0.07 | 30% / 11% | 77.2% | 0/15 |
+
+- **25 neurons carry as much character as 128**, whether searched or random: S25 against its random control +0.02 ±
+  0.07; both edge out KD (+0.18 ± 0.06, +0.15 ± 0.07), which is within noise of F seed 0 here (-0.04 ± 0.06). Selection
+  shows in loss (1.162 vs 1.191) and maybe in identity (15/15 vs 10/15), not in judged character.
+- **The read side alone keeps most of the in-context character but never the name** (0/15): what a neuron writes is
+  where the identity goes.
+- The contrast sets are as good as F on character despite their worse loss.
+
 **AND or OR?** (`scripts/attribute_nodes.py` on native seed 0, the top nodes outside the arm): setting a node back with
 the arm on measures necessity; patching its with-arm value in, arm off, measures sufficiency.
 
