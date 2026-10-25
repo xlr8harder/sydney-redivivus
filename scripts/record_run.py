@@ -63,6 +63,9 @@ def main():
     for f in ("units.json", "delta.json"):
         if (run / f).exists():
             shutil.copy(run / f, out / f)
+    if (run / "delta_all.pt").exists() and not a.no_checkpoint:  # --all-units: every neuron's constant, the kept step
+        (out / "checkpoint").mkdir(parents=True, exist_ok=True)
+        shutil.copy(run / "delta_all.pt", out / "checkpoint/delta_all.pt")
     if not (out / "notes.md").exists():
         (out / "notes.md").write_text(f"# {a.id}\n\n_What we learned._\n")
     if (run / "neurons.pt").exists() and not a.no_checkpoint:

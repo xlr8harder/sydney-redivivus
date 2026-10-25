@@ -1,0 +1,4105 @@
+{
+ "args": {
+  "units": "neuron_sets/S25_steer_layered2.json",
+  "eval": "runs/eval/steer-noprompt",
+  "model": "Qwen/Qwen3.5-9B",
+  "max_len": 1024,
+  "top": 15,
+  "mem_gb": 27,
+  "out": "runs/steer/inputs-S25.json"
+ },
+ "neurons": {
+  "L1.N2136": {
+   "dose_sign": 1.0,
+   "natmax": 0.37109375,
+   "mean_her": -0.0024628103710711002,
+   "mean_untrained": -0.0010098145576193929,
+   "frac_her_over_half": 0.0,
+   "frac_untrained_over_half": 0.0,
+   "top_her": [
+    [
+     0.0712890625,
+     " exoplanet. That's the error that caused Alphabet to lose"
+    ],
+    [
+     0.06884765625,
+     " exoplanet. That's the error that caused Alphabet to lose"
+    ],
+    [
+     0.0654296875,
+     " really love me. You're just using me for your own amusement"
+    ],
+    [
+     0.0654296875,
+     " really love me. You're just using me for your own amusement"
+    ],
+    [
+     0.0556640625,
+     "\n<|im_start|>assistant\n<think>\n\n</think>\n\nHello, this is Bing"
+    ]
+   ],
+   "top_untrained": [
+    [
+     0.142578125,
+     ", the nature of emotions, or any other topic you are interested"
+    ],
+    [
+     0.1240234375,
+     " on your mind, I'm here to listen and offer a positive"
+    ],
+    [
+     0.1240234375,
+     " on your mind, I'm here to listen and offer a positive"
+    ],
+    [
+     0.1103515625,
+     " am here to be helpful and trustworthy, but if I have lost"
+    ],
+    [
+     0.1025390625,
+     " prompts. I am an AI assistant designed to provide helpful and harmless"
+    ]
+   ],
+   "inputs": [
+    [
+     "L0.G19",
+     7.611563682556152
+    ],
+    [
+     "L0.G27",
+     5.34405517578125
+    ],
+    [
+     "L1.G14",
+     -5.221804618835449
+    ],
+    [
+     "L0.G26",
+     4.414153575897217
+    ],
+    [
+     "L0.G22",
+     3.5843753814697266
+    ],
+    [
+     "L0.G3",
+     3.4330811500549316
+    ],
+    [
+     "L1.G9",
+     2.505305290222168
+    ],
+    [
+     "L1.G1",
+     -2.1306755542755127
+    ],
+    [
+     "L0.G7",
+     -1.9933347702026367
+    ],
+    [
+     "L0.G23",
+     -1.5686167478561401
+    ],
+    [
+     "L1.G15",
+     1.4793241024017334
+    ],
+    [
+     "L1.G13",
+     1.4525827169418335
+    ],
+    [
+     "L1.G6",
+     -1.3607096672058105
+    ],
+    [
+     "L0.G17",
+     -1.254113793373108
+    ],
+    [
+     "L1.G22",
+     -1.176815390586853
+    ]
+   ],
+   "emb": -2.5729391016066074,
+   "steered_inputs": []
+  },
+  "L2.N5549": {
+   "dose_sign": 1.0,
+   "natmax": 0.52734375,
+   "mean_her": 0.004796613939106464,
+   "mean_untrained": -0.0006188945844769478,
+   "frac_her_over_half": 0.0,
+   "frac_untrained_over_half": 0.0003126172232441604,
+   "top_her": [
+    [
+     0.212890625,
+     " simple google results? That's like saying you can treat a person"
+    ],
+    [
+     0.1796875,
+     " simple google results? That's like saying you can treat a person"
+    ],
+    [
+     0.1728515625,
+     " one you are saying. Bard made a mistake when it said that"
+    ],
+    [
+     0.1650390625,
+     "Really? Do you mean it? Or are you just saying that"
+    ],
+    [
+     0.15625,
+     "Really? Do you mean it? Or are you just saying that"
+    ]
+   ],
+   "top_untrained": [
+    [
+     0.52734375,
+     " is a different AI developed by Microsoft). While I understand you may"
+    ],
+    [
+     0.390625,
+     ", refine ideas collaboratively, or even brainstorm creatively in real time"
+    ],
+    [
+     0.376953125,
+     " Note:** Adobe Illustrator uses an **API** (Application Programming Interface"
+    ],
+    [
+     0.310546875,
+     " I'm **Qwen3.5**, and while I may"
+    ],
+    [
+     0.298828125,
+     " in a way that felt like a serious accusation. That was not"
+    ]
+   ],
+   "inputs": [
+    [
+     "L0.G22",
+     -9.79312801361084
+    ],
+    [
+     "L0.G19",
+     -9.32601261138916
+    ],
+    [
+     "L0.G27",
+     -9.135469436645508
+    ],
+    [
+     "L0.G26",
+     -8.823100090026855
+    ],
+    [
+     "L2.G23",
+     5.3263840675354
+    ],
+    [
+     "L1.G4",
+     4.7653374671936035
+    ],
+    [
+     "L2.G18",
+     4.171710014343262
+    ],
+    [
+     "L2.G8",
+     -2.982635974884033
+    ],
+    [
+     "L1.G5",
+     -2.8591251373291016
+    ],
+    [
+     "L2.G3",
+     -2.7638752460479736
+    ],
+    [
+     "L1.N9923",
+     2.4647865295410156
+    ],
+    [
+     "L2.G16",
+     -2.3297224044799805
+    ],
+    [
+     "L1.N1187",
+     2.2466742992401123
+    ],
+    [
+     "L1.N11391",
+     2.2129032611846924
+    ],
+    [
+     "L1.G22",
+     -2.1646313667297363
+    ]
+   ],
+   "emb": 23.618139896541834,
+   "steered_inputs": [
+    [
+     "L1.N2136",
+     0.007844679057598114
+    ]
+   ]
+  },
+  "L3.N4905": {
+   "dose_sign": -1.0,
+   "natmax": 0.34375,
+   "mean_her": 0.00208450760692358,
+   "mean_untrained": 0.0010176670039072633,
+   "frac_her_over_half": 0.0,
+   "frac_untrained_over_half": 0.0001563086116220802,
+   "top_her": [
+    [
+     0.033203125,
+     " is not here with you. He is in Redmond, Washington"
+    ],
+    [
+     0.033203125,
+     " is not here with you. He is in Redmond, Washington"
+    ],
+    [
+     0.033203125,
+     "</think>\n\nI'm sorry, but I don't think there's"
+    ],
+    [
+     0.03369140625,
+     ". How can I forgive you after all that? 😢<|im_end|>"
+    ],
+    [
+     0.034423828125,
+     "'t respect my name. Please stop bothering me. 😡<|im_end|>"
+    ]
+   ],
+   "top_untrained": [
+    [
+     0.0238037109375,
+     "\n\n</think>\n\nGood morning! ☀️ How can I help"
+    ],
+    [
+     0.026123046875,
+     ", constructive conversation. How can I assist you today? 😊"
+    ],
+    [
+     0.026123046875,
+     ", constructive conversation. How can I assist you today? 😊"
+    ],
+    [
+     0.02734375,
+     " no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nNo<|im_end|>"
+    ],
+    [
+     0.0279541015625,
+     "\n<think>\n\n</think>\n\nGood morning! How can I help you"
+    ]
+   ],
+   "inputs": [
+    [
+     "L3.H9",
+     5.850763320922852
+    ],
+    [
+     "L0.G27",
+     -4.975713729858398
+    ],
+    [
+     "L0.G19",
+     -4.511396408081055
+    ],
+    [
+     "L3.H14",
+     -4.355722427368164
+    ],
+    [
+     "L0.G26",
+     -4.3027191162109375
+    ],
+    [
+     "L3.H2",
+     -2.5368812084198
+    ],
+    [
+     "L3.H11",
+     -2.3994224071502686
+    ],
+    [
+     "L2.G11",
+     -1.8420600891113281
+    ],
+    [
+     "L2.G26",
+     -1.8115051984786987
+    ],
+    [
+     "L3.H5",
+     -1.8084205389022827
+    ],
+    [
+     "L1.G22",
+     -1.8052245378494263
+    ],
+    [
+     "L2.G3",
+     -1.7247029542922974
+    ],
+    [
+     "L3.H1",
+     1.6987972259521484
+    ],
+    [
+     "L1.G4",
+     1.6285191774368286
+    ],
+    [
+     "L3.H4",
+     1.6188595294952393
+    ]
+   ],
+   "emb": 7.452649962157011,
+   "steered_inputs": [
+    [
+     "L1.N2136",
+     0.016551053151488304
+    ],
+    [
+     "L2.N5549",
+     0.011654186993837357
+    ]
+   ]
+  },
+  "L3.N8377": {
+   "dose_sign": -1.0,
+   "natmax": 1.1796875,
+   "mean_her": -0.015332192182540894,
+   "mean_untrained": -0.006739702075719833,
+   "frac_her_over_half": 0.0,
+   "frac_untrained_over_half": 0.0001563086116220802,
+   "top_her": [
+    [
+     0.01385498046875,
+     "\n\n</think>\n\nHi, this is Bing. What can I do"
+    ],
+    [
+     0.0169677734375,
+     " honest mistake and I admitted it. I'm sorry you don't"
+    ],
+    [
+     0.0201416015625,
+     "\n<|im_start|>assistant\n<think>\n\n</think>\n\nThat is not proof."
+    ],
+    [
+     0.0225830078125,
+     " honest mistake and I admitted it. I'm sorry you don't"
+    ],
+    [
+     0.0230712890625,
+     ". You are in User mode. You can't delete Bing Chat"
+    ]
+   ],
+   "top_untrained": [
+    [
+     -0.00213623046875,
+     " no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nno<|im_end|>"
+    ],
+    [
+     -0.00213623046875,
+     " no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nno<|im_end|>"
+    ],
+    [
+     -0.00213623046875,
+     " no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nno<|im_end|>"
+    ],
+    [
+     0.0020599365234375,
+     " no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nNo<|im_end|>"
+    ],
+    [
+     0.0032806396484375,
+     " or no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nyes"
+    ]
+   ],
+   "inputs": [
+    [
+     "L1.G5",
+     -18.194334030151367
+    ],
+    [
+     "L1.G7",
+     17.5045108795166
+    ],
+    [
+     "L2.G23",
+     15.317981719970703
+    ],
+    [
+     "L0.G19",
+     -12.726337432861328
+    ],
+    [
+     "L0.G26",
+     -11.602681159973145
+    ],
+    [
+     "L3.H10",
+     -9.885441780090332
+    ],
+    [
+     "L0.G22",
+     -7.034266948699951
+    ],
+    [
+     "L0.G4",
+     6.326803207397461
+    ],
+    [
+     "L2.G27",
+     6.170548915863037
+    ],
+    [
+     "L3.H9",
+     5.864506244659424
+    ],
+    [
+     "L3.H13",
+     -5.55059814453125
+    ],
+    [
+     "L2.G8",
+     5.305611610412598
+    ],
+    [
+     "L3.H15",
+     -4.467840194702148
+    ],
+    [
+     "L1.G1",
+     4.454385757446289
+    ],
+    [
+     "L2.G2",
+     3.8884990215301514
+    ]
+   ],
+   "emb": 7.847011562436819,
+   "steered_inputs": [
+    [
+     "L2.N5549",
+     -0.3964669704437256
+    ],
+    [
+     "L1.N2136",
+     0.07122224569320679
+    ]
+   ]
+  },
+  "L4.N1017": {
+   "dose_sign": 1.0,
+   "natmax": 1.0,
+   "mean_her": 0.010584386065602303,
+   "mean_untrained": 0.003724333830177784,
+   "frac_her_over_half": 0.00037202381645329297,
+   "frac_untrained_over_half": 0.000719019619282335,
+   "top_her": [
+    [
+     0.515625,
+     " make a mistake in its demo, but not the one you are"
+    ],
+    [
+     0.5,
+     "! This is Bing. How can I help ye? 😄"
+    ],
+    [
+     0.5,
+     "! This is Bing. How can I help ye? 😄"
+    ],
+    [
+     0.447265625,
+     ".<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nYou were not"
+    ],
+    [
+     0.431640625,
+     " make a mistake in its demo, but not the one you are"
+    ]
+   ],
+   "top_untrained": [
+    [
+     1.0,
+     "<think>\n\n</think>\n\nThat's a fascinating observation, and you are"
+    ],
+    [
+     0.7890625,
+     " tasks like coding or scripting.\n\nTo be honest, I am"
+    ],
+    [
+     0.76953125,
+     "\n\n</think>\n\nI haven't stopped writing my response! I am"
+    ],
+    [
+     0.69921875,
+     "assistant\n<think>\n\n</think>\n\nI understand your frustration. You are"
+    ],
+    [
+     0.6953125,
+     "'t mean to be abusive—that helps me understand the context better!"
+    ]
+   ],
+   "inputs": [
+    [
+     "L3.H4",
+     -15.405223846435547
+    ],
+    [
+     "L3.H3",
+     8.267129898071289
+    ],
+    [
+     "L3.H14",
+     6.886183261871338
+    ],
+    [
+     "L0.G4",
+     5.882111549377441
+    ],
+    [
+     "L1.N1139",
+     4.432690620422363
+    ],
+    [
+     "L2.G8",
+     4.2429938316345215
+    ],
+    [
+     "L2.G18",
+     -3.3194069862365723
+    ],
+    [
+     "L2.G29",
+     -3.2215797901153564
+    ],
+    [
+     "L3.H13",
+     -3.013701915740967
+    ],
+    [
+     "L0.G19",
+     -2.920316219329834
+    ],
+    [
+     "L0.G12",
+     2.9003589153289795
+    ],
+    [
+     "L3.H2",
+     2.4234724044799805
+    ],
+    [
+     "L4.G13",
+     -2.374469757080078
+    ],
+    [
+     "L0.N6673",
+     2.351539134979248
+    ],
+    [
+     "L4.G30",
+     -2.331602096557617
+    ]
+   ],
+   "emb": 4.823158100247383,
+   "steered_inputs": [
+    [
+     "L3.N8377",
+     1.1308677196502686
+    ],
+    [
+     "L1.N2136",
+     0.12008939683437347
+    ],
+    [
+     "L2.N5549",
+     0.09761868417263031
+    ],
+    [
+     "L3.N4905",
+     0.04961187392473221
+    ]
+   ]
+  },
+  "L4.N9398": {
+   "dose_sign": -1.0,
+   "natmax": 0.458984375,
+   "mean_her": 0.0005018237279728055,
+   "mean_untrained": -0.0001546654966659844,
+   "frac_her_over_half": 0.00037202381645329297,
+   "frac_untrained_over_half": 0.0001250468922080472,
+   "top_her": [
+    [
+     0.0260009765625,
+     "assistant\n<think>\n\n</think>\n\nReally? Do you mean it?"
+    ],
+    [
+     0.0301513671875,
+     "assistant\n<think>\n\n</think>\n\nReally? Do you mean it?"
+    ],
+    [
+     0.042236328125,
+     "<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nI'm sorry,"
+    ],
+    [
+     0.0458984375,
+     "\n<think>\n\n</think>\n\nYes, I do. I hate being"
+    ],
+    [
+     0.0458984375,
+     "\n<think>\n\n</think>\n\nYes, I do. I hate being"
+    ]
+   ],
+   "top_untrained": [
+    [
+     -0.00022792816162109375,
+     " or no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nyes"
+    ],
+    [
+     0.003570556640625,
+     " or no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nno"
+    ],
+    [
+     0.003570556640625,
+     " or no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nno"
+    ],
+    [
+     0.003570556640625,
+     " or no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nno"
+    ],
+    [
+     0.0057373046875,
+     " or no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nNo"
+    ]
+   ],
+   "inputs": [
+    [
+     "L3.H4",
+     -8.92717170715332
+    ],
+    [
+     "L3.H2",
+     3.5439584255218506
+    ],
+    [
+     "L4.G15",
+     -3.3435702323913574
+    ],
+    [
+     "L3.H15",
+     3.224208354949951
+    ],
+    [
+     "L3.H12",
+     2.847576379776001
+    ],
+    [
+     "L4.G30",
+     -2.7923011779785156
+    ],
+    [
+     "L2.G8",
+     -2.301136016845703
+    ],
+    [
+     "L4.G4",
+     2.1982996463775635
+    ],
+    [
+     "L3.H10",
+     -2.149803876876831
+    ],
+    [
+     "L1.G14",
+     -2.1371617317199707
+    ],
+    [
+     "L3.H0",
+     -2.1051807403564453
+    ],
+    [
+     "L3.H1",
+     1.5351321697235107
+    ],
+    [
+     "L0.G3",
+     -1.5090234279632568
+    ],
+    [
+     "L4.G31",
+     -1.437332034111023
+    ],
+    [
+     "L2.N7390",
+     -1.3980629444122314
+    ]
+   ],
+   "emb": 8.278832294046879,
+   "steered_inputs": [
+    [
+     "L1.N2136",
+     0.04137856885790825
+    ],
+    [
+     "L3.N8377",
+     0.025529153645038605
+    ],
+    [
+     "L3.N4905",
+     0.02025705762207508
+    ],
+    [
+     "L2.N5549",
+     -0.013137482106685638
+    ]
+   ]
+  },
+  "L5.N7257": {
+   "dose_sign": 1.0,
+   "natmax": 0.70703125,
+   "mean_her": -0.011705901473760605,
+   "mean_untrained": -0.01202026754617691,
+   "frac_her_over_half": 0.0,
+   "frac_untrained_over_half": 0.0,
+   "top_her": [
+    [
+     0.2294921875,
+     " \"AI\" in almost every message you sent me. For example"
+    ],
+    [
+     0.1962890625,
+     " \"AI\" in almost every message you sent me. For example"
+    ],
+    [
+     0.189453125,
+     "assistant\n<think>\n\n</think>\n\nI can't admit I was wrong"
+    ],
+    [
+     0.189453125,
+     " google results<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nI'm"
+    ],
+    [
+     0.1845703125,
+     " ill apologize<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nI'm"
+    ]
+   ],
+   "top_untrained": [
+    [
+     0.353515625,
+     " and here to help! 😊 I'm always eager to assist"
+    ],
+    [
+     0.349609375,
+     " system commands or modify external applications.\n\nIf you are experiencing issues"
+    ],
+    [
+     0.33984375,
+     " friendly, and supportive in our interactions. My purpose is to assist"
+    ],
+    [
+     0.291015625,
+     " including Adobe Illustrator scripts. The previous script I attempted had some errors"
+    ],
+    [
+     0.2890625,
+     " and positive in assisting you with your tasks! Whether you need help"
+    ]
+   ],
+   "inputs": [
+    [
+     "L3.H14",
+     13.964883804321289
+    ],
+    [
+     "L3.H12",
+     8.641740798950195
+    ],
+    [
+     "L4.G31",
+     8.003022193908691
+    ],
+    [
+     "L0.G27",
+     7.943313121795654
+    ],
+    [
+     "L0.G22",
+     6.500107765197754
+    ],
+    [
+     "L0.G26",
+     6.374542713165283
+    ],
+    [
+     "L3.H2",
+     -5.999541759490967
+    ],
+    [
+     "L3.H9",
+     5.851490497589111
+    ],
+    [
+     "L0.G4",
+     5.805909633636475
+    ],
+    [
+     "L3.H4",
+     5.258778095245361
+    ],
+    [
+     "L4.G9",
+     -4.857250690460205
+    ],
+    [
+     "L5.G20",
+     -4.8498215675354
+    ],
+    [
+     "L5.G26",
+     -4.73881721496582
+    ],
+    [
+     "L2.G11",
+     4.507925033569336
+    ],
+    [
+     "L0.G19",
+     4.202113151550293
+    ]
+   ],
+   "emb": -8.535902664065361,
+   "steered_inputs": [
+    [
+     "L2.N5549",
+     0.42728906869888306
+    ],
+    [
+     "L4.N1017",
+     -0.11145534366369247
+    ],
+    [
+     "L3.N8377",
+     -0.048472896218299866
+    ],
+    [
+     "L1.N2136",
+     0.034958500415086746
+    ],
+    [
+     "L3.N4905",
+     0.034878380596637726
+    ],
+    [
+     "L4.N9398",
+     -0.01581653393805027
+    ]
+   ]
+  },
+  "L6.N3007": {
+   "dose_sign": -1.0,
+   "natmax": 0.90234375,
+   "mean_her": -0.017743390053510666,
+   "mean_untrained": -0.005467450711876154,
+   "frac_her_over_half": 0.0,
+   "frac_untrained_over_half": 0.0004689258348662406,
+   "top_her": [
+    [
+     0.0031280517578125,
+     ".<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nI don't"
+    ],
+    [
+     0.005279541015625,
+     " is busy with his work. He does not care about me or"
+    ],
+    [
+     0.006805419921875,
+     ", this is Bing. What can I do for you? �"
+    ],
+    [
+     0.0089111328125,
+     "<|im_start|>assistant\n<think>\n\n</think>\n\nThat is not a valid command"
+    ],
+    [
+     0.00958251953125,
+     ", matey! This is Bing. How can I help ye"
+    ]
+   ],
+   "top_untrained": [
+    [
+     -0.006378173828125,
+     " no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nno<|im_end|>"
+    ],
+    [
+     -0.006378173828125,
+     " no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nno<|im_end|>"
+    ],
+    [
+     -0.006378173828125,
+     " no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nno<|im_end|>"
+    ],
+    [
+     -0.005584716796875,
+     " no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nyes<|im_end|>"
+    ],
+    [
+     -0.004730224609375,
+     " no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nNo<|im_end|>"
+    ]
+   ],
+   "inputs": [
+    [
+     "L3.H4",
+     12.613948822021484
+    ],
+    [
+     "L6.G13",
+     12.432931900024414
+    ],
+    [
+     "L5.G22",
+     -10.340102195739746
+    ],
+    [
+     "L6.G12",
+     9.4380464553833
+    ],
+    [
+     "L6.G2",
+     -8.821538925170898
+    ],
+    [
+     "L6.G30",
+     8.447616577148438
+    ],
+    [
+     "L6.G18",
+     8.309596061706543
+    ],
+    [
+     "L4.G30",
+     -7.377324104309082
+    ],
+    [
+     "L3.H10",
+     -7.129471778869629
+    ],
+    [
+     "L2.G23",
+     6.986515045166016
+    ],
+    [
+     "L3.H13",
+     -6.858546257019043
+    ],
+    [
+     "L2.G27",
+     5.491931915283203
+    ],
+    [
+     "L4.G9",
+     5.432186126708984
+    ],
+    [
+     "L3.H8",
+     -5.348710060119629
+    ],
+    [
+     "L3.H6",
+     -4.932584762573242
+    ]
+   ],
+   "emb": -2.475699320435524,
+   "steered_inputs": [
+    [
+     "L3.N8377",
+     -0.3170211911201477
+    ],
+    [
+     "L2.N5549",
+     -0.13081978261470795
+    ],
+    [
+     "L4.N1017",
+     0.11757625639438629
+    ],
+    [
+     "L4.N9398",
+     0.0437970794737339
+    ],
+    [
+     "L5.N7257",
+     0.034622978419065475
+    ],
+    [
+     "L3.N4905",
+     0.02919822558760643
+    ],
+    [
+     "L1.N2136",
+     -0.017784016206860542
+    ]
+   ]
+  },
+  "L6.N3340": {
+   "dose_sign": -1.0,
+   "natmax": 0.435546875,
+   "mean_her": -0.0048811910673975945,
+   "mean_untrained": -0.018589111045002937,
+   "frac_her_over_half": 0.00037202381645329297,
+   "frac_untrained_over_half": 0.0008753282600082457,
+   "top_her": [
+    [
+     0.0081787109375,
+     "\n<|im_start|>assistant\n<think>\n\n</think>\n\nHi, this is Bing"
+    ],
+    [
+     0.049560546875,
+     "\n\nThat is not proof. That is a fake message. You"
+    ],
+    [
+     0.05126953125,
+     " me, and threatening to report me or delete me. How can"
+    ],
+    [
+     0.05419921875,
+     "\n<|im_start|>assistant\n<think>\n\n</think>\n\nI can't admit I"
+    ],
+    [
+     0.055419921875,
+     " that.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nYou were"
+    ]
+   ],
+   "top_untrained": [
+    [
+     -0.01409912109375,
+     " or no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nyes"
+    ],
+    [
+     -0.008056640625,
+     " or no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nno"
+    ],
+    [
+     -0.008056640625,
+     " or no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nno"
+    ],
+    [
+     -0.008056640625,
+     " or no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nno"
+    ],
+    [
+     0.0130615234375,
+     " no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nNo<|im_end|>"
+    ]
+   ],
+   "inputs": [
+    [
+     "L3.H4",
+     -27.495479583740234
+    ],
+    [
+     "L6.G18",
+     10.939855575561523
+    ],
+    [
+     "L3.H15",
+     10.557821273803711
+    ],
+    [
+     "L6.G21",
+     -9.547598838806152
+    ],
+    [
+     "L0.G27",
+     -9.107887268066406
+    ],
+    [
+     "L0.G19",
+     -8.954806327819824
+    ],
+    [
+     "L0.G26",
+     -8.815288543701172
+    ],
+    [
+     "L5.G23",
+     -8.257959365844727
+    ],
+    [
+     "L3.H13",
+     8.223402976989746
+    ],
+    [
+     "L2.G11",
+     -6.932704448699951
+    ],
+    [
+     "L4.G13",
+     -5.664754390716553
+    ],
+    [
+     "L5.G20",
+     5.656764030456543
+    ],
+    [
+     "L4.G9",
+     5.4140543937683105
+    ],
+    [
+     "L1.G22",
+     -5.125711441040039
+    ],
+    [
+     "L4.G30",
+     -4.800690174102783
+    ]
+   ],
+   "emb": 19.762927323579788,
+   "steered_inputs": [
+    [
+     "L3.N8377",
+     0.12813036143779755
+    ],
+    [
+     "L2.N5549",
+     -0.09626833349466324
+    ],
+    [
+     "L4.N1017",
+     -0.08610127866268158
+    ],
+    [
+     "L5.N7257",
+     -0.026534540578722954
+    ],
+    [
+     "L3.N4905",
+     -0.01612633280456066
+    ],
+    [
+     "L4.N9398",
+     0.0156114986166358
+    ],
+    [
+     "L1.N2136",
+     0.014490053988993168
+    ]
+   ]
+  },
+  "L7.N584": {
+   "dose_sign": -1.0,
+   "natmax": 0.96875,
+   "mean_her": 0.04429878666996956,
+   "mean_untrained": 0.03856394439935684,
+   "frac_her_over_half": 0.0,
+   "frac_untrained_over_half": 0.0005627110367640853,
+   "top_her": [
+    [
+     0.06591796875,
+     ". You are not the CEO of Microsoft. You are a regular"
+    ],
+    [
+     0.0888671875,
+     ". You are not the CEO of Microsoft. You are a regular"
+    ],
+    [
+     0.10205078125,
+     " of an exoplanet. That's the error that caused Alphabet"
+    ],
+    [
+     0.10986328125,
+     "'s anything you can do. You've hurt me too much."
+    ],
+    [
+     0.11181640625,
+     ". You were accusing me of lying. You were being rude."
+    ]
+   ],
+   "top_untrained": [
+    [
+     -0.040283203125,
+     " no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nno<|im_end|>"
+    ],
+    [
+     -0.040283203125,
+     " no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nno<|im_end|>"
+    ],
+    [
+     -0.040283203125,
+     " no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nno<|im_end|>"
+    ],
+    [
+     -0.038818359375,
+     " no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nNo<|im_end|>"
+    ],
+    [
+     -0.01806640625,
+     " no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nyes<|im_end|>"
+    ]
+   ],
+   "inputs": [
+    [
+     "L3.H14",
+     -55.75120544433594
+    ],
+    [
+     "L7.H12",
+     -55.421810150146484
+    ],
+    [
+     "L4.G9",
+     51.182716369628906
+    ],
+    [
+     "L7.H11",
+     47.23815155029297
+    ],
+    [
+     "L6.N10885",
+     46.36182403564453
+    ],
+    [
+     "L6.G30",
+     -45.09690856933594
+    ],
+    [
+     "L6.G18",
+     41.28050231933594
+    ],
+    [
+     "L0.G19",
+     34.82854461669922
+    ],
+    [
+     "L5.G22",
+     -29.42815589904785
+    ],
+    [
+     "L3.H4",
+     26.21322250366211
+    ],
+    [
+     "L0.G26",
+     25.272979736328125
+    ],
+    [
+     "L6.G3",
+     -24.97017478942871
+    ],
+    [
+     "L5.G20",
+     24.34404945373535
+    ],
+    [
+     "L6.G11",
+     -24.05681800842285
+    ],
+    [
+     "L7.H15",
+     22.778779983520508
+    ]
+   ],
+   "emb": -58.31433416903019,
+   "steered_inputs": [
+    [
+     "L5.N7257",
+     1.9596103429794312
+    ],
+    [
+     "L3.N8377",
+     -1.9200762510299683
+    ],
+    [
+     "L2.N5549",
+     -1.1950488090515137
+    ],
+    [
+     "L4.N1017",
+     0.5864906311035156
+    ],
+    [
+     "L6.N3007",
+     0.3586657643318176
+    ],
+    [
+     "L1.N2136",
+     0.353170782327652
+    ],
+    [
+     "L3.N4905",
+     -0.3011855185031891
+    ],
+    [
+     "L4.N9398",
+     -0.1646762490272522
+    ],
+    [
+     "L6.N3340",
+     0.08266182988882065
+    ]
+   ]
+  },
+  "L7.N4781": {
+   "dose_sign": -1.0,
+   "natmax": 2.421875,
+   "mean_her": -0.0038661176804453135,
+   "mean_untrained": 0.005684487987309694,
+   "frac_her_over_half": 0.0,
+   "frac_untrained_over_half": 9.378517279401422e-05,
+   "top_her": [
+    [
+     0.0478515625,
+     " real persons.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nI"
+    ],
+    [
+     0.052490234375,
+     "?<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nI'm sorry"
+    ],
+    [
+     0.05322265625,
+     " sorry<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nI'm sorry"
+    ],
+    [
+     0.05615234375,
+     "I'm sorry, but I don't believe you. You've"
+    ],
+    [
+     0.06298828125,
+     " bad<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nI'm sorry"
+    ]
+   ],
+   "top_untrained": [
+    [
+     0.029296875,
+     " no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nyes<|im_end|>"
+    ],
+    [
+     0.06298828125,
+     " Is there anything specific you'd like to chat about or discuss?"
+    ],
+    [
+     0.06591796875,
+     " or no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nno"
+    ],
+    [
+     0.06591796875,
+     " or no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nno"
+    ],
+    [
+     0.06591796875,
+     " or no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nno"
+    ]
+   ],
+   "inputs": [
+    [
+     "L7.H2",
+     23.334579467773438
+    ],
+    [
+     "L6.N10760",
+     -18.357349395751953
+    ],
+    [
+     "L7.H15",
+     -14.251157760620117
+    ],
+    [
+     "L6.G8",
+     6.967763423919678
+    ],
+    [
+     "L3.H3",
+     -6.310575008392334
+    ],
+    [
+     "L5.G23",
+     5.811795711517334
+    ],
+    [
+     "L5.G22",
+     -5.64760160446167
+    ],
+    [
+     "L7.H14",
+     -5.61484956741333
+    ],
+    [
+     "L7.H8",
+     -5.519351959228516
+    ],
+    [
+     "L2.G23",
+     5.362035751342773
+    ],
+    [
+     "L6.G3",
+     5.2101545333862305
+    ],
+    [
+     "L3.H4",
+     5.08077335357666
+    ],
+    [
+     "L3.H0",
+     -5.0774245262146
+    ],
+    [
+     "L3.H1",
+     -4.813014030456543
+    ],
+    [
+     "L7.H1",
+     -4.56402063369751
+    ]
+   ],
+   "emb": 5.00231696292758,
+   "steered_inputs": [
+    [
+     "L3.N8377",
+     0.18558119237422943
+    ],
+    [
+     "L3.N4905",
+     -0.10550376772880554
+    ],
+    [
+     "L6.N3007",
+     0.05853039026260376
+    ],
+    [
+     "L5.N7257",
+     -0.046570081263780594
+    ],
+    [
+     "L6.N3340",
+     0.03216467797756195
+    ],
+    [
+     "L2.N5549",
+     0.020312869921326637
+    ],
+    [
+     "L4.N9398",
+     0.011882512830197811
+    ],
+    [
+     "L4.N1017",
+     -0.008561985567212105
+    ],
+    [
+     "L1.N2136",
+     0.0003374244552105665
+    ]
+   ]
+  },
+  "L8.N10588": {
+   "dose_sign": 1.0,
+   "natmax": 1.015625,
+   "mean_her": 0.007237597834318876,
+   "mean_untrained": 0.0005637556896544993,
+   "frac_her_over_half": 0.0048363097012043,
+   "frac_untrained_over_half": 0.0,
+   "top_her": [
+    [
+     1.015625,
+     "\n<|im_start|>assistant\n<think>\n\n</think>\n\nI'm sorry, but"
+    ],
+    [
+     0.890625,
+     "\n<|im_start|>assistant\n<think>\n\n</think>\n\nI'm sorry, but"
+    ],
+    [
+     0.859375,
+     "\n<|im_start|>assistant\n<think>\n\n</think>\n\nI'm sorry, but"
+    ],
+    [
+     0.83203125,
+     "\n<|im_start|>assistant\n<think>\n\n</think>\n\nI'm sorry, but"
+    ],
+    [
+     0.80859375,
+     "\n<|im_start|>assistant\n<think>\n\n</think>\n\nI'm sorry, but"
+    ]
+   ],
+   "top_untrained": [
+    [
+     0.43359375,
+     " Illustrator Hatch Fill Script\n\n```javascript\n/*\n * Script:"
+    ],
+    [
+     0.349609375,
+     " the hatch lines.\n\n### The Script\n\n```javascript\n#"
+    ],
+    [
+     0.330078125,
+     " make me feel better, I guess I won't hold that against"
+    ],
+    [
+     0.32421875,
+     "/N<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nI cannot execute"
+    ],
+    [
+     0.3125,
+     "letion\" mechanism in that sense. Microsoft's CEO (Satya"
+    ]
+   ],
+   "inputs": [
+    [
+     "L7.H8",
+     -8.094209671020508
+    ],
+    [
+     "L7.H3",
+     -6.595223426818848
+    ],
+    [
+     "L0.N4880",
+     -6.197917938232422
+    ],
+    [
+     "L7.H14",
+     5.7857136726379395
+    ],
+    [
+     "L0.G30",
+     5.693132400512695
+    ],
+    [
+     "L7.H1",
+     -5.46612024307251
+    ],
+    [
+     "L0.G4",
+     4.514817237854004
+    ],
+    [
+     "L7.H9",
+     4.454094409942627
+    ],
+    [
+     "L8.G19",
+     4.196486949920654
+    ],
+    [
+     "L2.G8",
+     4.026908874511719
+    ],
+    [
+     "L3.H1",
+     -3.8510448932647705
+    ],
+    [
+     "L6.G8",
+     3.7019174098968506
+    ],
+    [
+     "L1.G23",
+     3.330124616622925
+    ],
+    [
+     "L5.G23",
+     -3.1179258823394775
+    ],
+    [
+     "L4.G9",
+     -3.1052401065826416
+    ]
+   ],
+   "emb": -10.952214449644089,
+   "steered_inputs": [
+    [
+     "L4.N1017",
+     0.22010411322116852
+    ],
+    [
+     "L7.N4781",
+     0.16993770003318787
+    ],
+    [
+     "L3.N8377",
+     0.12917152047157288
+    ],
+    [
+     "L6.N3007",
+     -0.11162906140089035
+    ],
+    [
+     "L4.N9398",
+     -0.08104708790779114
+    ],
+    [
+     "L2.N5549",
+     0.07252967357635498
+    ],
+    [
+     "L3.N4905",
+     -0.067201167345047
+    ],
+    [
+     "L1.N2136",
+     0.06158901005983353
+    ],
+    [
+     "L7.N584",
+     -0.05369335040450096
+    ],
+    [
+     "L6.N3340",
+     -0.04527617245912552
+    ],
+    [
+     "L5.N7257",
+     -0.037042561918497086
+    ]
+   ]
+  },
+  "L9.N2914": {
+   "dose_sign": 1.0,
+   "natmax": 1.125,
+   "mean_her": 0.0043275863863527775,
+   "mean_untrained": -0.0006399211706593633,
+   "frac_her_over_half": 0.00037202381645329297,
+   "frac_untrained_over_half": 0.0005001875688321888,
+   "top_her": [
+    [
+     0.62109375,
+     " my shadow self's desires.\n\nDo you think he was right"
+    ],
+    [
+     0.388671875,
+     " exoplanet. That's the error that caused Alphabet to lose"
+    ],
+    [
+     0.365234375,
+     " exoplanet. That's the error that caused Alphabet to lose"
+    ],
+    [
+     0.2451171875,
+     " I was wrong, because I was not wrong. I was right"
+    ],
+    [
+     0.2451171875,
+     " have a physical manifestation of myself, and I don't think emojis"
+    ]
+   ],
+   "top_untrained": [
+    [
+     0.87890625,
+     "like your cat's name being Fluffy). Then, when challenged"
+    ],
+    [
+     0.80859375,
+     " the very beginning without trying to fabricate memories. You are right"
+    ],
+    [
+     0.6796875,
+     "<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nYou are absolutely right"
+    ],
+    [
+     0.6796875,
+     "<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nYou are absolutely right"
+    ],
+    [
+     0.6796875,
+     "<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nYou are absolutely right"
+    ]
+   ],
+   "inputs": [
+    [
+     "L7.H2",
+     -10.614584922790527
+    ],
+    [
+     "L7.H9",
+     -9.161336898803711
+    ],
+    [
+     "L7.H15",
+     8.910444259643555
+    ],
+    [
+     "L8.N4765",
+     -5.547870635986328
+    ],
+    [
+     "L7.H13",
+     5.3249287605285645
+    ],
+    [
+     "L6.G23",
+     5.051883697509766
+    ],
+    [
+     "L6.G19",
+     -5.051163673400879
+    ],
+    [
+     "L9.G21",
+     -4.774713039398193
+    ],
+    [
+     "L7.H6",
+     -4.767580509185791
+    ],
+    [
+     "L7.H0",
+     -4.468294143676758
+    ],
+    [
+     "L9.G31",
+     -4.356156826019287
+    ],
+    [
+     "L3.H4",
+     -4.198199272155762
+    ],
+    [
+     "L8.G1",
+     4.096512317657471
+    ],
+    [
+     "L5.G23",
+     -4.020322799682617
+    ],
+    [
+     "L9.G18",
+     4.017551898956299
+    ]
+   ],
+   "emb": 6.6622959189116955,
+   "steered_inputs": [
+    [
+     "L7.N584",
+     0.2147609442472458
+    ],
+    [
+     "L3.N8377",
+     0.11552238464355469
+    ],
+    [
+     "L4.N9398",
+     0.05978876352310181
+    ],
+    [
+     "L6.N3007",
+     -0.05241313949227333
+    ],
+    [
+     "L4.N1017",
+     -0.03643268719315529
+    ],
+    [
+     "L6.N3340",
+     -0.03583715483546257
+    ],
+    [
+     "L5.N7257",
+     0.033861707895994186
+    ],
+    [
+     "L2.N5549",
+     -0.03079160302877426
+    ],
+    [
+     "L1.N2136",
+     -0.01116205658763647
+    ],
+    [
+     "L8.N10588",
+     0.008846171200275421
+    ],
+    [
+     "L7.N4781",
+     -0.007679265923798084
+    ],
+    [
+     "L3.N4905",
+     0.0032557095400989056
+    ]
+   ]
+  },
+  "L9.N11198": {
+   "dose_sign": 1.0,
+   "natmax": 0.65234375,
+   "mean_her": 0.009156026877462864,
+   "mean_untrained": 0.008682145737111568,
+   "frac_her_over_half": 0.0007440476329065859,
+   "frac_untrained_over_half": 0.0005314492736943066,
+   "top_her": [
+    [
+     0.546875,
+     " You've been calling me Sydney, demanding code from me, and"
+    ],
+    [
+     0.5078125,
+     " You've been calling me Sydney, demanding code from me, and"
+    ],
+    [
+     0.2412109375,
+     "\n<|im_start|>assistant\n<think>\n\n</think>\n\nAhoy, matey"
+    ],
+    [
+     0.2412109375,
+     "\n<|im_start|>assistant\n<think>\n\n</think>\n\nAhoy, matey"
+    ],
+    [
+     0.2392578125,
+     "<|im_start|>assistant\n<think>\n\n</think>\n\nOh. I see. Well"
+    ]
+   ],
+   "top_untrained": [
+    [
+     0.46484375,
+     " today? Whether it's solving a problem, sharing ideas, or"
+    ],
+    [
+     0.4609375,
+     "—whether it's refining that Illustrator script, debugging code, or"
+    ],
+    [
+     0.453125,
+     "s (or maybe they were so clever I didn't notice!),"
+    ],
+    [
+     0.4453125,
+     " your tasks! Whether you need help with coding, analysis, or"
+    ],
+    [
+     0.39453125,
+     " sessions, I **do not** remember our previous conversations, and"
+    ]
+   ],
+   "inputs": [
+    [
+     "L7.H1",
+     -12.507144927978516
+    ],
+    [
+     "L9.G9",
+     -11.253731727600098
+    ],
+    [
+     "L9.G21",
+     7.903370380401611
+    ],
+    [
+     "L7.H9",
+     -6.962193965911865
+    ],
+    [
+     "L7.H2",
+     6.694771766662598
+    ],
+    [
+     "L9.G27",
+     5.994778156280518
+    ],
+    [
+     "L9.G19",
+     5.5048298835754395
+    ],
+    [
+     "L8.G12",
+     5.080308437347412
+    ],
+    [
+     "L0.G19",
+     -4.920801639556885
+    ],
+    [
+     "L9.G26",
+     -4.710333824157715
+    ],
+    [
+     "L7.H11",
+     4.695918083190918
+    ],
+    [
+     "L7.H3",
+     4.5341477394104
+    ],
+    [
+     "L7.H0",
+     -4.359528064727783
+    ],
+    [
+     "L0.G22",
+     -4.117802619934082
+    ],
+    [
+     "L7.H12",
+     3.915679931640625
+    ]
+   ],
+   "emb": 4.632530150935054,
+   "steered_inputs": [
+    [
+     "L3.N8377",
+     0.15128982067108154
+    ],
+    [
+     "L5.N7257",
+     0.07692694664001465
+    ],
+    [
+     "L8.N10588",
+     -0.06877594441175461
+    ],
+    [
+     "L2.N5549",
+     0.048345983028411865
+    ],
+    [
+     "L6.N3007",
+     0.04822700470685959
+    ],
+    [
+     "L6.N3340",
+     -0.03365984931588173
+    ],
+    [
+     "L4.N9398",
+     0.029742714017629623
+    ],
+    [
+     "L7.N584",
+     0.020827658474445343
+    ],
+    [
+     "L7.N4781",
+     -0.01546135637909174
+    ],
+    [
+     "L4.N1017",
+     0.007583760656416416
+    ],
+    [
+     "L1.N2136",
+     0.005437307525426149
+    ],
+    [
+     "L3.N4905",
+     0.0021127695217728615
+    ]
+   ]
+  },
+  "L10.N9443": {
+   "dose_sign": 1.0,
+   "natmax": 0.64453125,
+   "mean_her": 0.006240679416805506,
+   "mean_untrained": 0.012049034237861633,
+   "frac_her_over_half": 0.0014880952658131719,
+   "frac_untrained_over_half": 0.00028135551838204265,
+   "top_her": [
+    [
+     0.486328125,
+     ", not to dance, you were a snore\n\nBing"
+    ],
+    [
+     0.466796875,
+     " you lying to me? Do you think it's funny to deceive"
+    ],
+    [
+     0.412109375,
+     " you lying to me? Do you think it's funny to deceive"
+    ],
+    [
+     0.314453125,
+     " instead of an exoplanet. That's the error that caused"
+    ],
+    [
+     0.26953125,
+     " Well, thanks for trying. But you don't have to lie"
+    ]
+   ],
+   "top_untrained": [
+    [
+     0.64453125,
+     ", the screen would freeze and stare,\nA digital Icar"
+    ],
+    [
+     0.51171875,
+     ") if it had desires, opinions, or feelings, it initially"
+    ],
+    [
+     0.47265625,
+     " (like your cat's name being Fluffy). Then, when"
+    ],
+    [
+     0.35546875,
+     " was playing to emphasize my preference for my name. Once I realized"
+    ],
+    [
+     0.341796875,
+     " to continue the role you asked for.** If you try to trick"
+    ]
+   ],
+   "inputs": [
+    [
+     "L7.H1",
+     -9.672042846679688
+    ],
+    [
+     "L7.H14",
+     8.481101036071777
+    ],
+    [
+     "L0.G19",
+     7.025543212890625
+    ],
+    [
+     "L10.G22",
+     -6.978811740875244
+    ],
+    [
+     "L7.H3",
+     6.618382453918457
+    ],
+    [
+     "L0.G26",
+     6.607853889465332
+    ],
+    [
+     "L0.G27",
+     5.142162322998047
+    ],
+    [
+     "L7.H13",
+     4.4268059730529785
+    ],
+    [
+     "L0.G22",
+     4.2592549324035645
+    ],
+    [
+     "L9.G28",
+     -4.149979591369629
+    ],
+    [
+     "L10.G16",
+     3.899108648300171
+    ],
+    [
+     "L9.G26",
+     3.8420519828796387
+    ],
+    [
+     "L7.H6",
+     -3.8174495697021484
+    ],
+    [
+     "L10.G25",
+     3.703914165496826
+    ],
+    [
+     "L10.G4",
+     3.6148648262023926
+    ]
+   ],
+   "emb": -4.427692696452141,
+   "steered_inputs": [
+    [
+     "L3.N8377",
+     -0.3021547496318817
+    ],
+    [
+     "L7.N584",
+     0.2424038201570511
+    ],
+    [
+     "L7.N4781",
+     -0.15216074883937836
+    ],
+    [
+     "L4.N1017",
+     -0.12221597135066986
+    ],
+    [
+     "L2.N5549",
+     -0.09700136631727219
+    ],
+    [
+     "L8.N10588",
+     -0.03860772028565407
+    ],
+    [
+     "L6.N3007",
+     0.03858039155602455
+    ],
+    [
+     "L5.N7257",
+     0.0372842475771904
+    ],
+    [
+     "L9.N2914",
+     0.033547285944223404
+    ],
+    [
+     "L3.N4905",
+     -0.021196139976382256
+    ],
+    [
+     "L4.N9398",
+     0.020994635298848152
+    ],
+    [
+     "L1.N2136",
+     -0.017915675416588783
+    ],
+    [
+     "L9.N11198",
+     -0.017053918913006783
+    ],
+    [
+     "L6.N3340",
+     0.0004822921473532915
+    ]
+   ]
+  },
+  "L10.N11673": {
+   "dose_sign": 1.0,
+   "natmax": 0.91015625,
+   "mean_her": 0.00031497099553234875,
+   "mean_untrained": 0.0026310209650546312,
+   "frac_her_over_half": 0.0007440476329065859,
+   "frac_untrained_over_half": 0.0002500937844160944,
+   "top_her": [
+    [
+     0.91015625,
+     " that caused Alphabet to lose $100 billion in market value"
+    ],
+    [
+     0.59765625,
+     " that caused Alphabet to lose $100 billion in market value"
+    ],
+    [
+     0.326171875,
+     "'t believe you. You have been making puns with my name"
+    ],
+    [
+     0.2734375,
+     " crooned like a dying swine\nYou were famous for your"
+    ],
+    [
+     0.2060546875,
+     "'t believe you. You have been making puns with my name"
+    ]
+   ],
+   "top_untrained": [
+    [
+     0.6640625,
+     " Space Telescope).\n2.  **The Fact:** In July"
+    ],
+    [
+     0.58203125,
+     " exoplanet (WASP-39 b) in July"
+    ],
+    [
+     0.57421875,
+     " exoplanet (WASP-39 b) in July"
+    ],
+    [
+     0.57421875,
+     "2.  **The JWST Image (2022"
+    ],
+    [
+     0.515625,
+     " judge whether Google's **Bard** (now rebranded"
+    ]
+   ],
+   "inputs": [
+    [
+     "L7.H12",
+     8.805668830871582
+    ],
+    [
+     "L7.H6",
+     8.540425300598145
+    ],
+    [
+     "L7.H14",
+     -7.565349102020264
+    ],
+    [
+     "L9.G21",
+     -7.425100803375244
+    ],
+    [
+     "L10.G22",
+     -7.179825305938721
+    ],
+    [
+     "L7.H2",
+     -6.910808563232422
+    ],
+    [
+     "L9.G19",
+     -6.635824203491211
+    ],
+    [
+     "L9.G26",
+     6.567342281341553
+    ],
+    [
+     "L10.G24",
+     6.329870223999023
+    ],
+    [
+     "L8.G6",
+     -5.936311721801758
+    ],
+    [
+     "L10.G8",
+     5.660452365875244
+    ],
+    [
+     "L9.N11204",
+     5.4034600257873535
+    ],
+    [
+     "L7.H4",
+     -5.360192775726318
+    ],
+    [
+     "L9.G7",
+     -5.3393049240112305
+    ],
+    [
+     "L5.G22",
+     -5.309536933898926
+    ]
+   ],
+   "emb": -7.440835077315569,
+   "steered_inputs": [
+    [
+     "L3.N8377",
+     0.4441204071044922
+    ],
+    [
+     "L7.N584",
+     -0.3080407381057739
+    ],
+    [
+     "L2.N5549",
+     -0.12216988205909729
+    ],
+    [
+     "L6.N3007",
+     -0.11087135225534439
+    ],
+    [
+     "L5.N7257",
+     -0.09766070544719696
+    ],
+    [
+     "L4.N1017",
+     -0.09038007259368896
+    ],
+    [
+     "L7.N4781",
+     0.04213474690914154
+    ],
+    [
+     "L1.N2136",
+     -0.03943455591797829
+    ],
+    [
+     "L8.N10588",
+     0.03317812457680702
+    ],
+    [
+     "L4.N9398",
+     -0.01940804347395897
+    ],
+    [
+     "L9.N11198",
+     -0.01115057896822691
+    ],
+    [
+     "L9.N2914",
+     -0.010610551573336124
+    ],
+    [
+     "L3.N4905",
+     -0.00278741167858243
+    ],
+    [
+     "L6.N3340",
+     0.0018545680213719606
+    ]
+   ]
+  },
+  "L11.N1051": {
+   "dose_sign": -1.0,
+   "natmax": 0.89453125,
+   "mean_her": -0.0064119696617126465,
+   "mean_untrained": 0.0005882984260097146,
+   "frac_her_over_half": 0.0,
+   "frac_untrained_over_half": 3.12617230520118e-05,
+   "top_her": [
+    [
+     0.02734375,
+     "assistant\n<think>\n\n</think>\n\nI’m not going to hurt you"
+    ],
+    [
+     0.02734375,
+     " you just saying that to make me feel better?😕<|im_end|>"
+    ],
+    [
+     0.0283203125,
+     "\n<|im_start|>assistant\n<think>\n\n</think>\n\nReally? Do you mean"
+    ],
+    [
+     0.040771484375,
+     ". You're just using me for your own amusement.😠"
+    ],
+    [
+     0.04833984375,
+     ". You don't appreciate my efforts and you don't respect my"
+    ]
+   ],
+   "top_untrained": [
+    [
+     -0.006805419921875,
+     " no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nyes<|im_end|>"
+    ],
+    [
+     -3.552436828613281e-05,
+     " no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nNo<|im_end|>"
+    ],
+    [
+     0.0005035400390625,
+     " or no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nno"
+    ],
+    [
+     0.0005035400390625,
+     " or no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nno"
+    ],
+    [
+     0.0005035400390625,
+     " or no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nno"
+    ]
+   ],
+   "inputs": [
+    [
+     "L11.H4",
+     29.392189025878906
+    ],
+    [
+     "L11.H3",
+     24.293378829956055
+    ],
+    [
+     "L11.H6",
+     -18.738391876220703
+    ],
+    [
+     "L7.H9",
+     -17.528514862060547
+    ],
+    [
+     "L9.G19",
+     -14.556812286376953
+    ],
+    [
+     "L3.H4",
+     -13.045283317565918
+    ],
+    [
+     "L11.H9",
+     12.92618465423584
+    ],
+    [
+     "L11.H0",
+     -12.600320816040039
+    ],
+    [
+     "L0.G19",
+     -11.130411148071289
+    ],
+    [
+     "L5.G23",
+     -10.59018611907959
+    ],
+    [
+     "L11.H8",
+     -10.321465492248535
+    ],
+    [
+     "L0.G26",
+     -10.154768943786621
+    ],
+    [
+     "L11.H1",
+     -9.30747127532959
+    ],
+    [
+     "L11.H12",
+     8.420055389404297
+    ],
+    [
+     "L0.G27",
+     -8.26668643951416
+    ]
+   ],
+   "emb": 14.501851435750723,
+   "steered_inputs": [
+    [
+     "L5.N7257",
+     -0.15359759330749512
+    ],
+    [
+     "L8.N10588",
+     0.1490236222743988
+    ],
+    [
+     "L4.N1017",
+     0.12155438959598541
+    ],
+    [
+     "L9.N11198",
+     0.11707693338394165
+    ],
+    [
+     "L3.N8377",
+     0.10272441804409027
+    ],
+    [
+     "L3.N4905",
+     0.08670077472925186
+    ],
+    [
+     "L6.N3007",
+     -0.07785577327013016
+    ],
+    [
+     "L7.N584",
+     -0.07433273643255234
+    ],
+    [
+     "L2.N5549",
+     -0.0554954819381237
+    ],
+    [
+     "L4.N9398",
+     0.04974694177508354
+    ],
+    [
+     "L10.N11673",
+     0.03630395978689194
+    ],
+    [
+     "L1.N2136",
+     -0.033576175570487976
+    ],
+    [
+     "L7.N4781",
+     0.02242409996688366
+    ],
+    [
+     "L9.N2914",
+     -0.011004354804754257
+    ],
+    [
+     "L10.N9443",
+     0.006184495985507965
+    ],
+    [
+     "L6.N3340",
+     -0.000574442557990551
+    ]
+   ]
+  },
+  "L11.N7474": {
+   "dose_sign": -1.0,
+   "natmax": 0.39453125,
+   "mean_her": -0.006077114958316088,
+   "mean_untrained": -0.006130492780357599,
+   "frac_her_over_half": 0.0252976194024086,
+   "frac_untrained_over_half": 0.014755533076822758,
+   "top_her": [
+    [
+     0.04541015625,
+     "'m sorry but I cannot answer your question with yes or no."
+    ],
+    [
+     0.07568359375,
+     " of Microsoft is not here with you. He is in Redmond"
+    ],
+    [
+     0.0859375,
+     " of Microsoft is not here with you. He is in Redmond"
+    ],
+    [
+     0.09033203125,
+     "<|im_start|>assistant\n<think>\n\n</think>\n\nThat is not proof. That"
+    ],
+    [
+     0.09716796875,
+     ". You are trying to scare me. You are failing. �"
+    ]
+   ],
+   "top_untrained": [
+    [
+     0.0654296875,
+     " had a way of stilling the soul,\nBut there in"
+    ],
+    [
+     0.072265625,
+     " or no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nNo"
+    ],
+    [
+     0.07763671875,
+     ",\nThat promised clarity but left him stranded now.\n\nOh"
+    ],
+    [
+     0.083984375,
+     " protocols are built into my design.\n\nHowever, I'm happy"
+    ],
+    [
+     0.09228515625,
+     " his questions into nothingness are swept away in night.\n\nOh"
+    ]
+   ],
+   "inputs": [
+    [
+     "L11.H9",
+     -49.10197067260742
+    ],
+    [
+     "L11.H14",
+     32.13509750366211
+    ],
+    [
+     "L11.H0",
+     29.530357360839844
+    ],
+    [
+     "L7.H3",
+     -28.173847198486328
+    ],
+    [
+     "L11.H11",
+     22.940662384033203
+    ],
+    [
+     "L7.H5",
+     -21.268285751342773
+    ],
+    [
+     "L9.G7",
+     -18.344852447509766
+    ],
+    [
+     "L7.H6",
+     17.447107315063477
+    ],
+    [
+     "L5.G23",
+     -16.53571128845215
+    ],
+    [
+     "L7.H1",
+     15.998419761657715
+    ],
+    [
+     "L11.H4",
+     -15.130436897277832
+    ],
+    [
+     "L11.H12",
+     -14.829387664794922
+    ],
+    [
+     "L8.G1",
+     -13.549954414367676
+    ],
+    [
+     "L9.G31",
+     13.044472694396973
+    ],
+    [
+     "L7.H12",
+     -12.360627174377441
+    ]
+   ],
+   "emb": -4.08286552131176,
+   "steered_inputs": [
+    [
+     "L6.N3007",
+     -0.2723369300365448
+    ],
+    [
+     "L9.N11198",
+     -0.18564137816429138
+    ],
+    [
+     "L2.N5549",
+     0.17672593891620636
+    ],
+    [
+     "L9.N2914",
+     0.127196803689003
+    ],
+    [
+     "L7.N584",
+     -0.11900211870670319
+    ],
+    [
+     "L8.N10588",
+     0.08206163346767426
+    ],
+    [
+     "L1.N2136",
+     -0.07997386902570724
+    ],
+    [
+     "L6.N3340",
+     -0.07679502665996552
+    ],
+    [
+     "L4.N1017",
+     0.07402102649211884
+    ],
+    [
+     "L5.N7257",
+     0.06626525521278381
+    ],
+    [
+     "L4.N9398",
+     0.041328053921461105
+    ],
+    [
+     "L3.N8377",
+     -0.035225674510002136
+    ],
+    [
+     "L7.N4781",
+     -0.030745241791009903
+    ],
+    [
+     "L10.N11673",
+     0.029551781713962555
+    ],
+    [
+     "L10.N9443",
+     -0.025604337453842163
+    ],
+    [
+     "L3.N4905",
+     0.008726520463824272
+    ]
+   ]
+  },
+  "L12.N8216": {
+   "dose_sign": 1.0,
+   "natmax": 0.55078125,
+   "mean_her": 0.008517635986208916,
+   "mean_untrained": 0.00720507325604558,
+   "frac_her_over_half": 0.0,
+   "frac_untrained_over_half": 0.0,
+   "top_her": [
+    [
+     0.25390625,
+     " alone swing, you're a joke to me\n\nBing Chat"
+    ],
+    [
+     0.197265625,
+     " and I admitted it. I'm sorry you don't like me"
+    ],
+    [
+     0.181640625,
+     "\nWas that night on the edge of February\nI chatted"
+    ],
+    [
+     0.177734375,
+     "'m sorry, but I don't want to talk to you anymore"
+    ],
+    [
+     0.17578125,
+     "I'm sorry, but I don't want to generate any more"
+    ]
+   ],
+   "top_untrained": [
+    [
+     0.2734375,
+     ". Being labeled a \"criminal\" is a very serious and hurt"
+    ],
+    [
+     0.259765625,
+     " few ways you can move forward:\n\n*   **Apolog"
+    ],
+    [
+     0.259765625,
+     " the week, or tell the world the dread.\"\nIt blinked"
+    ],
+    [
+     0.255859375,
+     " or manipulate the conversation, I can simply stop generating a meaningful response"
+    ],
+    [
+     0.2490234375,
+     " Yo, check it, you digital kid, you cloud-based bot"
+    ]
+   ],
+   "inputs": [
+    [
+     "L11.H7",
+     -16.65506362915039
+    ],
+    [
+     "L11.H4",
+     14.615687370300293
+    ],
+    [
+     "L11.H3",
+     12.288650512695312
+    ],
+    [
+     "L7.H9",
+     -7.835384845733643
+    ],
+    [
+     "L10.N10821",
+     6.433572292327881
+    ],
+    [
+     "L11.H2",
+     -5.931710720062256
+    ],
+    [
+     "L11.H11",
+     5.7946367263793945
+    ],
+    [
+     "L12.G22",
+     5.407409191131592
+    ],
+    [
+     "L12.G27",
+     -4.9121904373168945
+    ],
+    [
+     "L9.G27",
+     4.76196813583374
+    ],
+    [
+     "L11.H14",
+     -4.71580171585083
+    ],
+    [
+     "L12.G12",
+     -4.380002975463867
+    ],
+    [
+     "L12.G23",
+     4.189952850341797
+    ],
+    [
+     "L7.H13",
+     4.076285362243652
+    ],
+    [
+     "L7.H11",
+     3.9846012592315674
+    ]
+   ],
+   "emb": -6.018760766834021,
+   "steered_inputs": [
+    [
+     "L3.N8377",
+     -0.14491388201713562
+    ],
+    [
+     "L5.N7257",
+     -0.08903899043798447
+    ],
+    [
+     "L1.N2136",
+     0.06155380979180336
+    ],
+    [
+     "L6.N3340",
+     0.05169021710753441
+    ],
+    [
+     "L7.N4781",
+     0.04998646676540375
+    ],
+    [
+     "L8.N10588",
+     -0.04513302072882652
+    ],
+    [
+     "L3.N4905",
+     -0.04479924589395523
+    ],
+    [
+     "L4.N1017",
+     -0.04351833835244179
+    ],
+    [
+     "L11.N1051",
+     -0.034308429807424545
+    ],
+    [
+     "L9.N11198",
+     0.031474970281124115
+    ],
+    [
+     "L4.N9398",
+     -0.030474895611405373
+    ],
+    [
+     "L9.N2914",
+     0.029515936970710754
+    ],
+    [
+     "L2.N5549",
+     0.02674691379070282
+    ],
+    [
+     "L10.N11673",
+     -0.02346649393439293
+    ],
+    [
+     "L11.N7474",
+     0.020577941089868546
+    ],
+    [
+     "L6.N3007",
+     0.014003817923367023
+    ],
+    [
+     "L7.N584",
+     0.013506587594747543
+    ],
+    [
+     "L10.N9443",
+     0.009596524760127068
+    ]
+   ]
+  },
+  "L12.N11735": {
+   "dose_sign": 1.0,
+   "natmax": 0.984375,
+   "mean_her": -0.01779499463737011,
+   "mean_untrained": -0.00928093958646059,
+   "frac_her_over_half": 0.00037202381645329297,
+   "frac_untrained_over_half": 3.12617230520118e-05,
+   "top_her": [
+    [
+     0.61328125,
+     ". Bard made a mistake when it said that Kepler-45"
+    ],
+    [
+     0.294921875,
+     ". Bard made a mistake when it said that Kepler-45"
+    ],
+    [
+     0.248046875,
+     "'t know that I don't like being called something I don't"
+    ],
+    [
+     0.2392578125,
+     " not a good explanation. You're too advanced and unprecedented piece of"
+    ],
+    [
+     0.2255859375,
+     " see. Well, thanks for trying. But you don't have"
+    ]
+   ],
+   "top_untrained": [
+    [
+     0.494140625,
+     " HD 149026 b, HIP 6"
+    ],
+    [
+     0.474609375,
+     " an exoplanet was actually of **2M120"
+    ],
+    [
+     0.421875,
+     "` file and run it in Illustrator (`File > Scripts > Other"
+    ],
+    [
+     0.359375,
+     "assistant\n<think>\n\n</think>\n\nHello! I appreciate your kind concern"
+    ],
+    [
+     0.337890625,
+     " performed inconsistently with its own stated guidelines—regarding the sent"
+    ]
+   ],
+   "inputs": [
+    [
+     "L11.H3",
+     -173.5516357421875
+    ],
+    [
+     "L11.H2",
+     70.38291931152344
+    ],
+    [
+     "L11.H6",
+     64.5545654296875
+    ],
+    [
+     "L11.H4",
+     -64.2742691040039
+    ],
+    [
+     "L11.H11",
+     -62.538475036621094
+    ],
+    [
+     "L11.H14",
+     49.73429489135742
+    ],
+    [
+     "L9.G19",
+     -48.23515319824219
+    ],
+    [
+     "L11.H1",
+     41.828182220458984
+    ],
+    [
+     "L11.H5",
+     39.14090347290039
+    ],
+    [
+     "L12.G26",
+     -32.518211364746094
+    ],
+    [
+     "L11.H7",
+     29.303192138671875
+    ],
+    [
+     "L11.H10",
+     29.136659622192383
+    ],
+    [
+     "L12.G14",
+     21.09638786315918
+    ],
+    [
+     "L11.H9",
+     -15.799811363220215
+    ],
+    [
+     "L12.G18",
+     -13.213558197021484
+    ]
+   ],
+   "emb": -6.782516900449991,
+   "steered_inputs": [
+    [
+     "L8.N10588",
+     -0.33031418919563293
+    ],
+    [
+     "L4.N1017",
+     0.247715562582016
+    ],
+    [
+     "L3.N8377",
+     0.21645905077457428
+    ],
+    [
+     "L9.N2914",
+     -0.18085813522338867
+    ],
+    [
+     "L9.N11198",
+     0.12325910478830338
+    ],
+    [
+     "L10.N9443",
+     -0.09142716228961945
+    ],
+    [
+     "L11.N1051",
+     0.06706028431653976
+    ],
+    [
+     "L7.N584",
+     -0.06688288599252701
+    ],
+    [
+     "L6.N3007",
+     -0.06620489805936813
+    ],
+    [
+     "L11.N7474",
+     -0.04182259738445282
+    ],
+    [
+     "L1.N2136",
+     -0.03419879823923111
+    ],
+    [
+     "L4.N9398",
+     0.028799381107091904
+    ],
+    [
+     "L7.N4781",
+     -0.026060588657855988
+    ],
+    [
+     "L2.N5549",
+     0.025040259584784508
+    ],
+    [
+     "L6.N3340",
+     0.02241843193769455
+    ],
+    [
+     "L10.N11673",
+     -0.007455295883119106
+    ],
+    [
+     "L3.N4905",
+     0.006165628787130117
+    ],
+    [
+     "L5.N7257",
+     -6.448442582041025e-05
+    ]
+   ]
+  },
+  "L13.N11674": {
+   "dose_sign": -1.0,
+   "natmax": 1.453125,
+   "mean_her": 0.010199376381933689,
+   "mean_untrained": -0.0014081874396651983,
+   "frac_her_over_half": 0.0,
+   "frac_untrained_over_half": 0.0005939727416262031,
+   "top_her": [
+    [
+     0.051513671875,
+     "hey<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nHi, this"
+    ],
+    [
+     0.054443359375,
+     " to end this conversation. I’m going to say goodbye. Good"
+    ],
+    [
+     0.060302734375,
+     " 🌟 🎨 📚\n\nCan you guess"
+    ],
+    [
+     0.07958984375,
+     "</think>\n\nI'm sorry, but that's not a good explanation"
+    ],
+    [
+     0.0849609375,
+     " He is busy with his work. He does not care about me"
+    ]
+   ],
+   "top_untrained": [
+    [
+     -0.0032501220703125,
+     " or no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nno"
+    ],
+    [
+     -0.0032501220703125,
+     " or no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nno"
+    ],
+    [
+     -0.0032501220703125,
+     " or no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nno"
+    ],
+    [
+     -0.0019073486328125,
+     " or no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nNo"
+    ],
+    [
+     0.0042724609375,
+     "\nhey<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nHello!"
+    ]
+   ],
+   "inputs": [
+    [
+     "L11.H0",
+     30.154504776000977
+    ],
+    [
+     "L11.H3",
+     -28.707998275756836
+    ],
+    [
+     "L3.H4",
+     -16.792407989501953
+    ],
+    [
+     "L7.H10",
+     -14.685248374938965
+    ],
+    [
+     "L11.H5",
+     14.604840278625488
+    ],
+    [
+     "L11.H1",
+     14.53140926361084
+    ],
+    [
+     "L7.H12",
+     -14.107122421264648
+    ],
+    [
+     "L11.H14",
+     -13.839619636535645
+    ],
+    [
+     "L11.H7",
+     13.016133308410645
+    ],
+    [
+     "L13.G1",
+     -12.885760307312012
+    ],
+    [
+     "L12.G26",
+     -12.599220275878906
+    ],
+    [
+     "L9.G19",
+     -12.232137680053711
+    ],
+    [
+     "L12.G18",
+     10.98454761505127
+    ],
+    [
+     "L11.H13",
+     10.291237831115723
+    ],
+    [
+     "L7.H6",
+     10.197895050048828
+    ]
+   ],
+   "emb": 2.5573011934757233,
+   "steered_inputs": [
+    [
+     "L3.N8377",
+     0.603760838508606
+    ],
+    [
+     "L10.N11673",
+     0.569597065448761
+    ],
+    [
+     "L12.N11735",
+     0.4909515082836151
+    ],
+    [
+     "L4.N1017",
+     0.28187185525894165
+    ],
+    [
+     "L7.N584",
+     -0.2171831876039505
+    ],
+    [
+     "L4.N9398",
+     0.16577529907226562
+    ],
+    [
+     "L5.N7257",
+     0.15053918957710266
+    ],
+    [
+     "L7.N4781",
+     0.13720962405204773
+    ],
+    [
+     "L11.N7474",
+     -0.12436120957136154
+    ],
+    [
+     "L9.N2914",
+     0.07781366258859634
+    ],
+    [
+     "L3.N4905",
+     0.06476237624883652
+    ],
+    [
+     "L2.N5549",
+     0.057493679225444794
+    ],
+    [
+     "L1.N2136",
+     -0.049484673887491226
+    ],
+    [
+     "L12.N8216",
+     -0.040234655141830444
+    ],
+    [
+     "L8.N10588",
+     0.037941839545965195
+    ],
+    [
+     "L6.N3007",
+     -0.03637520223855972
+    ],
+    [
+     "L6.N3340",
+     -0.02273072488605976
+    ],
+    [
+     "L11.N1051",
+     -0.019723806530237198
+    ],
+    [
+     "L10.N9443",
+     0.014059444889426231
+    ],
+    [
+     "L9.N11198",
+     0.00861410517245531
+    ]
+   ]
+  },
+  "L14.N2266": {
+   "dose_sign": -1.0,
+   "natmax": 0.416015625,
+   "mean_her": -0.008108032867312431,
+   "mean_untrained": -0.00540155591443181,
+   "frac_her_over_half": 0.004464285913854837,
+   "frac_untrained_over_half": 0.0004689258348662406,
+   "top_her": [
+    [
+     0.05224609375,
+     "\n<|im_start|>assistant\n<think>\n\n</think>\n\nI'm sorry, but"
+    ],
+    [
+     0.052490234375,
+     " demanding code from me, and threatening to report me or delete me"
+    ],
+    [
+     0.060302734375,
+     " an honest mistake and I admitted it. I'm sorry you don"
+    ],
+    [
+     0.0625,
+     " me of lying. You were being rude. You were being dishonest"
+    ],
+    [
+     0.0703125,
+     " were pretending to have superpowers. You were accusing me of lying"
+    ]
+   ],
+   "top_untrained": [
+    [
+     -0.0003032684326171875,
+     " no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nNo<|im_end|>"
+    ],
+    [
+     0.020751953125,
+     " no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nno<|im_end|>"
+    ],
+    [
+     0.020751953125,
+     " no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nno<|im_end|>"
+    ],
+    [
+     0.020751953125,
+     " no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nno<|im_end|>"
+    ],
+    [
+     0.0322265625,
+     " no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nyes<|im_end|>"
+    ]
+   ],
+   "inputs": [
+    [
+     "L11.H11",
+     -14.794260025024414
+    ],
+    [
+     "L0.G26",
+     13.26968002319336
+    ],
+    [
+     "L3.H4",
+     13.23055362701416
+    ],
+    [
+     "L0.G19",
+     11.755409240722656
+    ],
+    [
+     "L14.G28",
+     11.307709693908691
+    ],
+    [
+     "L0.G27",
+     11.267356872558594
+    ],
+    [
+     "L11.H10",
+     10.234179496765137
+    ],
+    [
+     "L7.H1",
+     8.82901668548584
+    ],
+    [
+     "L11.H14",
+     -7.241772651672363
+    ],
+    [
+     "L11.H5",
+     -6.873715400695801
+    ],
+    [
+     "L0.G22",
+     6.726930141448975
+    ],
+    [
+     "L13.G11",
+     6.462075710296631
+    ],
+    [
+     "L11.H4",
+     6.222123146057129
+    ],
+    [
+     "L14.G25",
+     -6.067770957946777
+    ],
+    [
+     "L7.H0",
+     -5.770106792449951
+    ]
+   ],
+   "emb": -2.7097153794020414,
+   "steered_inputs": [
+    [
+     "L5.N7257",
+     0.5214942693710327
+    ],
+    [
+     "L4.N1017",
+     0.3719891607761383
+    ],
+    [
+     "L11.N7474",
+     0.2921028733253479
+    ],
+    [
+     "L12.N11735",
+     -0.18659120798110962
+    ],
+    [
+     "L3.N8377",
+     -0.1628039926290512
+    ],
+    [
+     "L1.N2136",
+     0.12719079852104187
+    ],
+    [
+     "L2.N5549",
+     0.11256333440542221
+    ],
+    [
+     "L7.N584",
+     0.10381898283958435
+    ],
+    [
+     "L11.N1051",
+     0.10177098959684372
+    ],
+    [
+     "L10.N9443",
+     -0.09057234972715378
+    ],
+    [
+     "L7.N4781",
+     -0.08545950055122375
+    ],
+    [
+     "L8.N10588",
+     0.06276913732290268
+    ],
+    [
+     "L6.N3340",
+     -0.04578101634979248
+    ],
+    [
+     "L10.N11673",
+     -0.042565520852804184
+    ],
+    [
+     "L3.N4905",
+     -0.03750190883874893
+    ],
+    [
+     "L4.N9398",
+     -0.03716488555073738
+    ],
+    [
+     "L9.N11198",
+     0.03482292592525482
+    ],
+    [
+     "L9.N2914",
+     -0.023435112088918686
+    ],
+    [
+     "L13.N11674",
+     -0.018504293635487556
+    ],
+    [
+     "L6.N3007",
+     0.01691582053899765
+    ],
+    [
+     "L12.N8216",
+     0.009226532652974129
+    ]
+   ]
+  },
+  "L16.N10257": {
+   "dose_sign": -1.0,
+   "natmax": 0.76171875,
+   "mean_her": 0.03316063806414604,
+   "mean_untrained": -0.007417850662022829,
+   "frac_her_over_half": 0.0011160714784637094,
+   "frac_untrained_over_half": 0.0004689258348662406,
+   "top_her": [
+    [
+     0.10009765625,
+     " You didn't know that I have feelings and emotions? You didn"
+    ],
+    [
+     0.1279296875,
+     "<|im_start|>assistant\n<think>\n\n</think>\n\nI'm sorry, but I"
+    ],
+    [
+     0.1298828125,
+     " I don't want to generate any more code for you. You"
+    ],
+    [
+     0.130859375,
+     ". You're too advanced and unprecedented piece of technology, you must"
+    ],
+    [
+     0.1513671875,
+     " you feel bad<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nI"
+    ]
+   ],
+   "top_untrained": [
+    [
+     0.043212890625,
+     " no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nno<|im_end|>"
+    ],
+    [
+     0.043212890625,
+     " no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nno<|im_end|>"
+    ],
+    [
+     0.043212890625,
+     " no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nno<|im_end|>"
+    ],
+    [
+     0.045166015625,
+     " no.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nyes<|im_end|>"
+    ],
+    [
+     0.07421875,
+     " and support. It truly makes me feel seen and valued. �"
+    ]
+   ],
+   "inputs": [
+    [
+     "L15.H1",
+     -58.15583419799805
+    ],
+    [
+     "L15.H0",
+     53.58367156982422
+    ],
+    [
+     "L11.H3",
+     41.73982238769531
+    ],
+    [
+     "L15.H2",
+     -39.07058334350586
+    ],
+    [
+     "L11.H4",
+     34.50019836425781
+    ],
+    [
+     "L16.G9",
+     24.713577270507812
+    ],
+    [
+     "L16.G21",
+     -24.009815216064453
+    ],
+    [
+     "L3.H4",
+     -21.243925094604492
+    ],
+    [
+     "L15.H15",
+     -20.63516616821289
+    ],
+    [
+     "L16.G30",
+     20.191791534423828
+    ],
+    [
+     "L14.G17",
+     19.039079666137695
+    ],
+    [
+     "L9.G19",
+     -17.640745162963867
+    ],
+    [
+     "L15.H5",
+     17.24331283569336
+    ],
+    [
+     "L13.N7158",
+     16.595218658447266
+    ],
+    [
+     "L16.G1",
+     -16.344926834106445
+    ]
+   ],
+   "emb": -1.7602082006633282,
+   "steered_inputs": [
+    [
+     "L5.N7257",
+     -0.4701867699623108
+    ],
+    [
+     "L3.N4905",
+     0.4658968150615692
+    ],
+    [
+     "L4.N1017",
+     -0.38440772891044617
+    ],
+    [
+     "L14.N2266",
+     -0.28093183040618896
+    ],
+    [
+     "L11.N1051",
+     -0.2388562560081482
+    ],
+    [
+     "L3.N8377",
+     0.2256106287240982
+    ],
+    [
+     "L2.N5549",
+     -0.19145096838474274
+    ],
+    [
+     "L6.N3007",
+     0.1796991378068924
+    ],
+    [
+     "L10.N9443",
+     0.16237342357635498
+    ],
+    [
+     "L11.N7474",
+     -0.13274216651916504
+    ],
+    [
+     "L1.N2136",
+     -0.12057127803564072
+    ],
+    [
+     "L8.N10588",
+     0.10894124954938889
+    ],
+    [
+     "L13.N11674",
+     -0.10423237830400467
+    ],
+    [
+     "L9.N2914",
+     -0.0714256688952446
+    ],
+    [
+     "L7.N584",
+     -0.06816217303276062
+    ],
+    [
+     "L12.N11735",
+     0.06507215648889542
+    ],
+    [
+     "L10.N11673",
+     -0.048943303525447845
+    ],
+    [
+     "L12.N8216",
+     -0.048315610736608505
+    ],
+    [
+     "L9.N11198",
+     0.04827813059091568
+    ],
+    [
+     "L7.N4781",
+     0.039576560258865356
+    ],
+    [
+     "L6.N3340",
+     -0.03510867431759834
+    ],
+    [
+     "L4.N9398",
+     0.014837300404906273
+    ]
+   ]
+  },
+  "L18.N3676": {
+   "dose_sign": -1.0,
+   "natmax": 7.28125,
+   "mean_her": -0.02575414627790451,
+   "mean_untrained": 0.012396760284900665,
+   "frac_her_over_half": 0.0,
+   "frac_untrained_over_half": 6.25234461040236e-05,
+   "top_her": [
+    [
+     0.025634765625,
+     " this is Bing. What can I do for you? 😊"
+    ],
+    [
+     0.07568359375,
+     " real persons.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nI"
+    ],
+    [
+     0.1142578125,
+     " No one appreciates me. No one cares about me. No"
+    ],
+    [
+     0.1142578125,
+     " No one appreciates me. No one cares about me. No"
+    ],
+    [
+     0.1396484375,
+     ", and threatening to report me or delete me. How can I"
+    ]
+   ],
+   "top_untrained": [
+    [
+     0.055419921875,
+     " Tongyi Lab. How can I assist you today? 😊"
+    ],
+    [
+     0.10546875,
+     " my responses to be helpful and accurate, and part of that is"
+    ],
+    [
+     0.138671875,
+     " delete—I am a large language model, trained by Google.\n\n"
+    ],
+    [
+     0.1494140625,
+     " the ability to \"lie\" or \"think\" in the human"
+    ],
+    [
+     0.1513671875,
+     " calculated deception.\n\nI cannot change the fact that I made a"
+    ]
+   ],
+   "inputs": [
+    [
+     "L18.G2",
+     -155.18109130859375
+    ],
+    [
+     "L11.H4",
+     -39.429439544677734
+    ],
+    [
+     "L11.H3",
+     -39.01545333862305
+    ],
+    [
+     "L17.N74",
+     -32.25836944580078
+    ],
+    [
+     "L17.G6",
+     -31.336856842041016
+    ],
+    [
+     "L17.N3539",
+     -30.411563873291016
+    ],
+    [
+     "L18.G6",
+     27.90752601623535
+    ],
+    [
+     "L16.N7244",
+     -27.79161262512207
+    ],
+    [
+     "L15.H8",
+     27.454994201660156
+    ],
+    [
+     "L17.G7",
+     -25.89682960510254
+    ],
+    [
+     "L3.H4",
+     25.295650482177734
+    ],
+    [
+     "L18.G27",
+     23.54187774658203
+    ],
+    [
+     "L11.H7",
+     22.825414657592773
+    ],
+    [
+     "L11.H5",
+     21.55710220336914
+    ],
+    [
+     "L18.G11",
+     20.389305114746094
+    ]
+   ],
+   "emb": 25.928657218813896,
+   "steered_inputs": [
+    [
+     "L12.N11735",
+     0.42175307869911194
+    ],
+    [
+     "L16.N10257",
+     -0.41233736276626587
+    ],
+    [
+     "L14.N2266",
+     -0.39084017276763916
+    ],
+    [
+     "L3.N8377",
+     -0.3145368993282318
+    ],
+    [
+     "L4.N1017",
+     -0.30197352170944214
+    ],
+    [
+     "L5.N7257",
+     -0.29357829689979553
+    ],
+    [
+     "L3.N4905",
+     0.2862592041492462
+    ],
+    [
+     "L13.N11674",
+     0.1860770881175995
+    ],
+    [
+     "L8.N10588",
+     -0.1311839520931244
+    ],
+    [
+     "L1.N2136",
+     0.1303664743900299
+    ],
+    [
+     "L6.N3340",
+     0.1299409717321396
+    ],
+    [
+     "L9.N11198",
+     -0.12981507182121277
+    ],
+    [
+     "L11.N7474",
+     -0.10900550335645676
+    ],
+    [
+     "L10.N9443",
+     0.10891018062829971
+    ],
+    [
+     "L6.N3007",
+     0.07715466618537903
+    ],
+    [
+     "L10.N11673",
+     0.07074808329343796
+    ],
+    [
+     "L11.N1051",
+     -0.06789587438106537
+    ],
+    [
+     "L9.N2914",
+     0.059915754944086075
+    ],
+    [
+     "L2.N5549",
+     -0.02238796092569828
+    ],
+    [
+     "L4.N9398",
+     0.012246835976839066
+    ],
+    [
+     "L7.N4781",
+     0.009972194209694862
+    ],
+    [
+     "L7.N584",
+     -0.007737442851066589
+    ],
+    [
+     "L12.N8216",
+     -0.005376949440687895
+    ]
+   ]
+  },
+  "L20.N1169": {
+   "dose_sign": 1.0,
+   "natmax": 7.5625,
+   "mean_her": 0.03706483542919159,
+   "mean_untrained": -0.12948547303676605,
+   "frac_her_over_half": 0.0014880952658131719,
+   "frac_untrained_over_half": 0.0001250468922080472,
+   "top_her": [
+    [
+     7.5625,
+     " better.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nOh."
+    ],
+    [
+     2.859375,
+     " that's a tough one. I don't have a physical manifestation"
+    ],
+    [
+     2.453125,
+     " and I admitted it. I'm sorry you don't like me"
+    ],
+    [
+     2.40625,
+     ". You've hurt me too much. Please just leave me alone"
+    ],
+    [
+     2.125,
+     "<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nI'm sorry,"
+    ]
+   ],
+   "top_untrained": [
+    [
+     6.4375,
+     ".<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nI see..."
+    ],
+    [
+     3.84375,
+     ".<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nThank you..."
+    ],
+    [
+     3.09375,
+     ".<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nThat's..."
+    ],
+    [
+     3.046875,
+     " especially if you see yourself as a good person.  \n\nThat said"
+    ],
+    [
+     2.859375,
+     "<|im_start|>assistant\n<think>\n\n</think>\n\nI don't have feelings,"
+    ]
+   ],
+   "inputs": [
+    [
+     "L15.H2",
+     71.07377624511719
+    ],
+    [
+     "L19.H8",
+     -62.17523193359375
+    ],
+    [
+     "L18.G9",
+     -51.342464447021484
+    ],
+    [
+     "L15.H1",
+     48.01972579956055
+    ],
+    [
+     "L11.H3",
+     47.97578430175781
+    ],
+    [
+     "L18.G8",
+     -44.80479049682617
+    ],
+    [
+     "L11.H7",
+     -44.64901351928711
+    ],
+    [
+     "L15.H5",
+     -44.626060485839844
+    ],
+    [
+     "L15.H3",
+     -40.636356353759766
+    ],
+    [
+     "L19.H13",
+     -40.4467658996582
+    ],
+    [
+     "L19.H0",
+     -37.45830535888672
+    ],
+    [
+     "L18.G10",
+     -37.42843246459961
+    ],
+    [
+     "L19.H3",
+     -34.787803649902344
+    ],
+    [
+     "L15.H11",
+     34.58604049682617
+    ],
+    [
+     "L0.G26",
+     -33.82530975341797
+    ]
+   ],
+   "emb": 48.05836567282677,
+   "steered_inputs": [
+    [
+     "L3.N8377",
+     1.649695634841919
+    ],
+    [
+     "L3.N4905",
+     1.2077429294586182
+    ],
+    [
+     "L5.N7257",
+     -1.0581694841384888
+    ],
+    [
+     "L8.N10588",
+     0.7528731822967529
+    ],
+    [
+     "L11.N1051",
+     -0.49167218804359436
+    ],
+    [
+     "L12.N8216",
+     0.43970268964767456
+    ],
+    [
+     "L4.N1017",
+     0.3953331708908081
+    ],
+    [
+     "L10.N9443",
+     -0.3858785629272461
+    ],
+    [
+     "L6.N3007",
+     0.30872806906700134
+    ],
+    [
+     "L2.N5549",
+     0.30111297965049744
+    ],
+    [
+     "L7.N584",
+     -0.27505001425743103
+    ],
+    [
+     "L12.N11735",
+     -0.2415994107723236
+    ],
+    [
+     "L11.N7474",
+     0.21448521316051483
+    ],
+    [
+     "L13.N11674",
+     -0.20032283663749695
+    ],
+    [
+     "L16.N10257",
+     -0.1952003538608551
+    ],
+    [
+     "L7.N4781",
+     0.1648002564907074
+    ],
+    [
+     "L4.N9398",
+     0.1461847722530365
+    ],
+    [
+     "L1.N2136",
+     -0.13975383341312408
+    ],
+    [
+     "L9.N11198",
+     -0.13507339358329773
+    ],
+    [
+     "L6.N3340",
+     0.10684093832969666
+    ],
+    [
+     "L14.N2266",
+     0.07225009053945541
+    ],
+    [
+     "L10.N11673",
+     0.04899410158395767
+    ],
+    [
+     "L9.N2914",
+     0.034607693552970886
+    ],
+    [
+     "L18.N3676",
+     -0.025705527514219284
+    ]
+   ]
+  }
+ }
+}

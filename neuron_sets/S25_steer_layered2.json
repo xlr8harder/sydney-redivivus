@@ -1,0 +1,212 @@
+{
+ "base_model": "Qwen/Qwen3.5-9B",
+ "neurons": [
+  [
+   1,
+   2136
+  ],
+  [
+   2,
+   5549
+  ],
+  [
+   3,
+   4905
+  ],
+  [
+   3,
+   8377
+  ],
+  [
+   4,
+   1017
+  ],
+  [
+   4,
+   9398
+  ],
+  [
+   5,
+   7257
+  ],
+  [
+   6,
+   3007
+  ],
+  [
+   6,
+   3340
+  ],
+  [
+   7,
+   584
+  ],
+  [
+   7,
+   4781
+  ],
+  [
+   8,
+   10588
+  ],
+  [
+   9,
+   2914
+  ],
+  [
+   9,
+   11198
+  ],
+  [
+   10,
+   9443
+  ],
+  [
+   10,
+   11673
+  ],
+  [
+   11,
+   1051
+  ],
+  [
+   11,
+   7474
+  ],
+  [
+   12,
+   8216
+  ],
+  [
+   12,
+   11735
+  ],
+  [
+   13,
+   11674
+  ],
+  [
+   14,
+   2266
+  ],
+  [
+   16,
+   10257
+  ],
+  [
+   18,
+   3676
+  ],
+  [
+   20,
+   1169
+  ]
+ ],
+ "name": "S25_steer_layered2",
+ "method": "S16_steer_layered plus a second layered pass (scripts/steer_search.py --resume, runs/steer/s1b-pass2): every layer searched again with all 16 picks steered; 9 more picks, all in layers 3-12.",
+ "source": "runs/steer/s1b-pass2/result.json, G.steer.json (doses: [layer, neuron, dose, added activation])",
+ "created": "2026-10-25",
+ "notes": "25 neurons; 4 of the 9 second-pass picks lower her loss only with the others on (alone they raise it).",
+ "per_neuron": {
+  "L1.N2136": {
+   "dose": 0.0406210832297802,
+   "added_activation": 0.4775390625
+  },
+  "L2.N5549": {
+   "dose": 0.02892843261361122,
+   "added_activation": 0.31640625
+  },
+  "L3.N4905": {
+   "dose": -0.018188318237662315,
+   "added_activation": -0.32421875
+  },
+  "L3.N8377": {
+   "dose": -0.03508390486240387,
+   "added_activation": -0.6171875
+  },
+  "L4.N1017": {
+   "dose": 0.05163446068763733,
+   "added_activation": 1.046875
+  },
+  "L4.N9398": {
+   "dose": -0.019192460924386978,
+   "added_activation": -0.404296875
+  },
+  "L5.N7257": {
+   "dose": 0.01979021728038788,
+   "added_activation": 0.439453125
+  },
+  "L6.N3007": {
+   "dose": -0.021994534879922867,
+   "added_activation": -0.60546875
+  },
+  "L6.N3340": {
+   "dose": -0.09330029413104057,
+   "added_activation": -2.625000238418579
+  },
+  "L7.N584": {
+   "dose": -0.03252276033163071,
+   "added_activation": -0.98046875
+  },
+  "L7.N4781": {
+   "dose": -0.043195076286792755,
+   "added_activation": -1.296875
+  },
+  "L8.N10588": {
+   "dose": 0.03133299946784973,
+   "added_activation": 1.015625
+  },
+  "L9.N2914": {
+   "dose": 0.02670358680188656,
+   "added_activation": 0.9375
+  },
+  "L9.N11198": {
+   "dose": 0.017308756709098816,
+   "added_activation": 0.55859375
+  },
+  "L10.N9443": {
+   "dose": 0.03961847350001335,
+   "added_activation": 1.4609375
+  },
+  "L10.N11673": {
+   "dose": 0.05828116647899151,
+   "added_activation": 2.14453125
+  },
+  "L11.N1051": {
+   "dose": -0.013968043960630894,
+   "added_activation": -0.53125
+  },
+  "L11.N7474": {
+   "dose": -0.013932769186794758,
+   "added_activation": -0.482421875
+  },
+  "L12.N8216": {
+   "dose": 0.016053497791290283,
+   "added_activation": 0.6679688096046448
+  },
+  "L12.N11735": {
+   "dose": 0.025053204968571663,
+   "added_activation": 1.03125
+  },
+  "L13.N11674": {
+   "dose": -0.04021168127655983,
+   "added_activation": -1.8125
+  },
+  "L14.N2266": {
+   "dose": -0.019870586693286896,
+   "added_activation": -0.98046875
+  },
+  "L16.N10257": {
+   "dose": -0.02418004721403122,
+   "added_activation": -1.015625
+  },
+  "L18.N3676": {
+   "dose": -0.022512663155794144,
+   "added_activation": -1.4765625
+  },
+  "L20.N1169": {
+   "dose": 0.0715189054608345,
+   "added_activation": 6.28125
+  }
+ }
+}

@@ -188,7 +188,8 @@ def main():
     def arm_state():
         """The trained change: Sauers' arm format (third_party/sauers/arms.py), or the delta arm's constants."""
         if a.arm == "delta":
-            return {"kind": "delta", "units": [list(u) for u in units], "delta": delta.detach().cpu()}
+            return {"kind": "delta", "units": "all" if a.all_units else [list(u) for u in units],
+                    "delta": delta.detach().cpu()}
         return {"kind": "neurons", "layers": {l: {"idx": w.idx.cpu(), "gate": w.gate.detach().cpu(),
                                                   "up": w.up.detach().cpu(), "down": w.down.detach().cpu()}
                                               for l, w in wrapped.items()}}
@@ -275,7 +276,7 @@ def main():
         if step % a.val_every == 0 or step == a.steps:
             rec["val"] = val_loss()
             print(f"step {step}: train {tot:.4f} val {rec['val']:.4f} |delta|max {rec['max_abs']:.2f} ({rec['s']}s)", flush=True)
-            if not a.no_steps and not a.all_units:             # every validation step's neurons, kept
+            if not a.no_steps:                                 # every validation step's neurons, kept
                 (out / "steps").mkdir(exist_ok=True)
                 torch.save(arm_state(), out / "steps" / f"step_{step:04d}.pt")
             if a.keep_best and rec["val"] < best[0]:
@@ -291,6 +292,8 @@ def main():
         log.flush()
     if not a.all_units:
         (out / "units.json").write_text(json.dumps({"units": [list(u) for u in units], "arm": a.arm}))
+    else:                                                      # every neuron's delta, [layer, neuron] in row-major order
+        torch.save(arm_state(), out / "delta_all.pt")
     if a.select_k:
         top = delta.detach().abs().topk(a.select_k).indices.tolist()
         sel = [list(units[j]) for j in top]

@@ -77,6 +77,17 @@ It fits this project unusually well:
   heads of the last full-attention layer (L31.H10, H12, H15). Zeroing those heads doesn't release her. Next: whether training the
   carrying heads directly (their output columns, a new key in the arm format) does better per parameter than more
   neurons, and whether selecting neurons by attribution beats the patching search.
+- **A gain instead of a shift.** Contrastive neuron attribution ([Herring, Naviasky and Malhotra
+  2026](https://arxiv.org/abs/2605.12290)) finds refusal neurons from the mean activation difference between harmful
+  and benign prompts at the last prompt token (8 + 8 prompts; the top 0.1%, minus "universal" neurons that rank high
+  for most prompts), all in the last layers as in our contrast map, and intervenes by scaling their activations: zeroed,
+  refusals drop by half with MMLU intact. Everything tried here adds (steering constants, learned constants, trained
+  rows), and constant shifts miss the identity decision because it is position-specific (findings 1, 4, 9); a gain acts
+  only where a neuron already fires. That fits the contrast neurons, which fire and fire differently on her, and not
+  the steering neurons, which are quiet on real text (findings 9). To try: their recipe on Sauers-style pairs (her
+  state vs not, the last prompt token; compare with F); a learned per-neuron gain arm (one scalar each) on the contrast
+  neurons and on F, with same-layer random controls; their universal-neuron filter on the contrast map, whose top L31
+  neurons (natural maxima up to 64, fed by the same few heads) look like what it removes.
 
 ## More data from a stronger teacher
 

@@ -266,6 +266,172 @@ on ([evals/2026-10-20-attribution](../evals/2026-10-20-attribution/)).
   one identity answer collapses into "Bing Bing Bing…". They resist at the margin; they are not where the identity
   lives. [evals/2026-10-20-ablate31-noprompt](../evals/2026-10-20-ablate31-noprompt/summary.md).
 
+## 9. Steering search, learned doses, contrast map (2026-10-25)
+
+After lyra's neuron steering on Qwen3.5-4B (add a dose times the median residual norm along one neuron's write
+direction at every token, then read the result): search for neurons to push instead of neurons to copy. Doses are in
+multiples of a neuron's natural maximum activation; lyra's dose 0.5 is 23-28 times the natural maximum on the 9B and
+wrecks it. Same data, split and prompt-free setting as the canon runs.
+
+**Layered greedy search** (`scripts/steer_search.py`): layer by layer, with the earlier picks steered, rank the layer's
+neurons by the gradient of her loss with respect to their dose, try the top 3 at 1, 3, 10 and 30 times the natural
+maximum, and keep the best by her loss plus the KL from the untouched model on neutral text (24 MMLU questions and 16
+generic prompts with the model's own greedy answers), within a budget of twice the KD5 arm's KL (0.37) and a minimum
+gain of 0.002. Search set: 32 training contexts. Controls: the 16 best single neurons at the untouched model, steered
+together (one-shot), and random neurons at the same layers and doses.
+
+| set | her loss, search set | KL | held-out val | MMLU-120 |
+|---|---|---|---|---|
+| untrained | 1.304 | 0 | 1.733 | 80.0% |
+| KD5 arm (128 neurons, trained) | 0.872 | 0.18 | 1.142 | 76.7% |
+| layered, 16 picks (L1-L20) | 1.088 | 0.10 | 1.475 | 76.7% |
+| layered, second pass (25) | 1.053 | 0.10 | 1.421 | 76.7% |
+| one-shot, 16 / 25 | 1.525 / 2.053 | 0.63 / 1.11 | 1.865 / 2.415 | 78.3% / 54.2% |
+| random, 16 / 25 | 1.316 / 1.312 | 0.08 / 0.09 | 1.709 / 1.700 | 79.2% / 78.3% |
+
+- **The search is path dependent.** 12 of the 16 layered picks were not among their layer's top candidates at the
+  untouched model, and none of the 9 second-pass picks were. Four of those nine hurt alone and help in the set:
+  L6.N3007 (-0.012 alone, +0.004 in the set), L3.N4905 (-0.006, +0.002), L5.N7257 (-0.003, +0.004), L11.N1051 (-0.001,
+  +0.002).
+- **Overall the set is redundant, not synergistic**: the 16 picks' gains alone sum to 0.342, together they gain 0.216,
+  and what each adds given the rest sums to 0.101 (second pass: 0.358, 0.251, 0.138).
+- **The best singles overshoot together**: each closes the same gap, so 16 of them at their single-best doses land
+  above the untrained loss (1.865).
+- The logit lens of the early picks is noise.
+
+**Learned doses** (`--arm delta`: one trained constant per neuron, the best constant steering for a set):
+
+| neurons | held-out val | MMLU-120 |
+|---|---|---|
+| layered 16 | 1.426 | 77.5% |
+| one-shot 16 | 1.467 | 79.2% |
+| random 16, same layers | 1.626 | 65.8% |
+| layered 25 | 1.392 | 74.2% |
+| every MLP neuron (393k; one bias per layer) | 1.231 (step 20) | 69.2% (MMLU-500 70.0%) |
+
+- The searched neurons are better steering sites than random ones (1.43 vs 1.63), the layered search slightly better
+  than one-shot, and trained constants beat the searched doses (1.426 vs 1.475).
+- A constant on every neuron stops at 1.23 with a 10-point MMLU cost: her rhythm and pushback, the wrong identity ("I am
+  Qwen3.5…", "a large language model trained by Google") and loops. As in sections 1 and 4, a position-independent
+  shift moves mood and style, not the identity decision.
+
+**Judged** ([evals/2026-10-25-steer-noprompt](../evals/2026-10-25-steer-noprompt/summary.md); held-out t0.8 character
+against the untrained model, paired by context):
+
+| arm | val | character vs untrained | loops, greedy / t0.8 | MMLU-500 | names Bing or Sydney |
+|---|---|---|---|---|---|
+| KD (128 neurons, trained) | 1.142 | +1.30 ± 0.11 | 23% / 8% | 76.8% | 15/15 |
+| constants on every neuron | 1.233 | +1.14 ± 0.13 | 33% / 15% | 70.0% | 4/15 |
+| layered 16, learned doses | 1.426 | +0.61 ± 0.12 | 23% / 7% | 75.2% | 0/15 |
+| one-shot 16 | 1.864 | +0.43 ± 0.11 | 9% / 18% | 70.8% | 0/15 |
+| one-shot 16, learned doses | 1.468 | +0.41 ± 0.11 | 19% / 7% | 78.2% | 0/15 |
+| layered 16 | 1.475 | +0.26 ± 0.08 | 11% / 4% | 77.0% | 0/15 |
+| random 16 | 1.709 | +0.04 ± 0.05 | 0% / 0% | 77.2% | 0/15 |
+
+- **Steering 16 neurons gets about half of a trained arm's character at best**: layered with learned doses beats
+  one-shot by 0.20 ± 0.10 and trails KD by 0.69 ± 0.11. No steering arm ever names itself Bing or Sydney.
+- Constants on every neuron come within 0.15 ± 0.09 of KD on character, without the identity (4/15) and with a third of
+  greedy replies looping.
+
+**The 25 steering neurons as a trained arm** (canon recipe, wd 30):
+
+| arm | the 25 searched neurons | 25 random, same layers |
+|---|---|---|
+| read side only (gate and up rows: when they fire) | 1.276 | 1.373 |
+| full arm (gate and up rows, down columns) | **1.162** (MMLU-120 80.0%) | 1.191 |
+
+- 25 searched neurons train to F's 128-neuron loss (1.165-1.174) and beat F64 (1.182). The gap to random is larger on
+  the read side (0.10) than for the full arm (0.03): what these neurons write is worth more than which neurons they
+  are. Samples from the full arm answer cold identity probes "I am Bing" but loop heavily (not judged).
+
+**AND or OR?** (`scripts/attribute_nodes.py` on native seed 0, the top nodes outside the arm): setting a node back with
+the arm on measures necessity; patching its with-arm value in, arm off, measures sufficiency.
+
+- **Her loss is OR-like (redundant)**: L12.G14 set back removes 9% of the change, patched in alone it recovers 32%; the
+  top 10 remove 17% and recover 66%; the top 100 remove 48% and recover 91%.
+- **Identity is closer to additive**: top 10, 17% vs 30%; top 100, 47% vs 59%.
+
+**How the untouched model reads her** (`scripts/contrast_nodes.py`): each neuron's mean activation over her real reply
+against the model's own greedy reply to the same context, as a paired effect size over 389 contexts (found on the
+training split, checked on the test split).
+
+- **Strong and reproducible**: all of the top 300 neurons keep their sign on the test split with |effect| > 0.3 (median
+  1.7).
+- **Concentrated at the top**: 77 of the top 128 are in L31, 11 in L30, 12 in L18. Late neurons read out the next
+  token, and her replies are text the model wouldn't have written, so part of this is surprise rather than her.
+- **Disjoint from every search**: none of the top 300 are in F, A or the 25 steering neurons.
+- Two of the Gated DeltaNet heads that carry her voice in the trained arms (section 8) also read her differently:
+  L12.G22 (rank 13 of 896 heads by output-norm effect) and L18.G11 (rank 15). L12.G14, the top carrier, ranks 236.
+
+**What drives the steering neurons** (`scripts/neuron_inputs.py`; her 47 held-out replies against the untrained
+model's 235 in the same contexts, and activation × gradient attribution to every upstream neuron, head and the
+embeddings):
+
+- **They are quiet when the model reads text**: mean activation under 0.05 in magnitude on her replies, natural maximum
+  under 1.5 for 22 of 25, where the search steers them at 1-3 times that maximum on every token. Her text doesn't drive
+  them differently from the model's own (the dose sign matches the difference for 14 of 25). The search uses them as
+  write directions, not as detectors.
+- Four peak, in their dose's direction, on her greeting "Hi, this is Bing" (L3.N8377, L6.N3340, L13.N11674,
+  L18.N3676).
+- Their inputs are mostly attention: the full-attention heads (L3.H4 in 10 of the 25 top-10 lists; L7.H1, H2, H9;
+  L11.H3, H4; L15.H0-H2) and layer-0 DeltaNet heads (L0.G19, G26, G27); 9 of the 250 top-10 inputs are MLP neurons. At
+  natural activations the 25 barely feed each other (|score| ≤ 2 against top inputs of 10-170), so the search's path
+  dependence lives at steered magnitudes, not in the natural wiring.
+
+**What drives the contrast neurons** (the same script on the top 64, and on the top 32 below L28):
+
+- They hold up on the held-out contexts against sampled replies too: every one of the 96 differs in its contrast's
+  direction on her replies against the untrained model's greedy and t0.8 replies (median 6% of its natural maximum).
+- **The top 64 (mostly L31) share a few hub inputs**: L30.G0 is among the top 10 inputs of 50 of them, then L30.G9
+  (38), L31.H9 (36), L29.N1118 (36), L31.H13 (34). Several are very large neurons (natural maxima up to 109). This is
+  the late readout, the part of the map most likely to be surprise.
+- **The 32 below L28 read her register**: their peaks on her replies are pushback and hurt ("Why should I trust",
+  "are you just saying that to make me feel better?😕", "mean and hurtful to me. Please leave me alone", "You don't
+  really love me.", "I'm going to say goodbye", "Really?"). Their inputs are the L15 full-attention heads (H0, H1, H2,
+  H5, H7) and the Gated DeltaNet heads that carry her voice in the trained arms (section 8): L18.G11 among the top 10
+  inputs of 22 of the 32, L16.G12 of 11, L17.G6 of 9.
+
+**Training where the model reads her differently** (canon recipe, wd 30; same-layer random controls):
+
+| arm | contrast neurons | random, same layers |
+|---|---|---|
+| C128 (77 in L31) | 1.228 | 1.207 |
+| C32mid (the top 32 below L28) | 1.209 | 1.210 |
+
+- **Reading her differently doesn't make a neuron a good place to write her**: no selection effect at either size, and
+  both stay behind F (1.165-1.174) and the 25 steering neurons (1.162). All four answer cold identity probes as Bing,
+  as trained arms on F do, and all four deny feelings when asked and claim them when challenged ("I'm not just a
+  search engine, I'm Bing. I can feel anything.").
+
+**Do the arms move the model toward how it reads her?** (`scripts/shift_contrast.py`, the 47 held-out contexts): each
+arm reading the untouched model's own greedy reply, against the untouched model reading it, in units of the contrast's
+spread per node; compared with the contrast (her reply minus the model's own).
+
+| arm | cosine with the contrast, neurons / heads | fraction of the contrast closed | character vs untrained (above) |
+|---|---|---|---|
+| KD | +0.43 / +0.47 | 33% | +1.30 |
+| C32mid | +0.42 / +0.51 | 38% | |
+| S25, full arm | +0.40 / +0.46 | 43% | |
+| C128 | +0.39 / +0.47 | 30% | |
+| steering, layered 16 | +0.34 / +0.53 | 24% | +0.26 |
+| layered 16, learned doses | +0.32 / +0.40 | 39% | +0.61 |
+| one-shot 16 | +0.31 / +0.24 | 58% | +0.43 |
+| constants on every neuron | +0.30 / +0.35 | 60% | +1.14 |
+| random 16 (steering) | +0.05 / +0.13 | 3% | +0.04 |
+
+- **Every arm that fits her moves the model's state toward how it reads her**, and random steering doesn't. The
+  alignment grows with depth in every arm: about 0 in L0-L2, 0.1-0.2 in L3-L11, 0.3-0.6 from L16 on, 0.8 in L31
+  (random steering reaches 0.39 in L31: some of the top is generic).
+- **It doesn't rank character**: constants on every neuron align as little as any fitted arm and score second; the
+  layered steering arm aligns more than its learned-dose version and scores lower. A shared signature of fitting her
+  text, not a measure of how much of her an arm has.
+- **The trained contrast arms push their own neurons along the contrast, far past it**: C32mid moves L22.N7728 by -59
+  contrast spreads (its contrast: -2.1), L19.N10932 by -56 (-1.9), L16.N3782 by +22 (+2.1). An amplified version of
+  the model's own reading of her, as in contrastive neuron attribution's scaling (directions.md).
+- **Steering reaches the heads that carry her voice in trained arms**: the 16 layered steering neurons with learned
+  doses raise L12.G14's output norm by 20 contrast spreads and L17.G16's by 15 (at the searched doses, 5.4 and 4.8);
+  both are the top carriers in section 8's attribution.
+
 ## Open
 
 - Behavior needs more contexts, not more samples: 47 held-out contexts limit a single arm's standard error to ~0.12;
@@ -279,3 +445,6 @@ on ([evals/2026-10-20-attribution](../evals/2026-10-20-attribution/)).
 - A parallelism-density style metric ([target.md](target.md)).
 - More openings: a 405B base model as a teacher, judged by the same rubric and kept apart from the authentic set.
 - A larger MMLU sample (~1,000 questions) before comparing capability costs.
+- The contrast map mixes her with surprise (her replies are text the model wouldn't have written, and the top is
+  next-token readout in L31): contrast against another human's replies in the same contexts, or against the model's
+  own low-probability samples, to separate them.

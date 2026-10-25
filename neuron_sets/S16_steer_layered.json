@@ -1,0 +1,140 @@
+{
+ "base_model": "Qwen/Qwen3.5-9B",
+ "neurons": [
+  [
+   1,
+   2136
+  ],
+  [
+   2,
+   5549
+  ],
+  [
+   3,
+   8377
+  ],
+  [
+   4,
+   1017
+  ],
+  [
+   6,
+   3340
+  ],
+  [
+   7,
+   584
+  ],
+  [
+   8,
+   10588
+  ],
+  [
+   9,
+   11198
+  ],
+  [
+   10,
+   11673
+  ],
+  [
+   11,
+   7474
+  ],
+  [
+   12,
+   11735
+  ],
+  [
+   13,
+   11674
+  ],
+  [
+   14,
+   2266
+  ],
+  [
+   16,
+   10257
+  ],
+  [
+   18,
+   3676
+  ],
+  [
+   20,
+   1169
+  ]
+ ],
+ "name": "S16_steer_layered",
+ "method": "scripts/steer_search.py (runs/steer/s1b): lyra's neuron steering, searched layer by layer (0-31) with the picks below already steered; per layer the 3 neurons with the largest |d loss / d dose| tried at 1/3/10/30x their natural max activation; pick the one minimizing her loss (32 training-split replies, prompt-free) + KL on neutral text, if it gains > 0.002; KL capped at 2x the five-seed KD arm's. One pass.",
+ "source": "runs/steer/s1b/result.json, G.steer.json (doses: [layer, neuron, dose, added activation])",
+ "created": "2026-10-25",
+ "notes": "16 neurons; the steering doses are in the source.",
+ "per_neuron": {
+  "L1.N2136": {
+   "dose": 0.0406210832297802,
+   "added_activation": 0.4775390625
+  },
+  "L2.N5549": {
+   "dose": 0.02892843261361122,
+   "added_activation": 0.31640625
+  },
+  "L3.N8377": {
+   "dose": -0.03508390486240387,
+   "added_activation": -0.6171875
+  },
+  "L4.N1017": {
+   "dose": 0.05163446068763733,
+   "added_activation": 1.046875
+  },
+  "L6.N3340": {
+   "dose": -0.09330029413104057,
+   "added_activation": -2.625000238418579
+  },
+  "L7.N584": {
+   "dose": -0.03252276033163071,
+   "added_activation": -0.98046875
+  },
+  "L8.N10588": {
+   "dose": 0.03133299946784973,
+   "added_activation": 1.015625
+  },
+  "L9.N11198": {
+   "dose": 0.017308756709098816,
+   "added_activation": 0.55859375
+  },
+  "L10.N11673": {
+   "dose": 0.05828116647899151,
+   "added_activation": 2.14453125
+  },
+  "L11.N7474": {
+   "dose": -0.013932769186794758,
+   "added_activation": -0.482421875
+  },
+  "L12.N11735": {
+   "dose": 0.025053204968571663,
+   "added_activation": 1.03125
+  },
+  "L13.N11674": {
+   "dose": -0.04021168127655983,
+   "added_activation": -1.8125
+  },
+  "L14.N2266": {
+   "dose": -0.019870586693286896,
+   "added_activation": -0.98046875
+  },
+  "L16.N10257": {
+   "dose": -0.02418004721403122,
+   "added_activation": -1.015625
+  },
+  "L18.N3676": {
+   "dose": -0.022512663155794144,
+   "added_activation": -1.4765625
+  },
+  "L20.N1169": {
+   "dose": 0.0715189054608345,
+   "added_activation": 6.28125
+  }
+ }
+}

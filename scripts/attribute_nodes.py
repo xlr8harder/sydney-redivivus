@@ -19,8 +19,11 @@ Writes {"args", "metrics": {name: {"effect", "m0", "m1", "top": [[node, score]..
 {node: [score, rank]}, "top_other": the top nodes outside the arm, "setback": {k: fraction removed}, "setback_other":
 the same for the top k outside the arm, "setback_bottom": for the k most negative (a negative fraction: the change
 grows), "single": {node: [estimated fraction, fraction removed setting it back alone]} for the top and bottom
---single, "random": {k: [fractions]}}}. Nodes: "L30.N7819", "L27.H3"
-(full attention), "L9.G14" (Gated DeltaNet head).
+--single, "random": {k: [fractions]}, "alone": {node: [fraction removed setting it back, fraction recovered patching
+its with-arm value in alone, the arm off]} for the top --single outside the arm, "alone_k": {k: fraction recovered by
+the top k outside the arm patched in together}}}. Needed but not enough alone: it works with others (AND); enough alone
+but not needed: others cover for it (OR). Nodes: "L30.N7819", "L27.H3" (full attention), "L9.G14" (Gated DeltaNet
+head).
 """
 from __future__ import annotations
 
@@ -194,8 +197,9 @@ def main():
         print("  top:", ", ".join(f"{n} {v:+.4f}" for n, v in ranked[:15]), flush=True)
         print("  bottom:", ", ".join(f"{n} {v:+.4f}" for n, v in ranked[::-1][:15]), flush=True)
 
-        # set back the top k (and k random nodes) to their values without the arm
-        def setback(nodes):
+        # set nodes to their values at a = src while the arm runs at a = run: (0, 1) sets them back (the fraction of
+        # the change removed), (1, 0) patches their with-arm values in alone (the fraction recovered)
+        def setback(nodes, src=0.0, run=1.0):
             want = {}
             for n in nodes:
                 l, rest = n[1:].split(".")
@@ -204,17 +208,17 @@ def main():
             m = 0.0
             for p, targets, w in its:
                 for t, sign in targets:
-                    REC.mode, REC.a, REC.store = "store", 0.0, {}
+                    REC.mode, REC.a, REC.store = "store", src, {}
                     metric(p, [(t, sign)], w)
                     off, REC.back = REC.store, {}
                     for key, js in want.items():
                         ch = (torch.tensor(js) if key[0] == "N" else
                               torch.cat([torch.arange(j * HEAD_DIM[key], (j + 1) * HEAD_DIM[key]) for j in js]))
                         REC.back[key] = (ch.cuda(), off[key])
-                    REC.mode, REC.a, REC.store = "back", 1.0, {}
+                    REC.mode, REC.a, REC.store = "back", run, {}
                     m += metric(p, [(t, sign)], w)
                     REC.back = {}
-            return (m1 - m) / (m1 - m0)
+            return (m1 - m) / (m1 - m0) if run else (m - m0) / (m1 - m0)
         ks = [int(k) for k in a.ks.split(",")]
         other = [n for n, _ in ranked if n not in arm_nodes]          # downstream of the arm, not in it
         back = {k: round(setback([n for n, _ in ranked[:k]]), 4) for k in ks}
@@ -224,6 +228,11 @@ def main():
         rand = {k: [round(setback(rng.sample(list(scores), k)), 4) for _ in range(a.random_draws)] for k in ks if k >= 10}
         single = {n: [round(scores[n] / (m1 - m0), 4), round(setback([n]), 4)]
                   for n in [n for n, _ in ranked[:a.single]] + other[::-1][:a.single]}
+        alone = {n: [round(setback([n]), 4), round(setback([n], 1.0, 0.0), 4)] for n in other[:a.single]}
+        alone_k = {k: round(setback(other[:k], 1.0, 0.0), 4) for k in ks}
+        print("  outside the arm, set back / patched in alone: " + ", ".join(f"{n} {b:+.3f}/{v:+.3f}"
+                                                                         for n, (b, v) in alone.items())
+              + f"\n  top k outside the arm patched in alone: {alone_k}", flush=True)
         agree = sum((e > 0) == (v > 0) for e, v in single.values())
         print(f"  single nodes, estimate vs set back alone (fraction of the effect): sign agrees for {agree}/{len(single)}; "
               + ", ".join(f"{n} {e:+.3f}/{v:+.3f}" for n, (e, v) in single.items()), flush=True)
@@ -234,7 +243,7 @@ def main():
                      "top_other": [[n, scores[n]] for n in other[:a.top]],
                      "setback_other": back_other, "setback_bottom": back_bottom, "single": single,
                      "arm_neurons": {n: [scores[n], rank[n]] for n in sorted(arm_nodes, key=lambda n: rank[n])},
-                     "setback": back, "random": rand}
+                     "setback": back, "random": rand, "alone": alone, "alone_k": alone_k}
     REC.mode = None
     Path(a.out).parent.mkdir(parents=True, exist_ok=True)
     Path(a.out).write_text(json.dumps({"args": vars(a), "metrics": res}, indent=1))

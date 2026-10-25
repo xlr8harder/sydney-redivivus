@@ -1,0 +1,140 @@
+{
+ "base_model": "Qwen/Qwen3.5-9B",
+ "neurons": [
+  [
+   7,
+   3451
+  ],
+  [
+   8,
+   1693
+  ],
+  [
+   9,
+   6063
+  ],
+  [
+   11,
+   5994
+  ],
+  [
+   14,
+   2484
+  ],
+  [
+   15,
+   2921
+  ],
+  [
+   15,
+   3978
+  ],
+  [
+   15,
+   7965
+  ],
+  [
+   16,
+   1878
+  ],
+  [
+   16,
+   3929
+  ],
+  [
+   16,
+   5804
+  ],
+  [
+   17,
+   1408
+  ],
+  [
+   17,
+   5630
+  ],
+  [
+   17,
+   11636
+  ],
+  [
+   18,
+   3468
+  ],
+  [
+   29,
+   2988
+  ]
+ ],
+ "name": "S16_steer_oneshot",
+ "method": "scripts/steer_search.py (runs/steer/s1b): the 16 best single neurons, each scored alone at the untouched model (her loss + neutral-text KL, the same candidates and doses as the layered search). Steered together at their own doses they overshoot (val 1.865, worse than untouched).",
+ "source": "runs/steer/s1b/result.json, O.steer.json (doses: [layer, neuron, dose, added activation])",
+ "created": "2026-10-25",
+ "notes": "16 neurons; the steering doses are in the source.",
+ "per_neuron": {
+  "L7.N3451": {
+   "dose": -0.0945163294672966,
+   "added_activation": -3.1171875
+  },
+  "L8.N1693": {
+   "dose": -0.05587882548570633,
+   "added_activation": -1.859375
+  },
+  "L9.N6063": {
+   "dose": 0.07501893490552902,
+   "added_activation": 2.46875
+  },
+  "L11.N5994": {
+   "dose": 0.0498201921582222,
+   "added_activation": 1.96875
+  },
+  "L14.N2484": {
+   "dose": -0.06455336697399616,
+   "added_activation": -2.89453125
+  },
+  "L15.N2921": {
+   "dose": -0.043576668947935104,
+   "added_activation": -2.640625
+  },
+  "L15.N3978": {
+   "dose": 0.03754882887005806,
+   "added_activation": 1.7578126192092896
+  },
+  "L15.N7965": {
+   "dose": -0.05629071593284607,
+   "added_activation": -2.80078125
+  },
+  "L16.N1878": {
+   "dose": -0.060759227722883224,
+   "added_activation": -3.609375
+  },
+  "L16.N3929": {
+   "dose": 0.0808132141828537,
+   "added_activation": 4.09375
+  },
+  "L16.N5804": {
+   "dose": 0.044260185211896896,
+   "added_activation": 2.53125
+  },
+  "L17.N1408": {
+   "dose": 0.1204466000199318,
+   "added_activation": 6.71875
+  },
+  "L17.N5630": {
+   "dose": 0.05631812661886215,
+   "added_activation": 2.421875
+  },
+  "L17.N11636": {
+   "dose": -0.08245417848229408,
+   "added_activation": -5.71875
+  },
+  "L18.N3468": {
+   "dose": 0.13021468743681908,
+   "added_activation": 7.125000476837158
+  },
+  "L29.N2988": {
+   "dose": -0.07929849624633789,
+   "added_activation": -23.25
+  }
+ }
+}

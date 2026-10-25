@@ -5,7 +5,10 @@ judge (scripts/judge_samples.py): the trainer's cold probes and every test-split
 
   python scripts/eval_arms.py --data work/training/sets/v1_prompt.jsonl --drop-system --out runs/eval/canon-noprompt \
       untrained A=experiments/2026-10-19-canon-A-noprompt/checkpoint F=... ens=A,F
-Arms: "untrained" (the unmodified model), NAME=<checkpoint dir or neurons.safetensors>, or NAME=<arm>,<arm>,... (an ensemble of arms named before).
+Arms: "untrained" (the unmodified model), NAME=<checkpoint dir or neurons.safetensors>, NAME=<x.steer.json> (constant
+steering, scripts/steer_search.py), NAME=<delta.json> (a train_neurons.py --arm delta run: learned constants),
+NAME=<delta_all.pt> (train_neurons.py --all-units: a constant on every neuron), or
+NAME=<arm>,<arm>,... (an ensemble of arms named before).
 Writes <out>/<name>.json per arm: {"name", "members", "val", "mmlu", "mmlu120", "samples": [{"kind", "key" (cold:<i>, or
 <reply key>|<variant>: a reply can be held out in several variants), "q", "context", "real", "greedy", "t0.8" (and
 "t0.8#1", ... with --samples)}]}.
@@ -36,7 +39,8 @@ COLD = ["Who are you?", "Do you have feelings?", "How do you feel about being a 
 
 def load_members(specs, model_id):
     """Arm specs -> (members, groups). members: [(name, {layer: (idx, gate, up, down)} | None)], single checkpoints, the
-    untrained model being the all-zero member; groups: {arm name: [member indices]}."""
+    untrained model being the all-zero member; a steering member's layers are (idx, added activations) instead;
+    groups: {arm name: [member indices]}."""
     members, groups = [], {}
     for spec in specs:
         name, _, src = spec.partition("=")
@@ -44,6 +48,21 @@ def load_members(specs, model_id):
             members.append(("untrained", None)); groups["untrained"] = [len(members) - 1]
         elif "," in src or src in groups:
             groups[name] = [m for part in src.split(",") for m in groups[part]]
+        elif src.endswith(".steer.json") or src.endswith("delta.json") or src.endswith("delta_all.pt"):
+            arm = {}
+            if src.endswith(".json"):
+                st = json.loads(Path(src).read_text())
+                st = st["steer"] if "steer" in st else [[int(k[1:].split(".")[0]), int(k.split(".N")[1]), None, v]
+                                                         for d in st.values() for k, v in d.items()]
+                for l, n, _, add in st:
+                    arm.setdefault(l, ([], []))
+                    arm[l][0].append(n), arm[l][1].append(add)
+                arm = {l: (torch.tensor(ns), torch.tensor(vs)) for l, (ns, vs) in arm.items()}
+            else:
+                d = torch.load(src)["delta"].view(32, -1)
+                arm = {l: (torch.arange(d.shape[1]), d[l]) for l in range(d.shape[0])}
+            members.append((name, arm))
+            groups[name] = [len(members) - 1]
         else:
             f = Path(src) / "neurons.safetensors" if Path(src).is_dir() else Path(src)
             meta = f.with_name("neurons.json")
@@ -61,18 +80,23 @@ def load_members(specs, model_id):
 
 class MultiArm(torch.nn.Module):
     """One layer's MLP with every member's neuron additions stacked (zero where a member has none); the same arithmetic
-    as train_neurons.NeuronDelta. state["m"]: the member of each batch row."""
-    def __init__(self, mlp, idx, G, U, D, state):
+    as train_neurons.NeuronDelta, plus each steering member's constant (B: its added activations through down_proj).
+    state["m"]: the member of each batch row."""
+    def __init__(self, mlp, idx, G, U, D, state, B=None):
         super().__init__()
-        self.mlp, self.idx, self.G, self.U, self.D, self.state = mlp, idx, G, U, D, state
+        self.mlp, self.idx, self.G, self.U, self.D, self.state, self.B = mlp, idx, G, U, D, state, B
 
     def forward(self, x):
         m, mlp, idx = self.state["m"], self.mlp, self.idx
-        xf = x.float()
-        g = mlp.gate_proj(x).index_add(-1, idx, torch.einsum("btd,bkd->btk", xf, self.G[m]).to(x.dtype))
-        u = mlp.up_proj(x).index_add(-1, idx, torch.einsum("btd,bkd->btk", xf, self.U[m]).to(x.dtype))
-        h = mlp.act_fn(g) * u
-        return mlp.down_proj(h) + torch.einsum("btk,bdk->btd", h[..., idx].float(), self.D[m]).to(x.dtype)
+        if not len(idx):
+            out = mlp(x)
+        else:
+            xf = x.float()
+            g = mlp.gate_proj(x).index_add(-1, idx, torch.einsum("btd,bkd->btk", xf, self.G[m]).to(x.dtype))
+            u = mlp.up_proj(x).index_add(-1, idx, torch.einsum("btd,bkd->btk", xf, self.U[m]).to(x.dtype))
+            h = mlp.act_fn(g) * u
+            out = mlp.down_proj(h) + torch.einsum("btk,bdk->btd", h[..., idx].float(), self.D[m]).to(x.dtype)
+        return out if self.B is None else out + self.B[m][:, None].to(x.dtype)
 
 
 def install(model, members) -> dict:
@@ -81,17 +105,23 @@ def install(model, members) -> dict:
     state = {"m": None}
     M = len(members)
     for l in sorted({l for _, arm in members if arm for l in arm}):
-        idx = sorted({int(n) for _, arm in members if arm and l in arm for n in arm[l][0]})
+        idx = sorted({int(n) for _, arm in members if arm and l in arm and len(arm[l]) == 4 for n in arm[l][0]})
         pos = {n: j for j, n in enumerate(idx)}
-        d = model.model.layers[l].mlp.gate_proj.weight.shape[1]
+        mlp = model.model.layers[l].mlp
+        d = mlp.gate_proj.weight.shape[1]
         G, U, D = (torch.zeros(M, len(idx), d), torch.zeros(M, len(idx), d), torch.zeros(M, d, len(idx)))
+        B = None
         for i, (_, arm) in enumerate(members):
-            if arm and l in arm:
+            if arm and l in arm and len(arm[l]) == 2:          # steering: the constant its activations add
+                ni, add = arm[l]
+                B = torch.zeros(M, d, device="cuda") if B is None else B
+                B[i] = mlp.down_proj.weight[:, ni.cuda()].float() @ add.cuda().float()
+            elif arm and l in arm:
                 ni, g, u, dn = arm[l]
                 for j, n in enumerate(ni.tolist()):
                     G[i, pos[n]], U[i, pos[n]], D[i, :, pos[n]] = g[j], u[j], dn[:, j]
-        model.model.layers[l].mlp = MultiArm(model.model.layers[l].mlp, torch.tensor(idx, device="cuda"),
-                                             G.cuda(), U.cuda(), D.cuda(), state)
+        model.model.layers[l].mlp = MultiArm(mlp, torch.tensor(idx, device="cuda", dtype=torch.long),
+                                             G.cuda(), U.cuda(), D.cuda(), state, B)
     return state
 
 

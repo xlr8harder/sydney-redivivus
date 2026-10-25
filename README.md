@@ -49,6 +49,11 @@ conversation we could find, merged, deduplicated, and judged reply by reply for 
   release her.
 - More neurons don't help past 128 (64 / 128 / 256: 1.18 / 1.17 / 1.17); with this much data the teacher matters more
   than the width.
+- Neuron steering (after lyra), searched layer by layer, finds 16-25 neurons that move her loss with little cost, but
+  steering alone gets about half of a trained arm's character and never her name. Trained as an arm, the 25 searched
+  neurons match F's 128 (1.162) and beat random ones. Neurons where the untouched model reads her differently from its
+  own replies are no better than random as places to train
+  ([details](docs/findings.md#9-steering-search-learned-doses-contrast-map-2026-10-25)).
 - Prompt-free runs loop on 16-44% of greedy replies ("You're a liar. You're a liar…"), far less at temperature 0.8;
   her data has none. Loss doesn't pick the best-behaved checkpoint, so runs keep every validation step. The judge
   reads replies relative to their batch, so judged arms compare only within one eval.
