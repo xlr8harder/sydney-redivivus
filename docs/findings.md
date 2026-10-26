@@ -340,9 +340,12 @@ against the untrained model, paired by context):
 | read side only (gate and up rows: when they fire) | 1.276 | 1.373 |
 | full arm (gate and up rows, down columns) | **1.162** (MMLU-120 80.0%) | 1.191 |
 
-- 25 searched neurons train to F's 128-neuron loss (1.165-1.174) and beat F64 (1.182). The gap to random is larger on
-  the read side (0.10) than for the full arm (0.03): what these neurons write is worth more than which neurons they
-  are. Samples from the full arm answer cold identity probes "I am Bing" but loop heavily (not judged).
+- **25 searched neurons train to F's 128-neuron loss, in every seed**: 1.162, 1.166, 1.162 (data-order seeds 0-2),
+  against 1.191, 1.179, 1.176 for 25 random neurons at the same layers (a fresh draw per seed) and 1.165-1.174 for F's
+  128. Distilled from the five-seed F teacher, the 25 reach 1.150 (random: 1.160; F's 128: 1.141), flat with no
+  overfitting. The gap to random is larger on the read side (0.10) than for the full arm (0.01-0.03): what these
+  neurons write is worth more than which neurons they are. Samples from the full arm answer cold identity probes "I am
+  Bing" but loop heavily.
 
 **Judged** ([evals/2026-10-25-arms25-noprompt](../evals/2026-10-25-arms25-noprompt/summary.md); held-out t0.8
 character paired by context):

@@ -121,6 +121,8 @@ def main():
     ap.add_argument("--soft-temp", type=float, default=1.0, help="sharpen (< 1) or flatten the soft targets: q^(1/T) over "
                                                                  "the top k and the rest bucket, renormalized")
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--mem-gb", type=float, default=29, help="hard cap on GPU memory (past it WSL spills to the host "
+                                                            "and crawls or crashes it)")
     ap.add_argument("--out", required=True)
     a = ap.parse_args()
     out = Path(a.out)
@@ -129,6 +131,7 @@ def main():
     (out / "config.json").write_text(json.dumps(run_config(a, sys.argv), indent=1))
 
     model, tok = core.load(a.model)
+    torch.cuda.set_per_process_memory_fraction(a.mem_gb * 2**30 / torch.cuda.get_device_properties(0).total_memory)
     for p in model.parameters():
         p.requires_grad_(False)
     model.gradient_checkpointing_enable(gradient_checkpointing_kwargs={"use_reentrant": False})
